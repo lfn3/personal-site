@@ -1,0 +1,24 @@
+{
+    "contentdir": "content",
+    "layoutdir": "layouts",
+    "publishdir": "public",
+
+    "builddrafts": false,
+
+    "baseurl": "base",
+    "canonifyurls": true,
+    "permalinks": {
+        "post": ":year/:month/:day/:title/",
+        "fixed": ":title/"
+    },
+
+    "params": {
+        "Title": "byAtlas",
+        "Tagline": "",
+        "Author": "Liam Falconer",
+        "DateForm": "Jan 2 2006",
+        "Github": {
+            "Url": "http://github.com/byAtlas"
+        }
+    }
+}
