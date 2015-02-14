@@ -5,6 +5,8 @@ title = "Dependency Injection - A necessary evil?"
 
 +++
 
+*Basically my position on DI has since changed - go take a look at [Fresh Thoughts on Dependency Injection](/2015/02/14/fresh-thoughts-on-dependency-injection/)*
+
 So first of all, to preface this and so you get a little bit of insight from where I'm coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I've gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I'd like. Anyway.
 
 <!--more-->
