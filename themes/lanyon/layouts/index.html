@@ -3,12 +3,12 @@
 <div class="posts">
   {{ range .Data.Pages }}
     {{ if eq .Type "post"}}
-      <div class="post">
+      <div class="post post-summary">
         <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
         <span class="post-date">{{ .Date.Format .Site.Params.DateForm }}</span>
         {{ .Summary }}
 
-        <a class="read-more" href="{{ .Permalink }}">...read the rest</a>
+        <a class="read-more" href="{{ .Permalink }}">Read the rest.</a>
       </div>
     {{ end }}
   {{ end }}

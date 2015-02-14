@@ -2,6 +2,10 @@
 	width: 100%;
 }
 
+.post-summary p:last-of-type {
+	display: inline;
+}
+
 a.read-more {
 	font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }
