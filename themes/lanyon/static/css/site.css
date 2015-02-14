@@ -3,10 +3,5 @@
 }
 
 a.read-more {
-	display: inline-block;
-	margin: 10px;
-	padding: 5px 15px;
-	border-radius: 4px;
-	border: 2px solid gray;
-	float: right;
+	font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }

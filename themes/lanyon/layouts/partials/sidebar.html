@@ -9,8 +9,8 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item {{ if eq .Url "/" }} active {{ end }}" href="/">Home</a>
-    <a class="sidebar-nav-item {{ if eq .Url "post" }} active {{ end }}" href="/post">Posts</a>
+    <a class="sidebar-nav-item {{ if eq .Url "/" }} active {{ end }}" href="/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item {{ if eq .Url "post" }} active {{ end }}" href="/post"> <i class="fa fa-file-text"></i> Posts</a>
 
     {{ $thisperma := .Permalink }}
     {{ range .Site.Recent.ByWeight }}
@@ -19,7 +19,7 @@
       {{ end }}
     {{ end }}
 
-    <a class="sidebar-nav-item" href="{{ .Site.Params.Github.Url }}">GitHub</a>
+    <a class="sidebar-nav-item" href="{{ .Site.Params.Github.Url }}"> <i class="fa fa-github"></i> GitHub</a>
   </nav>
 
   <div class="sidebar-item bottom">
