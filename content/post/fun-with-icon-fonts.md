@@ -2,9 +2,12 @@
 date = "2013-03-12T18:32:40+12:00"
 draft = false
 title = "Fun with Icon Fonts"
+aliases = ["/blog/posts/fun-with-icon-fonts.html", "blog/posts/fun-with-icon-fonts"]
 +++
 
 So I spent a good chunk of today messing around with making a few icons for use on this site. Which was... interesting. There isn't really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.
+
+<!--more-->
 
 First of all, why would you want to do this anyway? Well personally, I like the fact that I stop serving as many images, save on bandwidth, and get all the css and html text attributes for free. Basically the only drawback as far as I can see is the extra work involved in producing vector art and the messing around with turning it into a font. The only other issue is that your icon *has* to be mono coloured. You can't have some multicoloured Bob Ross shit. If you want to do something like that, you'll have to use actual images.
 
