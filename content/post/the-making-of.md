@@ -5,7 +5,7 @@ title = "The Making of"
 aliases = ["/blog/posts/the-making-of.html", "blog/posts/the-making-of"]
 +++
 
-*Once again, this post is hideously out of date. Go take a look at [Moving to Hugo and Lanyon](/2015/02/14/moving-to-hugo-and-lanyon/) for the lowdown on way this site works now*
+*This post is hideously out of date. Go take a look at [Moving to Hugo and Lanyon](/2015/02/14/moving-to-hugo-and-lanyon/) for the lowdown on way this site works now*
 
 So. I'd written two posts in anticipation of getting this up and running, however they proved to be glouriously incorrect. I've been through about three or four changes in terms of how I actually decided to do this, so... yeah.
 
