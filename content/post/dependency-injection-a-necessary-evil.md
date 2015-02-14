@@ -1,11 +1,15 @@
 +++
 date = "2014-09-18T07:27:25+12:00"
 draft = true
-title = "Dependency Injection - a Double Edged Sword?"
+title = "Dependency Injection - A necessary evil?"
 
 +++
 
+*Basically my position on DI has since changed - go take a look at [Fresh Thoughts on Dependency Injection](/2015/02/14/fresh-thoughts-on-dependency-injection/)*
+
 So first of all, to preface this and so you get a little bit of insight from where I'm coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I've gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I'd like. Anyway.
+
+<!--more-->
 
 So the shop where I currently get paid is a little behind the times. Legacy code base 
 (in the [Micheal Feathers](http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0131177052&linkCode=as2&tag=byatlascom-20&linkId=A3OM5UCAGXASTXG3)
@@ -22,9 +26,4 @@ I can sympathize with their distrust of DI a little, at least. DHH has recently 
 
 The primary thing that spooks me about DI is the explosion of complexity necessary in its usage. Layer upon layer of factories, facades and interfaces (Seriously. So many interfaces.) follow in it's wake, each seemingly necessary, but all clouding the actual purpose of your software in arcane scribblings. And for what? Sure, you might be able to test it, but if it takes you half an hour to trace through the code to figure out that an error found in production was caused by something 6 layers deep, and would have been found by a test that would only fail very intermittently...
 
-I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn't break anything. Or at least much.)
-
-If you're going, or have gone down the trail of unit testing in any more or less 'static' language (Java and C# are the only two that really spring to mind as having a strong reliance on DI enabling unit testing) you're probably either aware, or about to become aware of all of this.
-
-There's almost a requirement to make far larger areas of your code's surface public rather than private, so you can poke and pull at it with tests. There isn't a good mechanism for supporting this. Contrast to Go, where you can write tests that have access to the private methods and members, and so can manipulate them. This is one of the tremendous advantages of a more dynamic langauage like Python, Ruby or Javascript. This is possible in C# by subclassing your target class and then overriding the private methods. This seems analgous to Go... but. Go explictly separates objects from their methods, making this a lot easier less prone to error.
-
+I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn't break anything. Or at least much.) I don't know that I'm at that point. Yet.
