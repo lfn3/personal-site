@@ -9,3 +9,7 @@
 a.read-more {
 	font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }
+
+pre {
+	padding: 0;
+}
