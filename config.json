@@ -5,7 +5,7 @@
 
     "builddrafts": false,
 
-    "baseurl": "base",
+    "baseurl": "/",
     "canonifyurls": true,
     "permalinks": {
         "post": ":year/:month/:day/:title/",
