@@ -2,7 +2,7 @@
 date = "2013-03-12T18:32:40+12:00"
 draft = false
 title = "Fun with Icon Fonts"
-aliases = ["/blog/posts/fun-with-icon-fonts.html", "blog/posts/fun-with-icon-fonts"]
+aliases = ["blog/posts/2013/03/12/fun-with-icon-fonts","/blog/posts/fun-with-icon-fonts.html", "blog/posts/fun-with-icon-fonts"]
 +++
 
 So I spent a good chunk of today messing around with making a few icons for use on this site. Which was... interesting. There isn't really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.

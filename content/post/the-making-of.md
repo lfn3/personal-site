@@ -2,7 +2,7 @@
 date = "2013-03-11T18:32:40+12:00"
 draft = false
 title = "The Making of"
-aliases = ["/blog/posts/the-making-of.html", "blog/posts/the-making-of"]
+aliases = ["blog/posts/2013/03/11/the-making-of/","/blog/posts/the-making-of.html", "blog/posts/the-making-of"]
 +++
 
 *This post is hideously out of date. Go take a look at [Moving to Hugo and Lanyon](/2015/02/14/moving-to-hugo-and-lanyon/) for the lowdown on way this site works now*
