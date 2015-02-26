@@ -19,6 +19,9 @@
         "DateForm": "Jan 2 2006",
         "Github": {
             "Url": "http://github.com/lfn3"
+        },
+        "Twitter": {
+            "Url": "https://twitter.com/lfln3"
         }
     }
 }
