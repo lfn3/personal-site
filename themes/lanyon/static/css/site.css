@@ -13,3 +13,26 @@ a.read-more {
 pre {
 	padding: 0;
 }
+
+/* CV specific */
+.cv h3 + .years {
+	margin: -15px 0 10px 7px;
+	font-size: 0.9em;	
+}
+
+.cv h2 { 
+	display: inline-block;
+	background: #fff;
+	padding: 0 5px;
+	margin-left: -5px;
+}
+
+.cv h2:after {
+	content: " ";
+	position: absolute;
+	border-bottom: 1px solid #EEE;
+	left: 0;
+	right: 0;
+	margin-top: 0.9em;
+	z-index: -1;
+}
