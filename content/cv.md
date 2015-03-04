@@ -23,7 +23,7 @@ I'd like to work alongside a team that's as passionate about the craft of progra
 - Streamlined custom app deployment process with [Octopus Deploy](https://octopusdeploy.com/)
 - Moved from legacy logging solution to centralized logging with [Seq](https://getseq.net/)
 - On the social committee, organizing BBQs, Christmas Parties, etc.
-- Moved custom project issue tracking from email trails to [Trello](https://trello.com)
+- Pushed custom project issue tracking from email trails to [Trello](https://trello.com)
 
 ### Technical support for [ICONZ-Webvisions](http://iconz-webvisions.com/en)
 <div class="years">2010 - 2013</div>
