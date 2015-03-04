@@ -1,6 +1,6 @@
 +++
 date = "2015-03-03T19:32:05+13:00"
-draft = true
+draft = false
 title = "Curriculum Vitae"
 type = "cv"
 +++
