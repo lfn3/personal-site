@@ -9,7 +9,7 @@ So today we're gonna talk about how to make sure you don't show your users somet
 
 YSOD pic
 
-While also making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. This post is quite long, since I've chosen to go through everything we need to add to the web.config (and why we need to add it). If you aren't really too worried about the reasoning, and trust me enough to just want to get to the money, there's a tldr riiiiiight down the bottom.
+And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. This post is quite long, since I've chosen to go through everything we need to add to the web.config (and why we need to add it). If you aren't really too worried about the reasoning, and trust me enough to just want to get to the money, there's a tldr riiiiiight down the bottom.
 
 Not deterred? Good, we'll tackle the hiding bit first.
 
@@ -20,9 +20,9 @@ Ok, so at the moment, you're probably using something like this in your web.conf
 		<error statusCode="500" path="~/Views/Errors/500.cshtml" />
 	</customErrors>
 
-Alternatively, you might be relying on a filter inside your MVC application to handle errors by showing an error.cshtml page or the like. <!--Discuss why this is a bad idea -->
+Alternatively, you might be relying on a filter inside your MVC application to handle errors by showing an error.cshtml page or the like. This is the default behaviour but it basically doesn't cover all the myraid ways something can go terribly wrong and spew terrible yellow error all over your page. Most notable of which is an error in your Views. Of which error.cshtml is one... Hopefully you can see the issue here. <!-- More detail?-->
 
-So what exactly is going on here? The `mode="RemoteOnly"` means that these error pages will not get shown if you're browsing from localhost - reasonably useful for a dev environment. On the other hand, while you're doing these changes, you should probably set `mode` to `On`, meaning custom error pages are always shown. Otherwise you'll always see the yellow screen of death on your dev machine. Just remember to switch it all back afterwards, or all this effort will have been wasted when you deploy to production.
+Anyway, lets talk about what this xml (also known as "pointy json") does: the `mode="RemoteOnly"` means that these error pages will not get shown if you're browsing from localhost - reasonably useful for a dev environment. On the other hand, while you're doing these changes, you should probably set `mode` to `On`, meaning custom error pages are always shown. Otherwise you'll always see the yellow screen of death on your dev machine.
 
 As the child elements we've got a bunch of individual definitions, mapping status codes to some views. Which only covers some of the cases, and somewhat poorly to boot. There's two issues - first off, if you end up on one of these pages via an error, and take a look in your network panel, you'll see that they both are actually returning redirects to something like `/Views/Errors/404?aspxerrorpath=/foo/bar`, and 200 then presenting a status code of 200, or "everythings ok". I'm not sure exactly why this is the default behaviour, but thankfully we can fix it.
 
@@ -34,9 +34,9 @@ If you're using old school asp, then you do the same thing, but pointier:
 
 	<% Response.StatusCode = xxx %>
 
-Ideally there'd be some way of jacking the error status code when getting directed from the custom error definition, but I haven't figured out a way of doing that yet, or if it's even possible. If anyone's got any ideas, hit me up at <a href="https://twitter.com/ByAtlas">@byAtlas</a>.
+Ideally there'd be some way of jacking the error status code when getting directed from the custom error definition, but I haven't figured out a way of doing that yet, or if it's even possible. If anyone's got any ideas, hit me up at <a href="https://twitter.com/lfln3">@lfln3</a>.
 
-The other thing that's slightly concerning is that this still involves execution of your code. If you've got some hooks driven deep into your layouts or something that cause errors to be thrown, you won't get these error pages displayed correctly. <!-- Check this, and in what file types this sort of code can be executed. -->
+The other thing that's slightly concerning is that this still involves execution of your code. If you've got some hooks driven deep into your layouts or something that cause errors to be thrown, you won't get these error pages displayed correctly. We can get IIS to handle this for us, thankfully, and that's covered further down. <!-- TOOD:Check this, and in what file types this sort of code can be executed. -->
 
 Next up, to stop the redirects, add the `redirectMode="ResponseRewrite"` attribute to your customErrors tag:
 
@@ -56,7 +56,7 @@ So hopefully your error page is glouriously non-specific as to the nature of the
     	<error statusCode="500" path="~/Views/Errors/500.cshtml" />
 	</customErrors>
 
-In any case, this should ensure nothing makes it out of MVC with an ugly error page, or an incorrect status code. Unfortunately this still isn't enough. There are cases under which IIS will display error pages, rather than the error pages coming out of MVC.
+In any case, this should ensure nothing makes it out of MVC with an ugly error page, or an incorrect status code. Unfortunately this still isn't enough. There are cases under which IIS will display error pages, rather than the error pages coming out of MVC. The most notable of these being the stack overflow exception. (Which relatively unique in the .NET languages for it's totally uncatchable behaviour - it'll totally )
 
 So in order to deal with this, you have to add another section to your web.config, under the `system.webserver` tag:
 
@@ -64,3 +64,7 @@ So in order to deal with this, you have to add another section to your web.confi
 	  <remove statusCode="404"/>
 	  <error statusCode="404" path="/404.html" responseMode="ExecuteURL"/>
 	</httpErrors>
+
+So to summarize, you need to add the following to your 
+
+So since this is such a monster, I'm going to break it into two parts. In the second part (coming soon!) I'll discuss the approach I've settled on for catching "out of left field" errors.
