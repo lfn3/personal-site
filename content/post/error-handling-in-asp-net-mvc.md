@@ -9,102 +9,46 @@ So today we're gonna talk about how to make sure you don't show your users somet
 
 <img src="/img/posts/error-handling-in-asp-net-mvc/ysod.png" alt="The yellow screen of death" />
 
-And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. This post is quite long, since I've chosen to go through everything we need to add to the web.config (and why we need to add it). If you aren't really too worried about the reasoning, and trust me enough to just want to get to the money, there's a tldr riiiiiight down the bottom.
+And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I've chosen to chop up the hydra a little bit..
 
-Not deterred? Good, we'll tackle the hiding bit first.
+This post just covers how to deal with making IIS catch all the errors that might not get caught inside of your MVC application. I'll dig into the levels closer to MVC in the next post, and then handling error logging in another one after that. They're both already semi-written, so they should follow along soonish. If you aren't really too worried about the reasoning, and trust me enough to just want to get to the money, I'll have a quick summary "just do this" post up after the long version is finished.
 
-Ok, so at the moment, you're probably using something like this in your web.config:
+So. Let's cover the territory of possible ways to show custom error pages to your users, because this being something from Microsoft, there's at least six ways to do a thing, and none of them are exactly what you want. Well, ok. There's only like 4 that I know of:
 
-	<customErrors mode="RemoteOnly">
-		<error statusCode="404" path="~/Views/Errors/404.cshtml" />
-		<error statusCode="500" path="~/Views/Errors/500.cshtml" />
-	</customErrors>
+You can use an exception handling filter, like the HandleErrorAttribute that's included by default, or you can use a module (basically the same idea as a filter, but further up the chain.), the most promienent example of which would probably be ELMAH. Further torwards the edges of MVC, you can turn to the customErrors thing in your web.config, which as far as I can tell is implemented with a module as well, or finally you can look to the httpErrors option, which lives inside of IIS rather than MVC, but is also in your web.config.
 
-Alternatively, you might be relying on a filter inside your MVC application to handle errors by showing an error.cshtml page or the like. This is the default behaviour but it basically doesn't cover all the myraid ways something can go terribly wrong and spew terrible yellow error all over your page. Anything that goes wrong outside the MVC pipeline won't get caught by the filter, so you'll need another mechanism for that. Given you're going to have another mechanism anyway, it makes sense for you to rely on that, rather than the filter.
+Basically I'm of the opinion you should always pick #4, the IIS option, since it's the highest level of coverage. Anything that goes wrong with all of the other options will end up with whatever is in the `httpErrors` tag getting shown. 
 
-Anyway, lets talk about what this xml (also known as "pointy json") does: the `mode="RemoteOnly"` means that these error pages will not get shown if you're browsing from localhost - reasonably useful for a dev environment. On the other hand, while you're doing these changes, you should probably set `mode` to `On`, meaning custom error pages are always shown. Otherwise you'll always see the yellow screen of death on your dev machine.
+You can mix and match any of the other ones along with that to suit your preference, I usually also use the customErrors option, since this is the point most outside of the MVC pipeline but still inside it you can catch exceptions, so it gives you the least exposure to potential issues with your MVC site. At least that's my reasoning, you may come up with a different calculus.
 
-As the child elements we've got a bunch of individual definitions, mapping status codes to some views. Which only covers some of the cases, and somewhat poorly to boot. There's two issues - first off, if you end up on one of these pages via an error, and take a look in your network panel, you'll see that they both are actually returning redirects to something like `/Views/Errors/404?aspxerrorpath=/foo/bar`, and then presenting a status code of 200, or "everything's ok". I'm not sure exactly why this is the default behaviour, but thankfully we can fix it.
+The reason I don't use filters is because an error inside of your filter config or somewhere inside your global.asax or whatever will cause them to fail completely. The config option does leave you open to issues in your web.config, but if that's hosed you have to rely on your base IIS config. Which hopefully won't show anything ugly to your users. You should probably check that. 
 
-First up, dealing with the status code that gets returned and make it a little more accurate. For these, you have to alter the actual template files themselves. If you're using razor, you can add this snippet near the top of the file:
+The other issue with filters is they won't fire for what I call the "deathmurder exceptions" - stuff like stack overflows and out of memory exceptions that just totally kill your application. The stuff you define under that httpErrors tag is, once again, what will save your ass.
 
-	@{ Response.StatusCode = xxx }
-
-If you're using old school aspx files, then you do the same thing, but pointier:
-
-	<% Response.StatusCode = xxx %>
-
-Ideally there'd be some way of jacking the error status code when getting directed from the custom error definition, but I haven't figured out a way of doing that yet, or if it's even possible. If anyone's got any ideas, hit me up at <a href="https://twitter.com/lfln3">@lfln3</a>.
-
-The other thing that's slightly concerning is that this still involves execution of your code. If you've got some hooks driven deep into your layouts or something that cause exceptions to be thrown, you won't get these error pages displayed correctly. We can get IIS to handle this for us, thankfully, and that's covered further down.
-
-Next up, to stop the redirects, add the `redirectMode="ResponseRewrite"` attribute to your customErrors tag:
-
-	<customErrors mode="RemoteOnly" redirectMode="ResponseRewrite">
-		<error statusCode="404" redirect="~/Views/Errors/404.cshtml" />
-		<error statusCode="500" redirect="~/Views/Errors/500.cshtml" />
-	</customErrors>
-
-As for why exactly this isn't the default behaviour is a little beyond me. There's still a couple more things that need handling. Hopefully you've got a input handy somewhere you can try to shove an html tag into. You might notice this doesn't give you a one of your pretty little error pages. 
-
-This is because it doesn't actually match any of the custom error pages we've defined, it will cause a 400 error - bad input. So the custom errors actually don't handle every single case under the sun. While we could add an exaustive list to the customErrors tag, there's another way around that will do for our purposes. 
-
-So hopefully your error page is glouriously non-specific as to the nature of the error that occured - you don't really want to reveal to any potential attackers what exactly was happening that caused the server to freak out. So that being the case, we can probably just show the user the generic error page, by adding another attribute to the customErrors tag: `defaultRedirect="~/Views/Errors/500.cshtml"`, which should result in your custom errors section looking something like this:
-
-	<customErrors mode="RemoteOnly" redirectMode="ResponseRewrite" defaultRedirect="~/Views/Errors/500.cshtml">
-		<error statusCode="404" redirect="~/Views/Errors/404.cshtml" />
-    	<error statusCode="500" redirect="~/Views/Errors/500.cshtml" />
-	</customErrors>
-
-In any case, this should ensure nothing makes it out of MVC with an ugly error page, or an incorrect status code. Unfortunately this still isn't enough. There are cases under which IIS will display error pages, rather than the error pages coming out of MVC. The most notable of these being the stack overflow exception. (Which relatively unique in the .NET languages for it's totally uncatchable behaviour - it'll totally kill the shit out of your app.)
+So let's cover that first. 
 
 So in order to deal with this, you have to add another section to your web.config, under the `system.webserver` tag:
 
 	<httpErrors errorMode="Custom">
 	  <remove statusCode="404"/>
-	  <error statusCode="404" path="/Views/Errors/404.html" />
+	  <error statusCode="404" path="/Views/Errors/404.html" responseMode="File" />
 	  <remove statusCode="500"/>
-	  <error statusCode="500" path="/Views/Errors/500.html"/>
+	  <error statusCode="500" path="/Views/Errors/500.html" responseMode="File" />
 	</httpErrors>
 
-Hopefully that should be fairly self explanatory, given it's basically the same as the `customErrors` tag, just with slightly different words. There's a couple of additional att`
+So what's going on here is we're telling IIS to use pretty error pages using the `errorMode="Custom"` attribute. You can set that to `DetailedLocalOnly` for general use, but while we're messing with this stuff, we want to make sure you'll actually see the custom error pages, so leave it as `Custom` for the moment.
 
- There is another option here, where you can reuse the files you created earlier, if they're .aspx files:
+The rest of it is basically removing the default IIS error pages (otherwise it'll spew at you when you start up the app) and replacing them with our own static HTML files. You can use .aspx files here, but if you get to this point, something has probably gone terribly wrong inside your app, so I would try and avoid relying on any code actually doing anything.
 
-	<httpErrors errorMode="Custom" defaultResponseMode="ExecuteUrl">
-	  <remove statusCode="404"/>
-	  <error statusCode="404" path="/Views/Errors/404.aspx" />
-	  <remove statusCode="500"/>
-	  <error statusCode="500" path="/Views/Errors/500.aspx"/>
-	</httpErrors>
+There are a couple of additonal attributes you might be considering adding, like `defaultPath` and `defaultResponseMode` however defaultPath seems to cause IIS express to throw it's own exception when running on my machine which would seem to make `defaultResponseMode` somewhat pointless. But if you manage to get it working, please let me know [@lfln3](https://twitter.com/lfln3).
 
-Changing the default response mode to ExectueUrl will cause the same sort of response code rewriting behaviour we've seen before, so you'll need to have that `<% Response.StatusCode = xxx %>` bit up the top to make everything work right.
-
-One final, a little more DRY option, is to use something like this:
+There is another option if you want to use some custom code, where you can change the `responseMode` to `ExecuteUrl` and then point the path to an .aspx file. This does mean it will rewrite the response code to a 200, however, which is probably not what you want. To cover that, you can add this snippet to the top of your .aspx file.
 
 	<%@ Page Language="C#" %>
-	<%
-	    Response.StatusCode = 404;
+	<% Response.StatusCode = 404; %>
 
-	    Response.ContentType = "text/html; charset=utf-8";
+Ideally there'd be some way of jacking the error status code when getting directed from the custom error definition, but I haven't figured out a way of doing that yet, or if it's even possible. If anyone's got any ideas, once again hit me up at [@lfln3](https://twitter.com/lfln3).
 
-	    Response.WriteFile(MapPath("~/Views/Errors/404.html"));
-	%>
+I'd not hugely comfortable personally with having code exectue in my error handlers, but if you're ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users. 
 
-In your .aspx pages, which will let you reuse your static html pages while returning the correct error code. This is the approach I've chosen to go with, since it gives you the safety of not having any code executed when something goes terribly wrong in MVC, and lets you reuse those static pages when things are slightly less bad.
-
-So to summarize, you need to add the following to your web.config:
-
-	<customErrors mode="RemoteOnly" redirectMode="ResponseRewrite" defaultRedirect="~/Views/Errors/500.cshtml">
-		<error statusCode="404" path="~/Views/Errors/404.cshtml" />
-    	<error statusCode="500" path="~/Views/Errors/500.cshtml" />
-	</customErrors>
-
-Under the `system.web` tag and the following under the `system.webserver` tag:
-	
-	<httpErrors errorMode="Custom">
-	  <remove statusCode="404"/>
-	  <error statusCode="404" path="/404.html" responseMode="ExecuteURL"/>
-	</httpErrors>
-
-So since this is such a monster, I'm going to break it into two parts. In the second part (coming soon!) I'll discuss the approach I've settled on for catching the exceptions you weren't expecting.
+I have created a nuget package to speed this thing up a little, which you can find [here](https://www.nuget.org/packages/MVCErrorPages/), or just run `Install-Package MVCErrorPages`. It does include the MVC customErrors stuff, which I'm gonna cover in a later installment. But in the mean time, google should be able to help you out. In the meantime... good luck, I guess?
