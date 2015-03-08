@@ -9,7 +9,9 @@ So today we're gonna talk about how to make sure you don't show your users somet
 
 <img src="/img/posts/error-handling-in-asp-net-mvc/ysod.png" alt="The yellow screen of death" />
 
-And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I've chosen to chop up the hydra a little bit..
+<!--more-->
+
+And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I've chosen to chop up the hydra a little bit.
 
 This post just covers how to deal with making IIS catch all the errors that might not get caught inside of your MVC application. I'll dig into the levels closer to MVC in the next post, and then handling error logging in another one after that. They're both already semi-written, so they should follow along soonish. If you aren't really too worried about the reasoning, and trust me enough to just want to get to the money, I'll have a quick summary "just do this" post up after the long version is finished.
 
