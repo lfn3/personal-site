@@ -138,7 +138,7 @@ var options = React.createClass({
 
     var children = options.map(function (val) {
       function clickHandler () {
-        optionHandler(current, val.nextState)
+        optionHandler(current, val)
       }
       return React.createElement('li', {}, [
         React.createElement('a', { onClick: clickHandler }, val.name)])
@@ -157,14 +157,21 @@ var app = React.createClass({
       karma: Math.round(Math.random() * 400 + 80)
     }
   },
-  optionHandler: function (current, next) {
+  optionHandler: function (current, clickedOption) {
+    var next = clickedOption.nextState
+
     if (next.updateState) {
       var nextState = next.updateState(this.state)
       this.setState(nextState)
     }
 
     var nextHistory = this.state.history
+
     nextHistory.push(current)
+    nextHistory.push({ content: function () {
+      return React.createElement('p', { className: 'selectedOption' }, clickedOption.name)
+    }})
+        
     this.setState({history: nextHistory, current: next })
   },
   render: function () {
