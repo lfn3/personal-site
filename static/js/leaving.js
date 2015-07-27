@@ -31,6 +31,27 @@ var introStates = {
       return introParaOptions
     }
   },
+  funnyIntro: {
+    content: function () {
+      return React.createElement('div', {}, [
+        React.createElement('blockquote', {}, 'Привет товарищ'),
+        React.createElement('p', {}, 'Russian is funny, right?'),
+        React.createElement('p', {}, 'Better check with a Vlad later...')
+      ])
+    }
+  },
+  normalishIntro: {
+    content: function () {
+      return React.createElement('div', {}, [
+        React.createElement('blockquote', {}, 'Greetins to you my friend'),
+        React.createElement('blockquote', {}, 'I know this email will come as a surprise to you, but I am in fact a nigerian prince, imprisioned in my own country.'),
+        React.createElement('p', {}, 'You\'ve seen this intro thousands of times, it\'s gotta be the best one')
+      ])
+    },
+    currentOptions: function () {
+      return introParaOptions
+    }
+  },
   normalIntro: {
     content: function () {
       return React.createElement('p', {}, 'Oh come on, do you think I was going to let you get out that easily?')
@@ -115,7 +136,9 @@ var paraStates = {
 }
 
 var introParaOptions = [
-  { name: 'Try to warm them up with a joke', nextState: paraStates.joke }
+  { name: 'Try to warm them up with a joke', nextState: paraStates.joke },
+  { name: 'Go straight for the feels', nextState: paraStates.feels }
+
 ]
 
 var content = React.createClass({
@@ -171,7 +194,7 @@ var app = React.createClass({
     nextHistory.push({ content: function () {
       return React.createElement('p', { className: 'selectedOption' }, clickedOption.name)
     }})
-        
+
     this.setState({history: nextHistory, current: next })
   },
   render: function () {
