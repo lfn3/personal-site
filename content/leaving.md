@@ -2,7 +2,7 @@
 date = "2015-03-03T19:32:05+13:00"
 draft = false
 title = "It's your last day at Ubiquity"
-type = "cv"
+type = "leaving"
 +++
 
 <div id="mount"></div>
