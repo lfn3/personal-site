@@ -118,10 +118,6 @@ var introStates = {
       ]
     }
   }
-
-  /* inOutlook: {
-    content: 'You open Outlook. You have 5435 emails. Someone has posted your email address on Craigslist solicting "An all night bukkake session". You blame Ben.'
-  } */
 }
 
 var introOptions = [
@@ -170,7 +166,8 @@ var introParaStates = {
     },
     currentOptions: function () {
       return [
-        { name: 'All these emotions are overwhelming you. Try and sooth your feelings with a beer', nextState: introParaStates.sadBeer }
+        { name: 'All these emotions are overwhelming you. Try and soothe your feelings with a beer', nextState: introParaStates.sadBeer },
+        { name: 'Push through the tears with more words', nextState: bodyParaStates.start }
       ]
     }
   },
@@ -196,6 +193,22 @@ var introParaStates = {
     currentOptions: function () {
       return []
     }
+  },
+  sadBeer: {
+    content: function () {
+      return React.createElement('div', {}, [
+        React.createElement('p', {}, 'The beer tastes like tears. Delicious tears.')
+      ])
+    },
+    updateState: function (state) {
+      state.beers++
+      return state
+    },
+    currentOptions: function () {
+      return [
+        { name: 'Suck it up (the beer) and push on.', nextState: bodyParaStates.start }
+      ]
+    }
   }
 }
 
@@ -211,27 +224,23 @@ var bodyParaStates = {
       return React.createElement('p', {}, 'Time to spill some serious ink. You rack your brains trying to think of ways to use your words...')
     },
     currentOptions: function () {
-      return [
-        { name: 'Attempt to convey that you learnt well good in your time here', nextState: bodyParaStates.learnt },
-        { name: 'Deploy a tactical cat picture', nextState: bodyParaStates.catPic },
-        { name: 'Offer a guest dog power ranking', nextState: bodyParaStates.dogRating },
-        { name: 'Drop some beats', nextState: bodyParaStates.bassDrop },
-        { name: 'Comment on the sick levels of humor', nextState: bodyParaStates.humor}
-      ]
+      return bodyParaOptions.slice(0, 6)
     }
   },
   humor: {
-
+    content: function () {
+      return React.createElement('blockquote', {}, 'You\'re a bunch of sick bastards. Which is great, since so am (was?) I. It\'s pretty rare that I manage to stay on the right side of "the line", but it took me way longer than I expected to find out where it was.')
+    },
+    currentOptions: function () {
+      return bodyParaOptions
+    }
   },
   learnt: {
     content: function () {
       return React.createElement('blockquote', {}, 'I\'ve managed to pick a lot in my time here, so thanks for giving me the chance to do that. Some of it two or three times, even. Hopefully I never have to learn how code emails ever again. It\'s been nice working with some more or less sane developers for a while. Hopefully at the next gig they\'re as on point as they seem.')
     },
     currentOptions: function () {
-      return [
-        { name: 'Deploy a tactical cat picture', nextState: bodyParaStates.catPic },
-        { name: 'Offer a guest dog power ranking', nextState: bodyParaStates.dogRating }
-      ]
+      return bodyParaOptions
     }
   },
   dogRating: {
@@ -243,6 +252,7 @@ var bodyParaStates = {
             React.createElement('li', {}, 'Spirit (Mad props for annoying Ben)'),
             React.createElement('li', {}, 'Fliss (SO MUCH FLUFFY)'),
             React.createElement('li', {}, 'Molly (Cuter than Leela. Probably because she\'s smaller)'),
+            React.createElement('li', {}, 'Ruby (Not the programming language. Very confusing.)'),
             React.createElement('li', {}, 'Leela (See above)'),
             React.createElement('li', {}, 'Nacho (Bitey)')
           ]),
@@ -250,12 +260,7 @@ var bodyParaStates = {
         ])
     },
     currentOptions: function () {
-      return [
-        { name: 'Attempt to convey that you learnt well good in your time here', nextState: bodyParaStates.learnt },
-        { name: 'Deploy a tactical cat picture', nextState: bodyParaStates.catPic },
-        { name: 'Offer a guest dog power ranking', nextState: bodyParaStates.dogRating },
-        { name: 'Drop some beats', nextState: bodyParaStates.bassDrop }
-      ]
+      return bodyParaOptions
     }
   },
   bassDrop: {
@@ -266,9 +271,7 @@ var bodyParaStates = {
       ])
     },
     currentOptions: function () {
-      return [
-        { name: 'Attempt to convey that you learnt well good in your time here', nextState: bodyParaStates.learnt }
-      ]
+      return bodyParaOptions
     }
   },
   catPic: {
@@ -276,17 +279,95 @@ var bodyParaStates = {
       return React.createElement('img', { src: 'http://i.imgur.com/8ByaI.gif' })
     },
     currentOptions: function () {
+      return bodyParaOptions
+    }
+  },
+  aboutToBeGrued: {
+    content: function () {
+      return React.createElement('p', {}, 'As you\'re about to start gloating about the "vertically challenged" state of the dungeon dwellers rendering them unable to replace blown bulbs, the lights turn off.')
+    },
+    currentOptions: function () {
       return [
-        { name: 'Attempt to convey that you learnt well good in your time here', nextState: bodyParaStates.learnt }
+        { name: 'Stand up and look around', nextState: bodyParaStates.grueingImmient }
       ]
     }
   },
-  ranting: {
+  grueingImmient: {
     content: function () {
-      return React.createElement('p', {}, '')
+      return React.createElement('p', {}, 'You are surrounded by darkness. You are likely to be eaten by a grue.')
+    },
+    currentOptions: function () {
+      return [
+        { name: 'Go North', nextState: bodyParaStates.grued },
+        { name: 'Go East', nextState: bodyParaStates.grued },
+        { name: 'Go South', nextState: bodyParaStates.grued },
+        { name: 'Go West', nextState: bodyParaStates.grued }
+      ]
+    }
+  },
+  grued: {
+    content: function () {
+      return React.createElement('p', {}, 'You hear the sound of a rapidly approaching grue. You flee, but bang into a wall in the darkness. You die in possibly the most sterotypical way possible for "interactive fiction".')
+    },
+    updateState: summarize,
+    currentOptions: function () {
+      return []
     }
   }
 }
+
+var outroStates = {
+  start: {
+    content: function () {
+      return React.createElement('blockquote', {}, 'So yeah. I\'m tremendously glad I got to spend time working with each and every one of you. I don\'t know that I\'ll ever get an experience quite like this again, so thank you all for being you, and doing cool shit.')
+    },
+    currentOptions: function () {
+      return [
+        { name: 'Tell people how to reach you', nextState: outroStates.contactDetails },
+        { name: 'Sign off', nextState: outroStates.signOff }
+      ]
+    }
+  },
+  contactDetails: {
+    content: function () {
+      return React.createElement('blockquote', {}, [
+        'If any of you want to get in touch, feel free to drop me a line on ',
+        React.createElement('a', { href: '' }, 'Twitter'),
+        ', or pass a message via my resident carrier pidegon (Thanks Liz!).'
+      ])
+    },
+    currentOptions: function () {
+      return [
+        { name: 'Sign off', nextState: outroStates.signOff }
+      ]
+    }
+  },
+  signOff: {
+    content: function () {
+      return React.createElement('div', {}, [
+          React.createElement('p', {}, 'Chchur,'),
+          React.createElement('p', {}, 'Liam')
+        ])
+    },
+    updateState: function (currentState) {
+      currentState.completedEmail = true
+      summarize(currentState)
+    },
+    currentOptions: function () {
+      return []
+    }
+  }
+}
+
+var bodyParaOptions = [
+  { name: 'Attempt to convey that you learnt well good in your time here', nextState: bodyParaStates.learnt },
+  { name: 'Deploy a tactical cat picture', nextState: bodyParaStates.catPic },
+  { name: 'Offer a guest dog power ranking', nextState: bodyParaStates.dogRating },
+  { name: 'Drop some beats', nextState: bodyParaStates.bassDrop },
+  { name: 'Comment on the sick levels of humor', nextState: bodyParaStates.humor},
+  { name: 'Taunt the devs about the impending darkness in the dunegon', nextState: bodyParaStates.aboutToBeGrued },
+  { name: 'Attempt to wrap it up', nextState: outroStates.start }
+]
 
 function summarize (currentState) {
   currentState.summary = true
