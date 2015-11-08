@@ -23,5 +23,7 @@
         "Twitter": {
             "Url": "https://twitter.com/lfln3"
         }
-    }
+    },
+
+    "theme": "lanyon"
 }
