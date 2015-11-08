@@ -14,8 +14,11 @@ I'm currently looking for some new, more challenging territory to conquer. Ideal
 I'd like to work alongside a team that's as passionate about the craft of programming as I am. With this (your?) team, I want to solve challenging problems with elegant solutions, drawing on and sharing knowledge both within the company and with the wider community of developers.
 
 ## Employment
+### Devloper at [LiveOps](https://www.liveops.com/)
+<div class="years">2015 - 	 </div>
+
 ### Developer at [Ubiquity Software](https://www.ubiquity.co.nz/)
-<div class="years">2013 - 	 </div>
+<div class="years">2013 - 2015</div>
 
 - Produced over twenty custom websites of varying shapes and sizes, both front-end and back-end, using ASP.NET MVC and jQuery
 - Organized development team knowledge sharing sessions ('Tech Time' and 'Tech Friday')
