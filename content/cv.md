@@ -5,17 +5,19 @@ title = "Curriculum Vitae"
 type = "cv"
 +++
 
-I'm a 24-year-old developer. I've been writing code for almost 14 years now, beginning by learning C++ as a child and later switching to python, before picking up C# at my present employer. 
+I'm a 25-year-old developer. I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to python, before picking up C# at my previous employer. At the moment I'm writing (and loving) Clojure full-time, after dabbling with it for several years in my spare time.
 
-In my spare time I've been enthusiastically learning Go and Clojure, producing all sorts of odds and ends, some of which can be found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some wisdom in the process, which you can take a look at on [this site](/).
+Previously in my spare time I spent some time learning Go, producing all sorts of odds and ends, some of which can be found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some wisdom in the process, which you can take a look at on [this site](/). I've also been organizing the local [Clojure meetup](http://www.meetup.com/Auckland-Clojure/), putting together talks and workshops.
 
-I'm currently looking for some new, more challenging territory to conquer. Ideally this would involve rich clientside experiences driven by bleeding edge Javascript frameworks and tooling, backed by carefully honed APIs.
-
-I'd like to work alongside a team that's as passionate about the craft of programming as I am. With this (your?) team, I want to solve challenging problems with elegant solutions, drawing on and sharing knowledge both within the company and with the wider community of developers.
+At present I'm not actively looking for new opportunities, but if your company is using Clojure and/or Clojurescript in production, think your team is as passionate about the craft of programming as I am, can offer challenging problems, and regularly contribute back to open source, feel free to get in touch.
 
 ## Employment
-### Devloper at [LiveOps](https://www.liveops.com/)
+### Devloper at [LiveOps](https://www.liveopscloud.com/)
 <div class="years">2015 - 	 </div>
+
+- Worked on the Work Allocation team building several microservices with very high performance, uptime, and consistency requirements.
+- Authored a Clojure based integration testing tool for use with docker.
+- Made effective use of Jenkins for CI/CD, Cassandra for cross-region data and Zookeeper for consistent agent locking.
 
 ### Developer at [Ubiquity Software](https://www.ubiquity.co.nz/)
 <div class="years">2013 - 2015</div>
