@@ -16,8 +16,11 @@ At present I'm not actively looking for new opportunities, but if your company i
 <div class="years">2015 - 	 </div>
 
 - Worked on the Work Allocation team building several microservices with very high performance, uptime, and consistency requirements.
+- Designed and implemented HA solution for our work queuing service.
+- Diagnosed and removed issues that were impeding our team's progress, for example problems with db migration testing.
 - Authored a Clojure based integration testing tool for use with docker.
 - Made effective use of Jenkins for CI/CD, Cassandra for cross-region data and Zookeeper for consistent agent locking.
+- Organized the Auckland Clojure meetups at our offices, and spoke a few times. Also helped tutor at a ClojureBridge event we hosted.
 
 ### Developer at [Ubiquity Software](https://www.ubiquity.co.nz/)
 <div class="years">2013 - 2015</div>
