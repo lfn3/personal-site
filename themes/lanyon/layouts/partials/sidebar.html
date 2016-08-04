@@ -9,19 +9,19 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item {{ if eq .Url "/" }} active {{ end }}" href="/"> <i class="fa fa-home"></i> Home</a>
-    <a class="sidebar-nav-item {{ if eq .Url "post" }} active {{ end }}" href="/post"> <i class="fa fa-file-text"></i> Posts</a>
+    <a class="sidebar-nav-item {{ if eq .URL "/" }} active {{ end }}" href="/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item {{ if eq .URL "post" }} active {{ end }}" href="/post"> <i class="fa fa-file-text"></i> Posts</a>
 
     {{ $thisperma := .Permalink }}
-    {{ range .Site.Recent.ByWeight }}
+    {{ range .Site.Pages.ByWeight }}
       {{ if isset .Params "sidebar" }}
         <a class="sidebar-nav-item {{ if eq .Permalink $thisperma }} active {{ end }}" href="{{ .Permalink }}">{{ .Title }}</a>
       {{ end }}
     {{ end }}
 
-    <a class="sidebar-nav-item" href="{{ .Site.Params.Github.Url }}"> <i class="fa fa-github"></i> GitHub</a>
+    <a class="sidebar-nav-item" href="{{ .Site.Params.Github.URL }}"> <i class="fa fa-github"></i> GitHub</a>
 
-    <a class="sidebar-nav-item" href="{{ .Site.Params.Twitter.Url }}"> <i class="fa fa-twitter"></i> Twitter</a>
+    <a class="sidebar-nav-item" href="{{ .Site.Params.Twitter.URL }}"> <i class="fa fa-twitter"></i> Twitter</a>
   </nav>
 
   <div class="sidebar-item bottom">
