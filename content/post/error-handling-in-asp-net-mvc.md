@@ -51,6 +51,6 @@ There is another option if you want to use some custom code, where you can chang
 
 Ideally there'd be some way of jacking the error status code when getting directed from the custom error definition, but I haven't figured out a way of doing that yet, or if it's even possible. If anyone's got any ideas, once again hit me up at [@lfln3](https://twitter.com/lfln3).
 
-I'd not hugely comfortable personally with having code exectue in my error handlers, but if you're ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users. 
+I'd not hugely comfortable personally with having code execute in my error handlers, but if you're ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users. 
 
-I have created a nuget package to speed this thing up a little, which you can find [here](https://www.nuget.org/packages/MVCErrorPages/), or just run `Install-Package MVCErrorPages`. It does include the MVC customErrors stuff, which I'm gonna cover in a later installment. But in the mean time, google should be able to help you out. In the meantime... good luck, I guess?
+I have created a nuget package to speed this thing up a little, which you can find [here](https://www.nuget.org/packages/MVCErrorPages/), or just run `Install-Package MVCErrorPages`. It does include the MVC customErrors stuff, which I'm gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then... good luck, I guess?
