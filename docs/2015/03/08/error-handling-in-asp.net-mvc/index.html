@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Error Handling in ASP.NET MVC &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="http://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/site.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="http://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>The distilled thoughts of a <em>highly opinionated</em> coder.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="http://lfn3.net/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item " href="http://lfn3.net/post"> <i class="fa fa-file-text"></i> Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href=""> <i class="fa fa-github"></i> GitHub</a>
+
+    <a class="sidebar-nav-item" href=""> <i class="fa fa-twitter"></i> Twitter</a>
+  </nav>
+
+  <div class="sidebar-item bottom">
+    <p>&copy; 2015. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Error Handling in ASP.NET MVC</h1>
+  <span class="post-date">Mar 8 2015</span>
+  <p>So today we&rsquo;re gonna talk about how to make sure you don&rsquo;t show your users something like this:</p>
+
+<p><img src="http://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png" alt="The yellow screen of death" /></p>
+
+<p>And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I&rsquo;ve chosen to chop up the hydra a little bit.</p>
+
+<p>This post just covers how to deal with making IIS catch all the errors that might not get caught inside of your MVC application. I&rsquo;ll dig into the levels closer to MVC in the next post, and then handling error logging in another one after that. They&rsquo;re both already semi-written, so they should follow along soonish. If you aren&rsquo;t really too worried about the reasoning, and trust me enough to just want to get to the money, I&rsquo;ll have a quick summary &ldquo;just do this&rdquo; post up after the long version is finished.</p>
+
+<p>So. Let&rsquo;s cover the territory of possible ways to show custom error pages to your users, because this being something from Microsoft, there&rsquo;s at least six ways to do a thing, and none of them are exactly what you want. Well, ok. There&rsquo;s only like 4 that I know of:</p>
+
+<p>You can use an exception handling filter, like the HandleErrorAttribute that&rsquo;s included by default, or you can use a module (basically the same idea as a filter, but further up the chain.), the most promienent example of which would probably be ELMAH. Further torwards the edges of MVC, you can turn to the customErrors thing in your web.config, which as far as I can tell is implemented with a module as well, or finally you can look to the httpErrors option, which lives inside of IIS rather than MVC, but is also in your web.config.</p>
+
+<p>Basically I&rsquo;m of the opinion you should always pick #4, the IIS option, since it&rsquo;s the highest level of coverage. Anything that goes wrong with all of the other options will end up with whatever is in the <code>httpErrors</code> tag getting shown.</p>
+
+<p>You can mix and match any of the other ones along with that to suit your preference, I usually also use the customErrors option, since this is the point most outside of the MVC pipeline but still inside it you can catch exceptions, so it gives you the least exposure to potential issues with your MVC site. At least that&rsquo;s my reasoning, you may come up with a different calculus.</p>
+
+<p>The reason I don&rsquo;t use filters is because an error inside of your filter config or somewhere inside your global.asax or whatever will cause them to fail completely. The config option does leave you open to issues in your web.config, but if that&rsquo;s hosed you have to rely on your base IIS config. Which hopefully won&rsquo;t show anything ugly to your users. You should probably check that.</p>
+
+<p>The other issue with filters is they won&rsquo;t fire for what I call the &ldquo;deathmurder exceptions&rdquo; - stuff like stack overflows and out of memory exceptions that just totally kill your application. The stuff you define under that httpErrors tag is, once again, what will save your ass.</p>
+
+<p>So let&rsquo;s cover that first.</p>
+
+<p>So in order to deal with this, you have to add another section to your web.config, under the <code>system.webserver</code> tag:</p>
+
+<pre><code>&lt;httpErrors errorMode=&quot;Custom&quot;&gt;
+  &lt;remove statusCode=&quot;404&quot;/&gt;
+  &lt;error statusCode=&quot;404&quot; path=&quot;/Views/Errors/404.html&quot; responseMode=&quot;File&quot; /&gt;
+  &lt;remove statusCode=&quot;500&quot;/&gt;
+  &lt;error statusCode=&quot;500&quot; path=&quot;/Views/Errors/500.html&quot; responseMode=&quot;File&quot; /&gt;
+&lt;/httpErrors&gt;
+</code></pre>
+
+<p>So what&rsquo;s going on here is we&rsquo;re telling IIS to use pretty error pages using the <code>errorMode=&quot;Custom&quot;</code> attribute. You can set that to <code>DetailedLocalOnly</code> for general use, but while we&rsquo;re messing with this stuff, we want to make sure you&rsquo;ll actually see the custom error pages, so leave it as <code>Custom</code> for the moment.</p>
+
+<p>The rest of it is basically removing the default IIS error pages (otherwise it&rsquo;ll spew at you when you start up the app) and replacing them with our own static HTML files. You can use .aspx files here, but if you get to this point, something has probably gone terribly wrong inside your app, so I would try and avoid relying on any code actually doing anything.</p>
+
+<p>There are a couple of additonal attributes you might be considering adding, like <code>defaultPath</code> and <code>defaultResponseMode</code> however defaultPath seems to cause IIS express to throw it&rsquo;s own exception when running on my machine which would seem to make <code>defaultResponseMode</code> somewhat pointless. But if you manage to get it working, please let me know <a href="https://twitter.com/lfln3">@lfln3</a>.</p>
+
+<p>There is another option if you want to use some custom code, where you can change the <code>responseMode</code> to <code>ExecuteUrl</code> and then point the path to an .aspx file. This does mean it will rewrite the response code to a 200, however, which is probably not what you want. To cover that, you can add this snippet to the top of your .aspx file.</p>
+
+<pre><code>&lt;%@ Page Language=&quot;C#&quot; %&gt;
+&lt;% Response.StatusCode = 404; %&gt;
+</code></pre>
+
+<p>Ideally there&rsquo;d be some way of jacking the error status code when getting directed from the custom error definition, but I haven&rsquo;t figured out a way of doing that yet, or if it&rsquo;s even possible. If anyone&rsquo;s got any ideas, once again hit me up at <a href="https://twitter.com/lfln3">@lfln3</a>.</p>
+
+<p>I&rsquo;d not hugely comfortable personally with having code execute in my error handlers, but if you&rsquo;re ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users.</p>
+
+<p>I have created a nuget package to speed this thing up a little, which you can find <a href="https://www.nuget.org/packages/MVCErrorPages/">here</a>, or just run <code>Install-Package MVCErrorPages</code>. It does include the MVC customErrors stuff, which I&rsquo;m gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then&hellip; good luck, I guess?</p>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

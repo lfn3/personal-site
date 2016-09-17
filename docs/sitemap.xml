@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://lfn3.net/</loc>
+    <lastmod>2015-10-08T22:38:13+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2015/10/08/leaving-the-malt-mines/</loc>
+    <lastmod>2015-10-08T22:38:13+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</loc>
+    <lastmod>2015-03-08T23:06:00+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/cv/</loc>
+    <lastmod>2015-03-03T19:32:05+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/leaving/</loc>
+    <lastmod>2015-03-03T19:32:05+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</loc>
+    <lastmod>2015-02-15T12:10:22+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</loc>
+    <lastmod>2015-02-14T18:52:49+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</loc>
+    <lastmod>2014-09-18T07:27:25+12:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2013/03/12/fun-with-icon-fonts/</loc>
+    <lastmod>2013-03-12T18:32:40+12:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/2013/03/11/the-making-of/</loc>
+    <lastmod>2013-03-11T18:32:40+12:00</lastmod>
+  </url>
+  
+</urlset>

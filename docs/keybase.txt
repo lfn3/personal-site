@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/lfn3
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://lfn3.net
+  * I am lfn3 (https://keybase.io/lfn3) on keybase.
+  * I have a public key with fingerprint E9BF A6E2 5A6D 5079 35D4  C101 9284 0C11 28FE 71AE
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010102d7daf2134908b8ddd0815f6bf9d380eded20ca163fc3e9addf42b7d4a038b40a",
+            "fingerprint": "e9bfa6e25a6d507935d4c10192840c1128fe71ae",
+            "host": "keybase.io",
+            "key_id": "92840c1128fe71ae",
+            "kid": "010102d7daf2134908b8ddd0815f6bf9d380eded20ca163fc3e9addf42b7d4a038b40a",
+            "uid": "a6b55ee059ecaf30d7be9aa4c9c25c19",
+            "username": "lfn3"
+        },
+        "service": {
+            "hostname": "lfn3.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1473211275,
+    "expire_in": 157680000,
+    "prev": "72d18e4626ee526c46b7ee3d0f3fb628b53452a8c6f6c8cedcc9064c221f6500",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.56
+Comment: https://keybase.io/crypto
+
+yMIjAnicrVJdSBVBFL5qZRmVLyYpUkxJmVeb/d+9VPSSSWYWZmZYl9mZWV297V7v
+3auZKBRBovRLRVSSRhIFRZj6UNiPWphlBUFpYUElFUaBEv350KwU9NBjMw/DOfN9
+3/nO4fTOivHERd0BL9rTE+p6ou7fPhDxFD4qb6wBuk2qga8GlNPJhwYIDTv+cpMA
+H4AcuzxRCDJ4ThA1qOoqIQSqnGTIuqERQYWUUMJDjDhZMLBANUSIIfK6QkQEBVUX
+IQJeYJhWCQ0FQ6blMFmq6QaSKS8hmUhQ0QSJiJiV0nhVhJjjeNWgCocoI5baYZfB
+zOkoTDNNm+VY4J+09w/8f/YdmZRDsi5JlEJJoxgZAiSKzvBIxBrmJcxpLjBMQxba
+QRk6YFgCqPUClqk0MXWH6nbx12+mRR3GCYZsx8Z2gGVLHSfoc0lOddBFVVHd/5vv
+102LsPExQiUNhU3bAj6OIbFjuoKcqAg8G4EieQHdGTRD1G+6CEmRVciOW4ZWMkmF
+J5xKRZmXKZV4GYuyrlAqEGgIhi7zqi4JosQjFcuGjFVMCcYalEXM85whSxACt6MK
+ywY+gdlEJUwybJZYyImEKKjtvlU8xRMV55k2NdpdK0/cjPg/y/buZ+zEzHVdT0nT
+tYpNY9aT92JhVdOPl0fW9a+K23a6qLZl9jfj5IXMnJSNu+6l18gxDXuLm4eXb/Ym
+D81Z2pxyaX1bty/qVGJf1Zv7856NDr5deGLf68DaFUve7F98/eHImTZ9wWDDQAdI
+Ti3Ivpl240NB1vy0pEZ/y9HostV5ezr3Pp6TnPFga6BqKD5H6zBe5Ve0d8OPkVcj
+W+4lJrQWLVnZfCz1WHLpocbPuRs6hwcSY8GE/X1iWVrGbm9LfdbcRad21B8+Pgu9
+7Ts7nns7crArO9iaF/YmpES+9n9J7+2Jzs/fjvxXlP70Na19zWXnp18efn6uJ5JU
+d3dkcHxsu5JVP3rxU+fpq78ALM4/1A==
+=nOK/
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/lfn3
+
+==================================================================

@@ -1,0 +1,7 @@
+.selectedOption {
+	color: green;
+}
+
+.selectedOption:before {
+	content: "> ";
+}
