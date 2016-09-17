@@ -3,13 +3,14 @@ date = "2015-03-03T19:32:05+13:00"
 draft = false
 title = "Curriculum Vitae"
 type = "cv"
+canonifyurls = true
 +++
 
 I'm a 25-year-old developer. I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to python, before picking up C# at my previous employer. At the moment I'm writing (and loving) Clojure full-time, after dabbling with it for several years in my spare time.
 
 Previously in my spare time I spent some time learning Go, producing all sorts of odds and ends, some of which can be found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some wisdom in the process, which you can take a look at on [this site](/). I've also been organizing the local [Clojure meetup](http://www.meetup.com/Auckland-Clojure/), putting together talks and workshops.
 
-At present I'm not actively looking for new opportunities, but if your company is using Clojure and/or Clojurescript in production, think your team is as passionate about the craft of programming as I am, can offer challenging problems, and regularly contribute back to open source, feel free to get in touch.
+I'm actively looking for new opportunities, particularly involving functional programming on the JVM. If you think your team is passionate about the craft of programming, can offer challenging problems, and contributes back to open source, please to get in touch.
 
 ## Employment
 ### Devloper at [LiveOps](https://www.liveopscloud.com/)

@@ -5,7 +5,7 @@
 
     "builddrafts": false,
 
-    "baseurl": "/",
+    "baseurl": "http://lfn3.net/",
     "canonifyurls": true,
     "permalinks": {
         "post": ":year/:month/:day/:title/",
