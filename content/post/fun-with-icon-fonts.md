@@ -102,8 +102,3 @@ Hopefully all the parameters there are, again, self explanatory. The bits right 
 And so on. Those are just the hex values converted to decimal, prefixed with &# and ending with ;. Much like how you use &nsbp and the like.
 
 So hopefully you've made your shiny new startup or whatever even shinier now with svelte, lightweight icon fonts. You are going to cut me in on a slice of the profits, right?
-
-Don't make another wingdings,
-
-ATLAS
------
