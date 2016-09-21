@@ -6,8 +6,10 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2016</rights>
-    <updated>2016-09-19 21:57:44 &#43;1200 NZST</updated>
+    <updated>2016-09-21 16:21:44 &#43;1200 NZST</updated>
 
+    
+      
     
       
         <item>
@@ -77,8 +79,6 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 &lt;p&gt;I&amp;rsquo;m basically out of DI related things to talk about for now, so to wrap up: Most aspects of DI aren&amp;rsquo;t amazingly useful in Clojure. It can still be used to make testing easier, but isn&amp;rsquo;t really necessary. Using lots of simple functions gives you plenty of seams to exploit. Life-cycle management is still important, and Clojure has good libraries for dealing with it that are much more painless to use than the OO solutions I&amp;rsquo;ve seen.&lt;/p&gt;
 </description>
         </item>
-      
-    
       
     
       

@@ -1,5 +1,5 @@
 +++
-date = "2016-09-19T21:57:44+12:00"
+date = "2016-09-21T16:21:44+12:00"
 draft = false
 title = "Types vs Contracts"
 
