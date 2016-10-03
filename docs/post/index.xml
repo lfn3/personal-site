@@ -6,8 +6,82 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2016</rights>
-    <updated>2016-09-19 21:57:44 &#43;1200 NZST</updated>
+    <updated>2016-10-03 23:10:00 &#43;1300 NZDT</updated>
 
+    
+      
+        <item>
+          <title>Coupling, Connascence, CSP and Actors</title>
+          <link>http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</link>
+          <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
+          <description>
+
+&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
+
+&lt;h2 id=&#34;a-crash-course-on-connascence&#34;&gt;A crash course on Connascence&lt;/h2&gt;
+
+&lt;p&gt;First of all, a little description about what connascence is, since as far as I know it&amp;rsquo;s a relatively uncommon term. It&amp;rsquo;s used to describe the degree of dependency between components in a OO (object oriented) system. Two components are connascent if a change to one would require a change to another. We can also talk about the strength of a connascence, where stronger connascences imply the change is more difficult to apply. There is more detail on &lt;a href=&#34;https://en.wikipedia.org/wiki/Connascence&#34;&gt;wikipedia&lt;/a&gt;, which I recommend you read if you want to follow along.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll give an example of two connascences first, however:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn validate [data]
+  (and (= (:type data) :person)
+       (:name data)
+       (:age data)))
+
+(defn has-parent? [data]
+  (and (:name data)
+       (:parent data)
+       (= (:type data) :person)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This code is intentionally pretty bad, but you can imagine the case where this might be spread over multiple code bases somehow. We can describe how bad it is as a connascence of algorithm: both &lt;code&gt;validate&lt;/code&gt; and &lt;code&gt;has-parent?&lt;/code&gt; depend on similar logic. This can be relatively trivially fixed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn is-person? [data]
+  (and (= (:type data) :person)
+       (:name data)))
+
+(defn validate [data]
+  (and (is-person? data)
+       (:age data)))
+
+(defn has-parent? [data]
+  (and (is-person? data)
+       (:parent data))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We&amp;rsquo;ve reduced what was previously a connascence of algorithm to a connascence of name - they both depend on the same extracted function. Hopefully it makes sense that we prefer weaker forms of connascence, and less of it where possible.&lt;/p&gt;
+
+&lt;h2 id=&#34;actors-vs-csp&#34;&gt;Actors vs CSP&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve got a few reasons for preferring CSP style to actor style. One of the big ones is that actors have introduced pervasive, name based dependencies throughout our code base, via the actor registry mechanism. Normally connascence of name isn&amp;rsquo;t really a problem, but I would argue in the case of actors it is, since these names are both common and smeared across the code base. This also introduces a dependence on the actor registry itself.&lt;/p&gt;
+
+&lt;p&gt;This means that our registry is global state, that all our actors depend on - a connascence of identity. I don&amp;rsquo;t think this is necessarily a bad thing, after all a database is a giant blob of global state, and &amp;lsquo;using a database&amp;rsquo; has been a pervasive and effective idea in software engineering. The problem here is the semantics of the &amp;lsquo;database&amp;rsquo;. Actor registries intentionally prevent registering multiple actors under the same name. This isn&amp;rsquo;t a bad thing, until you want to write tests using actors, since you now have to write setup and tear down code for each test. This is not a fun experience.&lt;/p&gt;
+
+&lt;p&gt;The mechanism of communication in core.async is the channel, which doesn&amp;rsquo;t have the same global scope as an actor registration (you can of course make them have global scope, but I&amp;rsquo;ll talk about that a bit later). You don&amp;rsquo;t even have to close channels once you&amp;rsquo;ve completed your tests, as typically go blocks won&amp;rsquo;t continue executing without you placing additional work on the channel that has now fallen out of scope. Of course some memory will be consumed by the parked blocks, but usually this isn&amp;rsquo;t a problem.&lt;/p&gt;
+
+&lt;p&gt;Another issue that arises during testing is the promiscuous communication that happens between actors. Since any actor can invoke behaviour on another just by looking it up in the registry and sending it a message, you typically have to do a lot of actor mocking. This is that connascence of name again. Macros can help with the mocking, but it&amp;rsquo;s still a lot more verbose than supplying channels to a function and pulling or pushing results to them. You could claim that it&amp;rsquo;s easier for actors to communicate actors when you don&amp;rsquo;t have to pass around channels, however if you &lt;em&gt;really&lt;/em&gt; want to (and it&amp;rsquo;s not something I&amp;rsquo;d normally recommend) you can simply place a channel in a &lt;code&gt;def&lt;/code&gt; or even a derefable data structure (probably an &lt;code&gt;atom&lt;/code&gt; or a &lt;code&gt;promise&lt;/code&gt;) and get access to it where you need, but with a clearer link between it and it&amp;rsquo;s producers or consumers.&lt;/p&gt;
+
+&lt;p&gt;This is a recurring pattern I&amp;rsquo;ve found - it&amp;rsquo;s a lot easier to implement actor&amp;rsquo;s functionality with core.async than the other way around. For instance a registry can be easily implemented with &lt;code&gt;compare-and-swap!&lt;/code&gt; on a global atom containing a map. You can express a more options here when you encounter an existing registration, such as transparently using the one in place, replacing it, or going the Pulsar route of throwing an exception. The important thing here is that you have a choice about it. For a case of a feature that&amp;rsquo;s more difficult to implement in Pulsar, there is customized queues. In Pulsar you have to implement an entire Actor, and some sort of feedback mechanism from consumer to queue (coupling the consumer to it&amp;rsquo;s queue), otherwise it will just saturate the consumer&amp;rsquo;s mailbox, rather than retaining the items in the queue. In core.async, all one has to do is reify the take and put protocols, which can be done trivially by closing over a channel or two. This queue can be used anywhere, rather than just where a consumer is designed for it.&lt;/p&gt;
+
+&lt;p&gt;There are stylistic differences, inherited from the linage of these two systems that introduce their own connascences. Pulsar of course follows the example of Erlang, a language where pattern matching on tuples is pervasive. While potentially powerful, it introduces a reliance on the ordering of parameters that is a stronger connascence than the idiomatic way of conveying data in Clojure. Normally if you want to pass a message around in Clojure, you will use a map, where lookup is done by name rather than by position. This isn&amp;rsquo;t a hard or fast rule, and it&amp;rsquo;s not normally something that really concerns me to be honest. Again, normally a connascence of position isn&amp;rsquo;t a big deal - every function call has it to some degree, but the fact it exists among supposedly decoupled actors is what I find troubling.&lt;/p&gt;
+
+&lt;h2 id=&#34;too-many-masks&#34;&gt;Too many masks&lt;/h2&gt;
+
+&lt;p&gt;On the topic of coupling, there is the actor itself. Personally I think actors have conflated several different concepts together, state being the most egregious one. Which of course I would say, being a Clojure programmer. What I mean by that is that whenever you&amp;rsquo;re working with actors, state is right there, ready for you to reach out and grab it. One thing that makes me very happy about Clojure is that you have to jump through a few hoops to get mutability, and in doing so, you have to think about it. Being forced to have that moment is a good thing.&lt;/p&gt;
+
+&lt;p&gt;What else is in an actor? A queue, in the form of a mailbox. Actor systems are designed to be &amp;lsquo;fire and forget&amp;rsquo;. This is great in terms of decoupling, at least for the senders. Pulsars implementation, however, is a little less inspiring. In some trials, we&amp;rsquo;ve had messages in a mailbox disappear. There&amp;rsquo;s also the problem of dead actors disappearing from the registry. Since looking up an actor is a blocking operation, in practice it isn&amp;rsquo;t actually fire and forget. Contrast this with core.async, where a &amp;lsquo;actor&amp;rsquo; (go-loop) and it&amp;rsquo;s channels are distinct entities. At most, you&amp;rsquo;ll be able to disappear the item a go-loop is currently processing if you manage to blow it up.&lt;/p&gt;
+
+&lt;p&gt;Another property that actors provide is fault isolation. This isn&amp;rsquo;t a feature that&amp;rsquo;s missing from other programming languages. The difference in actor based systems is it&amp;rsquo;s pervasive nature - you can&amp;rsquo;t not have it. That is definitely a good thing. Actors aren&amp;rsquo;t the only way to get it, of course - Java threads and core.async go blocks are both perfectly capable of exploding without affecting things around them, but you have to choose to apply these, rather than getting it by default. I would say that this and the final property are the two important parts of actors, and they are cohesive, rather than coupled.&lt;/p&gt;
+
+&lt;p&gt;So finally, there&amp;rsquo;s the ability to supervise other actors. I would argue this is probably the most useful part of the actor model, the firm separation of the &amp;lsquo;happy path&amp;rsquo; from the sad path, allowing us to write our &amp;ldquo;business logic&amp;rdquo; without a care (or try-catch) in the world. This is the one aspect of actor systems I think should be exported to the wider programming world. At least in Clojure, it has been, in the form of &lt;a href=&#34;https://github.com/MichaelDrogalis/dire&#34;&gt;dire&lt;/a&gt;. There&amp;rsquo;s some blog posts linked there that explain better than I can why this is such a good thing. Between this and go blocks, I would argue that CSP can provide the most important benefits of actor systems, without what I view as the costs.&lt;/p&gt;
+
+&lt;p&gt;That is not to say I&amp;rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&amp;rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&amp;rsquo;ll just have to do it in Elixir.&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>

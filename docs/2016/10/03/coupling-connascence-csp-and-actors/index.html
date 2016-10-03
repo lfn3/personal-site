@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Coupling, Connascence, CSP and Actors &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="http://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/site.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="http://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>The distilled thoughts of a <em>highly opinionated</em> coder.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="http://lfn3.net/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item " href="http://lfn3.net/post"> <i class="fa fa-file-text"></i> Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+
+    <a class="sidebar-nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+  </nav>
+
+  <div class="sidebar-item bottom">
+    <p>&copy; 2016. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Coupling, Connascence, CSP and Actors</h1>
+  <span class="post-date">Oct 3 2016</span>
+  
+
+<p>In the last 6 months, I&rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at <a href="http://www.liveopscloud.com/">LiveOps Cloud</a>. We converted one of our core backend services from Clojure&rsquo;s <a href="https://github.com/clojure/core.async">core.async</a> to <a href="http://docs.paralleluniverse.co/pulsar/">Pulsar</a>. Having been a part of that transformation, I now, of course, have <em>opinions</em> that I&rsquo;m going to subject you to. Those opinions boil down to CSP (<a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">Communicating Sequential Processes</a>) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.</p>
+
+<h2 id="a-crash-course-on-connascence">A crash course on Connascence</h2>
+
+<p>First of all, a little description about what connascence is, since as far as I know it&rsquo;s a relatively uncommon term. It&rsquo;s used to describe the degree of dependency between components in a OO (object oriented) system. Two components are connascent if a change to one would require a change to another. We can also talk about the strength of a connascence, where stronger connascences imply the change is more difficult to apply. There is more detail on <a href="https://en.wikipedia.org/wiki/Connascence">wikipedia</a>, which I recommend you read if you want to follow along.</p>
+
+<p>I&rsquo;ll give an example of two connascences first, however:</p>
+
+<pre><code class="language-clojure">(defn validate [data]
+  (and (= (:type data) :person)
+       (:name data)
+       (:age data)))
+
+(defn has-parent? [data]
+  (and (:name data)
+       (:parent data)
+       (= (:type data) :person)))
+</code></pre>
+
+<p>This code is intentionally pretty bad, but you can imagine the case where this might be spread over multiple code bases somehow. We can describe how bad it is as a connascence of algorithm: both <code>validate</code> and <code>has-parent?</code> depend on similar logic. This can be relatively trivially fixed:</p>
+
+<pre><code class="language-clojure">(defn is-person? [data]
+  (and (= (:type data) :person)
+       (:name data)))
+
+(defn validate [data]
+  (and (is-person? data)
+       (:age data)))
+
+(defn has-parent? [data]
+  (and (is-person? data)
+       (:parent data))
+</code></pre>
+
+<p>We&rsquo;ve reduced what was previously a connascence of algorithm to a connascence of name - they both depend on the same extracted function. Hopefully it makes sense that we prefer weaker forms of connascence, and less of it where possible.</p>
+
+<h2 id="actors-vs-csp">Actors vs CSP</h2>
+
+<p>I&rsquo;ve got a few reasons for preferring CSP style to actor style. One of the big ones is that actors have introduced pervasive, name based dependencies throughout our code base, via the actor registry mechanism. Normally connascence of name isn&rsquo;t really a problem, but I would argue in the case of actors it is, since these names are both common and smeared across the code base. This also introduces a dependence on the actor registry itself.</p>
+
+<p>This means that our registry is global state, that all our actors depend on - a connascence of identity. I don&rsquo;t think this is necessarily a bad thing, after all a database is a giant blob of global state, and &lsquo;using a database&rsquo; has been a pervasive and effective idea in software engineering. The problem here is the semantics of the &lsquo;database&rsquo;. Actor registries intentionally prevent registering multiple actors under the same name. This isn&rsquo;t a bad thing, until you want to write tests using actors, since you now have to write setup and tear down code for each test. This is not a fun experience.</p>
+
+<p>The mechanism of communication in core.async is the channel, which doesn&rsquo;t have the same global scope as an actor registration (you can of course make them have global scope, but I&rsquo;ll talk about that a bit later). You don&rsquo;t even have to close channels once you&rsquo;ve completed your tests, as typically go blocks won&rsquo;t continue executing without you placing additional work on the channel that has now fallen out of scope. Of course some memory will be consumed by the parked blocks, but usually this isn&rsquo;t a problem.</p>
+
+<p>Another issue that arises during testing is the promiscuous communication that happens between actors. Since any actor can invoke behaviour on another just by looking it up in the registry and sending it a message, you typically have to do a lot of actor mocking. This is that connascence of name again. Macros can help with the mocking, but it&rsquo;s still a lot more verbose than supplying channels to a function and pulling or pushing results to them. You could claim that it&rsquo;s easier for actors to communicate actors when you don&rsquo;t have to pass around channels, however if you <em>really</em> want to (and it&rsquo;s not something I&rsquo;d normally recommend) you can simply place a channel in a <code>def</code> or even a derefable data structure (probably an <code>atom</code> or a <code>promise</code>) and get access to it where you need, but with a clearer link between it and it&rsquo;s producers or consumers.</p>
+
+<p>This is a recurring pattern I&rsquo;ve found - it&rsquo;s a lot easier to implement actor&rsquo;s functionality with core.async than the other way around. For instance a registry can be easily implemented with <code>compare-and-swap!</code> on a global atom containing a map. You can express a more options here when you encounter an existing registration, such as transparently using the one in place, replacing it, or going the Pulsar route of throwing an exception. The important thing here is that you have a choice about it. For a case of a feature that&rsquo;s more difficult to implement in Pulsar, there is customized queues. In Pulsar you have to implement an entire Actor, and some sort of feedback mechanism from consumer to queue (coupling the consumer to it&rsquo;s queue), otherwise it will just saturate the consumer&rsquo;s mailbox, rather than retaining the items in the queue. In core.async, all one has to do is reify the take and put protocols, which can be done trivially by closing over a channel or two. This queue can be used anywhere, rather than just where a consumer is designed for it.</p>
+
+<p>There are stylistic differences, inherited from the linage of these two systems that introduce their own connascences. Pulsar of course follows the example of Erlang, a language where pattern matching on tuples is pervasive. While potentially powerful, it introduces a reliance on the ordering of parameters that is a stronger connascence than the idiomatic way of conveying data in Clojure. Normally if you want to pass a message around in Clojure, you will use a map, where lookup is done by name rather than by position. This isn&rsquo;t a hard or fast rule, and it&rsquo;s not normally something that really concerns me to be honest. Again, normally a connascence of position isn&rsquo;t a big deal - every function call has it to some degree, but the fact it exists among supposedly decoupled actors is what I find troubling.</p>
+
+<h2 id="too-many-masks">Too many masks</h2>
+
+<p>On the topic of coupling, there is the actor itself. Personally I think actors have conflated several different concepts together, state being the most egregious one. Which of course I would say, being a Clojure programmer. What I mean by that is that whenever you&rsquo;re working with actors, state is right there, ready for you to reach out and grab it. One thing that makes me very happy about Clojure is that you have to jump through a few hoops to get mutability, and in doing so, you have to think about it. Being forced to have that moment is a good thing.</p>
+
+<p>What else is in an actor? A queue, in the form of a mailbox. Actor systems are designed to be &lsquo;fire and forget&rsquo;. This is great in terms of decoupling, at least for the senders. Pulsars implementation, however, is a little less inspiring. In some trials, we&rsquo;ve had messages in a mailbox disappear. There&rsquo;s also the problem of dead actors disappearing from the registry. Since looking up an actor is a blocking operation, in practice it isn&rsquo;t actually fire and forget. Contrast this with core.async, where a &lsquo;actor&rsquo; (go-loop) and it&rsquo;s channels are distinct entities. At most, you&rsquo;ll be able to disappear the item a go-loop is currently processing if you manage to blow it up.</p>
+
+<p>Another property that actors provide is fault isolation. This isn&rsquo;t a feature that&rsquo;s missing from other programming languages. The difference in actor based systems is it&rsquo;s pervasive nature - you can&rsquo;t not have it. That is definitely a good thing. Actors aren&rsquo;t the only way to get it, of course - Java threads and core.async go blocks are both perfectly capable of exploding without affecting things around them, but you have to choose to apply these, rather than getting it by default. I would say that this and the final property are the two important parts of actors, and they are cohesive, rather than coupled.</p>
+
+<p>So finally, there&rsquo;s the ability to supervise other actors. I would argue this is probably the most useful part of the actor model, the firm separation of the &lsquo;happy path&rsquo; from the sad path, allowing us to write our &ldquo;business logic&rdquo; without a care (or try-catch) in the world. This is the one aspect of actor systems I think should be exported to the wider programming world. At least in Clojure, it has been, in the form of <a href="https://github.com/MichaelDrogalis/dire">dire</a>. There&rsquo;s some blog posts linked there that explain better than I can why this is such a good thing. Between this and go blocks, I would argue that CSP can provide the most important benefits of actor systems, without what I view as the costs.</p>
+
+<p>That is not to say I&rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&rsquo;ll just have to do it in Elixir.</p>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+
