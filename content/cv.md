@@ -19,7 +19,7 @@ I'm actively looking for new opportunities, particularly involving functional pr
 - Contributed to open source projects that support the Clojure community, such as [Clojars](https://github.com/clojars/clojars-web/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Alfn3%20)
 
 ## Employment
-### Devloper at [LiveOps](https://www.liveopscloud.com/)
+### Developer at [LiveOps](https://www.liveopscloud.com/)
 <div class="years">2015 - 	 </div>
 
 - Worked on the Work Allocation team building several microservices with very high performance, uptime, and consistency requirements.
