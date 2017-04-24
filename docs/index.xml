@@ -5,9 +5,108 @@
     <link>http://lfn3.net/</link>
     <language>en-us</language>
     <author>Liam Falconer</author>
-    <rights>(C) 2016</rights>
-    <updated>2016-10-03 23:10:00 &#43;1300 NZDT</updated>
+    <rights>(C) 2017</rights>
+    <updated>2017-04-24 21:31:22 &#43;1200 NZST</updated>
 
+    
+      
+        <item>
+          <title>Performance checks on metrics</title>
+          <link>http://lfn3.net/2017/04/24/performance-checks-on-metrics/</link>
+          <pubDate>Mon, 24 Apr 2017 21:31:22 NZST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2017/04/24/performance-checks-on-metrics/</guid>
+          <description>&lt;p&gt;At &lt;a href=&#34;https://www.lmax.com/&#34;&gt;LMAX&lt;/a&gt; we do &lt;a href=&#34;https://www.symphonious.net/testing-at-lmax/&#34;&gt;a lot of automated testing&lt;/a&gt;, including running several
+dedicated environments for performance testing. We&amp;rsquo;ve got a lot of specific
+numbers that come out of these environments that we surface on dashboards like
+this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/performance-checks-on-metrics/perf-dashboard.png&#34; alt=&#34;perf-dashboard&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But we also collect a bunch of other metrics from our servers and services that,
+until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
+
+&lt;p&gt;Rediscovering these lost numbers started with us deploying a service with debug
+logging we were using to investigate intermittency to production.
+This gave some of our web servers a hard time, since they were logging lots more
+on certain types of requests. It didn&amp;rsquo;t have a huge impact, but it
+was definitely something we noticed, and didn&amp;rsquo;t really want to repeat.
+Especially since it took longer than we would have liked to trace the performance
+problems back to the additional logging.&lt;/p&gt;
+
+&lt;p&gt;This is the kind of thing you can&amp;rsquo;t really catch with the approach we use to
+cover our really performance sensitive code paths, which is a combination of
+replaying events and JMH micro-benchmarking. This is not because you wouldn&amp;rsquo;t
+actually be able to catch a performance regression with these tools, but because
+the time and effort we would expend. Covering everything that might possibly cause
+a performance problem at some point in the future with a JMH benchmark would
+probably double our already significant number of tests. Not to mention that it
+would massively increase how long our tests take to run.&lt;/p&gt;
+
+&lt;p&gt;So we decided needed something to cover more ground. Turns out that we already
+had the data we needed, we just weren&amp;rsquo;t actually making decisions based on it.
+We collect a &lt;em&gt;lot&lt;/em&gt; of information from all of our environments, for example
+one of our CI environments has around 600,000 metrics that have had numbers
+against them across all of it&amp;rsquo;s servers. There&amp;rsquo;s a ton of potentially useful
+information in there: GC pause times, open file handles, as well as more
+application specific stuff.&lt;/p&gt;
+
+&lt;p&gt;We do surface all of that in some pretty (basic) graphs:
+&lt;img src=&#34;http://lfn3.net/img/posts/performance-checks-on-metrics/jodie.png&#34; alt=&#34;jodie&#34; /&gt;
+These do get used when we&amp;rsquo;re troubleshooting, and can generate alerts in our
+production monitoring. But we haven&amp;rsquo;t really exploited them fully for our
+testing cycle.&lt;/p&gt;
+
+&lt;p&gt;The open file handles we&amp;rsquo;d already used in a check on some of our reporting
+services, since we&amp;rsquo;d had issues with those not cleaning up after
+themselves. We thought we&amp;rsquo;d take that and riff on it a little
+for other numbers.&lt;/p&gt;
+
+&lt;p&gt;Our goal was to &amp;ldquo;catch regressions in unexpected places&amp;rdquo;, so we took
+a bunch of system and jvm level metrics we thought might be applicable:
+GC Pause times, running proc count, and load average. We picked these since
+they&amp;rsquo;re some of the more general performance indicators we could think of.
+That&amp;rsquo;s good since we&amp;rsquo;re looking to catch any and all regressions, rather than
+target anything application specific.&lt;/p&gt;
+
+&lt;p&gt;Essentially all we did was pick the average or maximum for these values out of our
+metric store, and compare it to a number in our checker. We set some overrides
+for specific values on specific services, since we expect some of our services
+like the exchange to use a lot more resources than say our web app servers.&lt;/p&gt;
+
+&lt;p&gt;Of course we wanted to prove this would have actually caught the problem that
+kicked all this off, so we ran these tests over the metrics we collected from
+the dodgy build to verify that it would have failed if they were in place.
+In that case, the load average check did fail due to all the additional string
+processing we were doing.&lt;/p&gt;
+
+&lt;p&gt;These checks are pretty crude at the moment. We&amp;rsquo;re hoping they&amp;rsquo;ll be effective
+in the long run, but if they aren&amp;rsquo;t, that&amp;rsquo;s fine. Crude measures can be refined,
+but things you aren&amp;rsquo;t looking at are never gonna be improved. Of course if we
+figure out at some point these checks are causing us more pain than they&amp;rsquo;re
+saving us, we&amp;rsquo;ll look at finding another solution.&lt;/p&gt;
+
+&lt;p&gt;We did try some mildly fancy stuff involving doing a regression over the data to
+check if we were leaking resources over time, but our acceptance style (involving
+hardware and topology pretty close to our production environments) perf test
+runs take on the order of half an hour, which isn&amp;rsquo;t really long enough to produce
+an alertable trend.&lt;/p&gt;
+
+&lt;p&gt;This process also delivered some value in another way. In the process of setting
+overrides for our services, we discovered that some of them were experiencing
+longer GC pauses than we would like. Again, these are off the path we have
+pretty well covered. None of them are at panic inducing levels, but some are
+definitely at moderate concern inducing levels, and something we&amp;rsquo;re digging into.&lt;/p&gt;
+
+&lt;p&gt;Hopefully this showed you a little bit of our process for dealing with issues we
+encounter. Not so much the actual finding and fixing part, but more the making
+sure it doesn&amp;rsquo;t happen again part. Also you should go take a look at some of the
+numbers you&amp;rsquo;re collecting from your testing environments, or if you&amp;rsquo;re not
+collecting any, start. Since if you aren&amp;rsquo;t measuring a thing, it&amp;rsquo;s near
+impossible to improve it.&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>

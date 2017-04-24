@@ -1,8 +1,8 @@
 +++
-date = "2017-04-10T16:36:22+12:00"
+date = "2017-04-24T21:31:22+12:00"
 draft = false
 title = "Performance checks on metrics"
-tag = "LMAX"
+tag = "lmax"
 +++
 
 At [LMAX](https://www.lmax.com/) we do [a lot of automated testing]
