@@ -6,8 +6,167 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2017</rights>
-    <updated>2017-04-24 21:31:22 &#43;1200 NZST</updated>
+    <updated>2017-05-07 11:43:00 &#43;1200 NZST</updated>
 
+    
+      
+        <item>
+          <title>Property testing tooling in Java</title>
+          <link>http://lfn3.net/2017/05/07/property-testing-tooling-in-java/</link>
+          <pubDate>Sun, 07 May 2017 11:43:00 NZST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2017/05/07/property-testing-tooling-in-java/</guid>
+          <description>&lt;p&gt;The NZ contingent of LMAX went to &lt;a href=&#34;http://codemania.io/&#34;&gt;Codemania&lt;/a&gt; at the end
+of last week. And it was awesome, I always come out of there excited to make
+things. Then usually I give myself a hangover which puts an end to that.
+Anyway, the two themes we picked out from the conference were automate more,
+and property test all the things.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m already a huge fan of &lt;a href=&#34;https://github.com/clojure/test.check&#34;&gt;test.check&lt;/a&gt;
+for my Clojure code, and have been feeling some friction working with the
+tooling we had for property testing in Java. So I spent some time digging into
+the options we had, and this post is the result of that.&lt;/p&gt;
+
+&lt;p&gt;This post assumes you have some knowledge of what property based testing is,
+and how it works. I&amp;rsquo;m just going to compare and contrast Java libraries that
+enable it.&lt;/p&gt;
+
+&lt;p&gt;So we already had two libraries in our codebase for doing property testing:
+&lt;a href=&#34;https://github.com/pholser/junit-quickcheck&#34;&gt;junit-quickcheck&lt;/a&gt; and
+&lt;a href=&#34;https://github.com/ncredinburgh/QuickTheories&#34;&gt;quicktheories&lt;/a&gt;.
+I leaned slightly more towards quicktheories to start with, since it&amp;rsquo;s got a more
+functional API that I&amp;rsquo;m a bit of a sucker for.&lt;/p&gt;
+
+&lt;p&gt;Junit, and by extension, junit-quickcheck, doesn&amp;rsquo;t have a very functional api.
+But that&amp;rsquo;s actually a good thing when you&amp;rsquo;re writing Java. Coming from a Clojure
+background, the functional programming options available in Java feel a little
+clunky to be honest. Junit has been around for a while, and has an api that
+doesn&amp;rsquo;t really try to hide that. Which is fine! It&amp;rsquo;s easy to read and reason
+about in the context of the language it lives in.&lt;/p&gt;
+
+&lt;p&gt;The junit-quickcheck library pretty logically follows the path that junit laid
+out, using annotations and test methods that take arguments to do it&amp;rsquo;s thing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Property
+public void simple(String s1, String s2)
+{
+    assertEquals(s1.length() + s2.length(), (s1 + s2).length());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The api for &amp;ldquo;I want to use this particular example&amp;rdquo; is pretty obvious:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+public void example()
+{
+    simple(&amp;quot;hello&amp;quot;, &amp;quot;world!&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The thing I like most about this library is it&amp;rsquo;s simple and approachable for
+people who are at least a little familiar with Java and Junit. Even the way you
+write a generator is comparatively simple:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MatrixGenerator extends Generator&amp;lt;Matrix&amp;gt; {
+    public MatrixGenerator() {
+        super(Matrix.class);
+    }
+
+    @Override
+    public Matrix generate(SourceOfRandomness sourceOfRandomness,
+                           GenerationStatus generationStatus) {
+        int width = sourceOfRandomness.nextInt(0, 1000);
+        int height = sourceOfRandomness.nextInt(0, 1000);
+
+        int[][] matrix = new int[width][height];
+
+        for (int i = 0; i &amp;lt; width; i++) {
+            for (int j = 0; j &amp;lt; height; j++) {
+                matrix[i][j] = sourceOfRandomness.nextInt();
+            }
+        }
+
+        return new Matrix(matrix);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Yes, it&amp;rsquo;s verbose, but &lt;em&gt;shrug&lt;/em&gt; it&amp;rsquo;s Java. Go figure.&lt;/p&gt;
+
+&lt;p&gt;So that should have given you a vague idea of how junit-quickcheck works, so I&amp;rsquo;m
+going to contrast that with quicktheories. The first example of checking string
+length looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+public void simple() {
+    qt().forAll(strings().allPossible().ofLengthBetween(0, 100),
+                strings().allPossible().ofLengthBetween(0, 100))
+        .checkAssert((s1, s2) -&amp;gt;
+          assertEquals(s1.length() + s2.length(), (s1 + s2).length()));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Clearly, it&amp;rsquo;s a lot more functional, right? The generators are configured using
+builders, we can write our function as a lambda&amp;hellip; but the test body is 4 times
+the size of the junit-quickcheck example, and the actual bit we care about,
+&lt;code&gt;assertEquals...&lt;/code&gt; is a lot more&amp;hellip; buried than in the junit-quickcheck example.
+This is a problem that gets worse, as you write more complex tests.&lt;/p&gt;
+
+&lt;p&gt;Another issue I have with quicktheories is that it doesn&amp;rsquo;t integrate amazingly
+well with the rest of Junit. The &lt;code&gt;@Before&lt;/code&gt; annotation doesn&amp;rsquo;t work as expected,
+you have to explicitly call it in the middle of your assertion.&lt;/p&gt;
+
+&lt;p&gt;I guess this is the general problem with quicktheories. It&amp;rsquo;s just not Java-y
+enough, and that sticks out. The process for producing new generators suffers
+terribly from this in my opinion:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Source&amp;lt;Matrix&amp;gt; matrixSource =
+  Source.of(
+    integers().between(1, 100)
+              .combine(
+                integers().between(1, 100),
+                //Can&#39;t size generator based on prior generators?
+                lists().arrayListsOf(integers().all())
+                       .ofSizeBetween(1, 100),
+                (w, h, vals) -&amp;gt; {
+                  int[][] arr = new int[w][h];
+                  for (int i = 0; i &amp;lt; w; i++) {
+                    for (int j = 0; j &amp;lt; h; j++) {
+                      arr[i][j] = vals.get((i + j) % vals.size());
+                    }
+                  }
+                  return new Matrix(arr);
+                }));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note this doesn&amp;rsquo;t include functionality to allow shrinking. Compare to the
+junit-quickcheck generator above. I think the junit-quickcheck generator is
+considerably easier to read, and you get shrinking out of the source of
+randomness, rather than having to supply it yourself.&lt;/p&gt;
+
+&lt;p&gt;There is one problem both these libraries share, in that they require you to
+specify all of the input you require to a test up front, either in the args to
+a &lt;code&gt;@Property&lt;/code&gt; annotated method, or in the &lt;code&gt;qt().forAll()&lt;/code&gt; call. I was hopeful
+that the &amp;ldquo;dark horse&amp;rdquo; entrant
+&lt;a href=&#34;https://github.com/HypothesisWorks/hypothesis-java&#34;&gt;hypothesis&lt;/a&gt;
+would let me write tests that read a little better.&lt;/p&gt;
+
+&lt;p&gt;This was not the case. It&amp;rsquo;s not ready for prime time, which the author
+openly admits. It&amp;rsquo;s a real shame, since I the programming model looks very
+appealing.&lt;/p&gt;
+
+&lt;p&gt;So the conclusion I came to was that junit-quickcheck was the best option I
+could find at the moment. It integrates the best with Junit, and has a simple,
+idiomatic api. Quicktheories could be improved to make it more competitive, for
+example by making generators have sane defaults that are more succinct than the
+current examples. To a certain extent it&amp;rsquo;s hamstrung by the fact that it is just
+harder to use lambdas in Java than in more functional languages.&lt;/p&gt;
+
+&lt;p&gt;All the code that I posted here, and used to evaluate these libraries is
+available on &lt;a href=&#34;https://github.com/lfn3/java-comparative-quickchecking&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>

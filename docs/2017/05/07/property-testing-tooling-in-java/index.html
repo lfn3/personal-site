@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Property testing tooling in Java &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="http://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/site.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="http://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>The distilled thoughts of a <em>highly opinionated</em> coder.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="http://lfn3.net/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item " href="http://lfn3.net/post"> <i class="fa fa-file-text"></i> Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+
+    <a class="sidebar-nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+  </nav>
+
+  <div class="sidebar-item bottom">
+    <p>&copy; 2017. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Property testing tooling in Java</h1>
+  <span class="post-date">May 7 2017</span>
+  <p>The NZ contingent of LMAX went to <a href="http://codemania.io/">Codemania</a> at the end
+of last week. And it was awesome, I always come out of there excited to make
+things. Then usually I give myself a hangover which puts an end to that.
+Anyway, the two themes we picked out from the conference were automate more,
+and property test all the things.</p>
+
+<p>I&rsquo;m already a huge fan of <a href="https://github.com/clojure/test.check">test.check</a>
+for my Clojure code, and have been feeling some friction working with the
+tooling we had for property testing in Java. So I spent some time digging into
+the options we had, and this post is the result of that.</p>
+
+<p>This post assumes you have some knowledge of what property based testing is,
+and how it works. I&rsquo;m just going to compare and contrast Java libraries that
+enable it.</p>
+
+<p>So we already had two libraries in our codebase for doing property testing:
+<a href="https://github.com/pholser/junit-quickcheck">junit-quickcheck</a> and
+<a href="https://github.com/ncredinburgh/QuickTheories">quicktheories</a>.
+I leaned slightly more towards quicktheories to start with, since it&rsquo;s got a more
+functional API that I&rsquo;m a bit of a sucker for.</p>
+
+<p>Junit, and by extension, junit-quickcheck, doesn&rsquo;t have a very functional api.
+But that&rsquo;s actually a good thing when you&rsquo;re writing Java. Coming from a Clojure
+background, the functional programming options available in Java feel a little
+clunky to be honest. Junit has been around for a while, and has an api that
+doesn&rsquo;t really try to hide that. Which is fine! It&rsquo;s easy to read and reason
+about in the context of the language it lives in.</p>
+
+<p>The junit-quickcheck library pretty logically follows the path that junit laid
+out, using annotations and test methods that take arguments to do it&rsquo;s thing:</p>
+
+<pre><code class="language-java">@Property
+public void simple(String s1, String s2)
+{
+    assertEquals(s1.length() + s2.length(), (s1 + s2).length());
+}
+</code></pre>
+
+<p>The api for &ldquo;I want to use this particular example&rdquo; is pretty obvious:</p>
+
+<pre><code class="language-java">@Test
+public void example()
+{
+    simple(&quot;hello&quot;, &quot;world!&quot;);
+}
+</code></pre>
+
+<p>The thing I like most about this library is it&rsquo;s simple and approachable for
+people who are at least a little familiar with Java and Junit. Even the way you
+write a generator is comparatively simple:</p>
+
+<pre><code class="language-java">public class MatrixGenerator extends Generator&lt;Matrix&gt; {
+    public MatrixGenerator() {
+        super(Matrix.class);
+    }
+
+    @Override
+    public Matrix generate(SourceOfRandomness sourceOfRandomness,
+                           GenerationStatus generationStatus) {
+        int width = sourceOfRandomness.nextInt(0, 1000);
+        int height = sourceOfRandomness.nextInt(0, 1000);
+
+        int[][] matrix = new int[width][height];
+
+        for (int i = 0; i &lt; width; i++) {
+            for (int j = 0; j &lt; height; j++) {
+                matrix[i][j] = sourceOfRandomness.nextInt();
+            }
+        }
+
+        return new Matrix(matrix);
+    }
+}
+</code></pre>
+
+<p>Yes, it&rsquo;s verbose, but <em>shrug</em> it&rsquo;s Java. Go figure.</p>
+
+<p>So that should have given you a vague idea of how junit-quickcheck works, so I&rsquo;m
+going to contrast that with quicktheories. The first example of checking string
+length looks like this:</p>
+
+<pre><code class="language-java">@Test
+public void simple() {
+    qt().forAll(strings().allPossible().ofLengthBetween(0, 100),
+                strings().allPossible().ofLengthBetween(0, 100))
+        .checkAssert((s1, s2) -&gt;
+          assertEquals(s1.length() + s2.length(), (s1 + s2).length()));
+}
+</code></pre>
+
+<p>Clearly, it&rsquo;s a lot more functional, right? The generators are configured using
+builders, we can write our function as a lambda&hellip; but the test body is 4 times
+the size of the junit-quickcheck example, and the actual bit we care about,
+<code>assertEquals...</code> is a lot more&hellip; buried than in the junit-quickcheck example.
+This is a problem that gets worse, as you write more complex tests.</p>
+
+<p>Another issue I have with quicktheories is that it doesn&rsquo;t integrate amazingly
+well with the rest of Junit. The <code>@Before</code> annotation doesn&rsquo;t work as expected,
+you have to explicitly call it in the middle of your assertion.</p>
+
+<p>I guess this is the general problem with quicktheories. It&rsquo;s just not Java-y
+enough, and that sticks out. The process for producing new generators suffers
+terribly from this in my opinion:</p>
+
+<pre><code class="language-java">Source&lt;Matrix&gt; matrixSource =
+  Source.of(
+    integers().between(1, 100)
+              .combine(
+                integers().between(1, 100),
+                //Can't size generator based on prior generators?
+                lists().arrayListsOf(integers().all())
+                       .ofSizeBetween(1, 100),
+                (w, h, vals) -&gt; {
+                  int[][] arr = new int[w][h];
+                  for (int i = 0; i &lt; w; i++) {
+                    for (int j = 0; j &lt; h; j++) {
+                      arr[i][j] = vals.get((i + j) % vals.size());
+                    }
+                  }
+                  return new Matrix(arr);
+                }));
+</code></pre>
+
+<p>Note this doesn&rsquo;t include functionality to allow shrinking. Compare to the
+junit-quickcheck generator above. I think the junit-quickcheck generator is
+considerably easier to read, and you get shrinking out of the source of
+randomness, rather than having to supply it yourself.</p>
+
+<p>There is one problem both these libraries share, in that they require you to
+specify all of the input you require to a test up front, either in the args to
+a <code>@Property</code> annotated method, or in the <code>qt().forAll()</code> call. I was hopeful
+that the &ldquo;dark horse&rdquo; entrant
+<a href="https://github.com/HypothesisWorks/hypothesis-java">hypothesis</a>
+would let me write tests that read a little better.</p>
+
+<p>This was not the case. It&rsquo;s not ready for prime time, which the author
+openly admits. It&rsquo;s a real shame, since I the programming model looks very
+appealing.</p>
+
+<p>So the conclusion I came to was that junit-quickcheck was the best option I
+could find at the moment. It integrates the best with Junit, and has a simple,
+idiomatic api. Quicktheories could be improved to make it more competitive, for
+example by making generators have sane defaults that are more succinct than the
+current examples. To a certain extent it&rsquo;s hamstrung by the fact that it is just
+harder to use lambdas in Java than in more functional languages.</p>
+
+<p>All the code that I posted here, and used to evaluate these libraries is
+available on <a href="https://github.com/lfn3/java-comparative-quickchecking">GitHub</a>.</p>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+
