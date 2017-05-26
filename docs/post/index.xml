@@ -6,8 +6,88 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2017</rights>
-    <updated>2017-05-07 11:43:00 &#43;1200 NZST</updated>
+    <updated>2017-05-27 10:21:00 &#43;1200 NZST</updated>
 
+    
+      
+        <item>
+          <title>Writing IntelliJ plugins</title>
+          <link>http://lfn3.net/2017/05/27/writing-intellij-plugins/</link>
+          <pubDate>Sat, 27 May 2017 10:21:00 NZST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2017/05/27/writing-intellij-plugins/</guid>
+          <description>&lt;p&gt;I&amp;rsquo;ve spent some time working on an IntelliJ plugin during our free time at work.
+There&amp;rsquo;s quite a bit of stuff I&amp;rsquo;ve learned from either reading source or messing
+with things until they worked, and I thought I&amp;rsquo;d record some of that.&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need some knowledge of how IntelliJ plugins work, mostly about the Psi
+model and it&amp;rsquo;s API. If you want to learn about that, you should probably start
+with &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html&#34;&gt;this&lt;/a&gt;
+or &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html&#34;&gt;this&lt;/a&gt;.
+Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;
+
+&lt;p&gt;The problem I was having was that after inserting an annotation I&amp;rsquo;d generated on
+a variable, the code analysis was freaking out about it being in the wrong place.&lt;/p&gt;
+
+&lt;p&gt;This was inside a quickfix, and the code in question looked something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;PsiElementFactory factory = JavaPsiFacade.getElementFactory(project);
+
+PsiAnnotation annotation = factory.createAnnotationFromText(
+  &amp;quot;@&amp;quot; + annotationToApply.getSubtypeFQN(),
+  variableToAnnotate.getContainingFile());
+
+if (variableToAnnotate != null) {
+    variableToAnnotate.addBefore(annotation,
+                                 variableToAnnotate.getTypeElement());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The code it was generating looked correct after it&amp;rsquo;d been output, but I was
+getting complaints that &amp;ldquo;annotations are not allowed here&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/writing-intellij-plugins/after-quickfix.png&#34; alt=&#34;annotations not allowed here&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Along with it not showing the inspection I&amp;rsquo;d fixed as being fixed. (You can see
+the quickfix is still available). I had a look at the PsiTree and it looked
+correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/writing-intellij-plugins/psi-tree.png&#34; alt=&#34;psitree&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can see the annotation element is there, inside the modifier list. There&amp;rsquo;s
+one thing that&amp;rsquo;s important to know about the Psi Viewer: It reparses the code in
+question, it doesn&amp;rsquo;t use the same PsiTree as the editor does for file you&amp;rsquo;re
+looking at.&lt;/p&gt;
+
+&lt;p&gt;Hopefully that should give away the issue: I was putting the annotation directly
+under the variable PsiElement, rather than inside a ModifierList. The fix was
+pretty simple, what I ended up doing was this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;PsiElementFactory factory = JavaPsiFacade.getElementFactory(project);
+
+PsiAnnotation annotation = factory.createAnnotationFromText(
+  &amp;quot;@&amp;quot; + annotationToApply.getSubtypeFQN(),
+  variableToAnnotate.getContainingFile());
+
+if (variableToAnnotate != null &amp;amp;&amp;amp;
+    variableToAnnotate.getModifierList() != null) {
+  variableToAnnotate.getModifierList().add(annotation);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Rather than just putting the annotation on the variable, I pull out the modifier
+list and put it on the end.&lt;/p&gt;
+
+&lt;p&gt;It seems like every variable has a modifier list regardless of if it actually
+has any modifiers, i.e. at worst there should be an empty list. So the null
+check there is probably a little overly defensive.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve got a bunch more similar stories tucked away in my brain, so hopefully this
+can be a series that I might actually write semi-regularly, unlike the scattered
+posts I otherwise make&amp;hellip;&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>
