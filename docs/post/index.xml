@@ -6,8 +6,71 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2017</rights>
-    <updated>2017-05-27 10:21:00 &#43;1200 NZST</updated>
+    <updated>2017-07-22 23:03:00 &#43;1300 &#43;1300</updated>
 
+    
+      
+        <item>
+          <title>Clojure fspec surprise</title>
+          <link>http://lfn3.net/2017/07/22/clojure-fspec-surprise/</link>
+          <pubDate>Sat, 22 Jul 2017 23:03:00 &#43;1300</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2017/07/22/clojure-fspec-surprise/</guid>
+          <description>&lt;p&gt;Recently when writing Clojure I&amp;rsquo;ve been trying to cover everything I can in specs.
+This led me to a bit of a surprise when I used
+&lt;a href=&#34;https://clojure.org/guides/spec#_higher_order_functions&#34;&gt;&lt;code&gt;fspec&lt;/code&gt;&lt;/a&gt;.
+It evaluates the fspec&amp;rsquo;d function when it&amp;rsquo;s passed to a fdef&amp;rsquo;d function,
+not when you invoke the function. That&amp;rsquo;s probably super unclear, so look below
+the fold for an example.&lt;/p&gt;
+
+&lt;p&gt;So let&amp;rsquo;s say we&amp;rsquo;ve got a function, that&amp;rsquo;s specced:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn applier [f x y]
+  (f x y))
+
+(s/fdef applier
+        :args (s/cat :f (s/fspec :args (s/cat :x int? :y int?)
+                                 :ret int?)
+                     :x int?
+                     :y int?)
+        :ret int?)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Obviously this example may be slightly contrived. So since we&amp;rsquo;re all conscientious
+and stuff, we run around with all our vars instrumented all the time. At some
+point, we put the following into the repl:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(applier (fn [x y]
+           (prn x)
+           x) 12345 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Surprisingly, this results in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;-1
+0
+...
+131
+28566
+12345
+12345
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;being printed. What&amp;rsquo;s happening here is that the function you pass in is getting
+checked to see if it matches the fspec. That was a little unexpected to me.
+Especially since in my case, my fspec&amp;rsquo;d function threw an exception in some cases,
+leading to a bit of a rabbit hole.&lt;/p&gt;
+
+&lt;p&gt;Which leads to one more bit of advice: &amp;ldquo;specs cover non-exceptional use&amp;rdquo;.
+There isn&amp;rsquo;t a &lt;code&gt;throws&lt;/code&gt; spec. You want to write your &lt;code&gt;:args&lt;/code&gt; specs such that
+they can&amp;rsquo;t cause exceptions, or use &lt;code&gt;with-gen&lt;/code&gt; to make sure you don&amp;rsquo;t generate
+args that can cause exceptions to be thrown.&lt;/p&gt;
+
+&lt;p&gt;Note all of this is as of clojure.spec 0.1.123, and clojure 1.9.0-alpha17,
+and given those version numbers, likely to change.&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>

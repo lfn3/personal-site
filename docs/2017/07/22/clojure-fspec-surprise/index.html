@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
-<head>
+  <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -10,7 +10,7 @@
 
   <title>
     
-      It&#39;s your last day at Ubiquity &middot; lfn3
+      Clojure fspec surprise &middot; lfn3
     
   </title>
 
@@ -20,8 +20,7 @@
   <link rel="stylesheet" href="http://lfn3.net/css/lanyon.css">
   <link rel="stylesheet" href="http://lfn3.net/css/site.css">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
-  <link rel="stylesheet" href="http://lfn3.net/css/leaving.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
@@ -34,9 +33,9 @@
 </head>
 
 
-<body>
+  <body>
 
-
+    
 <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
 
@@ -95,26 +94,77 @@
 </div>
 
 
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
 
-<div class="wrap">
-  <div class="masthead">
-    <div class="container">
-      <h3 class="masthead-title">
-        <a href="http://lfn3.net/" title="Home">lfn3</a>
-        <small></small>
-      </h3>
-    </div>
-  </div>
+      <div class="container content">
 
-  <div class="container content">
-	<div class="page leaving">
-	  <h1 class="page-title">It&#39;s your last day at Ubiquity</h1>
-	  <div id="mount"></div>
 
-<script src="https://fb.me/react-0.13.3.min.js"></script>
-<script type="text/javascript" src="http://lfn3.net/js/leaving.js"></script>
+<div class="post">
+  <h1 class="post-title">Clojure fspec surprise</h1>
+  <span class="post-date">Jul 22 2017</span>
+  <p>Recently when writing Clojure I&rsquo;ve been trying to cover everything I can in specs.
+This led me to a bit of a surprise when I used
+<a href="https://clojure.org/guides/spec#_higher_order_functions"><code>fspec</code></a>.
+It evaluates the fspec&rsquo;d function when it&rsquo;s passed to a fdef&rsquo;d function,
+not when you invoke the function. That&rsquo;s probably super unclear, so look below
+the fold for an example.</p>
 
-	</div>
+<p>So let&rsquo;s say we&rsquo;ve got a function, that&rsquo;s specced:</p>
+
+<pre><code class="language-clojure">(defn applier [f x y]
+  (f x y))
+
+(s/fdef applier
+        :args (s/cat :f (s/fspec :args (s/cat :x int? :y int?)
+                                 :ret int?)
+                     :x int?
+                     :y int?)
+        :ret int?)
+</code></pre>
+
+<p>Obviously this example may be slightly contrived. So since we&rsquo;re all conscientious
+and stuff, we run around with all our vars instrumented all the time. At some
+point, we put the following into the repl:</p>
+
+<pre><code class="language-clojure">(applier (fn [x y]
+           (prn x)
+           x) 12345 3)
+</code></pre>
+
+<p>Surprisingly, this results in:</p>
+
+<pre><code class="language-clojure">-1
+0
+...
+131
+28566
+12345
+12345
+</code></pre>
+
+<p>being printed. What&rsquo;s happening here is that the function you pass in is getting
+checked to see if it matches the fspec. That was a little unexpected to me.
+Especially since in my case, my fspec&rsquo;d function threw an exception in some cases,
+leading to a bit of a rabbit hole.</p>
+
+<p>Which leads to one more bit of advice: &ldquo;specs cover non-exceptional use&rdquo;.
+There isn&rsquo;t a <code>throws</code> spec. You want to write your <code>:args</code> specs such that
+they can&rsquo;t cause exceptions, or use <code>with-gen</code> to make sure you don&rsquo;t generate
+args that can cause exceptions to be thrown.</p>
+
+<p>Note all of this is as of clojure.spec 0.1.123, and clojure 1.9.0-alpha17,
+and given those version numbers, likely to change.</p>
+
+</div>
 
       </div>
     </div>
