@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Flamegraphs and benchmarks &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="http://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="http://lfn3.net/css/site.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="http://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>The distilled thoughts of a <em>highly opinionated</em> coder.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="http://lfn3.net/"> <i class="fa fa-home"></i> Home</a>
+    <a class="sidebar-nav-item " href="http://lfn3.net/post"> <i class="fa fa-file-text"></i> Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+
+    <a class="sidebar-nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+  </nav>
+
+  <div class="sidebar-item bottom">
+    <p>&copy; 2017. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Flamegraphs and benchmarks</h1>
+  <span class="post-date">Dec 14 2017</span>
+  
+
+<p><a href="https://github.com/jgpc42/lein-jmh">lein jmh</a> recently turned up on the Clojure
+scene. I&rsquo;ve been using it to debug some performance issues with a library I&rsquo;m
+about to open source called undertaker. I&rsquo;m gonna tell you a little bit about
+the why and the how of getting benchmarks to produce
+<a href="http://www.brendangregg.com/flamegraphs.html">Flamegraphs</a> like this:
+<img src="http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png" alt="flamegraph" /></p>
+
+<h3 id="why-use-flamegraphs">Why use flamegraphs?</h3>
+
+<p>Why did I go to the effort of generating these things if I could just use Java
+Microbenchmark Harness (JMH) to figure out where it&rsquo;s slow? In order to do that
+I&rsquo;d have to write quite a lot of benchmarks to drill down into where exactly the
+problem is. That&rsquo;s tricky and arduous, since you&rsquo;ve got to make sure that each
+benchmark is realistic. In my case there&rsquo;s quite a bit of complexity buried
+inside the library as well - there&rsquo;s a reasonably compact public api with quite
+a bit of code underneath.</p>
+
+<p>The other thing is anyone using the library doesn&rsquo;t really care about the
+performance of the internals of the library. Measuring the performance of the
+internals doesn&rsquo;t really tell me much about the user experience. Ideally what I
+want is comprehensive benchmarks of the public APIs, and some sort of profiling
+to help me figure out what code internally is slowing them down.</p>
+
+<p>So what profiling options do we have? There&rsquo;s stuff like Java Mission Control
+(JMC) that comes bundled with the Java Development Kit (JDK), but I didn&rsquo;t
+really know how to start with scripting that. The way JMH works, (with multiple
+forked processes) also makes it pretty challenging to use the JMC UI to profile.</p>
+
+<p>Mostly though, I&rsquo;d wanted to use flamegraphs for a while, and this project was
+a simple one to get started on.</p>
+
+<h3 id="how-do-i-flamegraph">How do I flamegraph?</h3>
+
+<p>Most talks or blog posts about flamegraphs focus on using them to diagnose
+production issues by producing them from live workloads. What we want to do is
+a little different, and somewhat complicated by JMH&rsquo;s way of running benchmarks.
+JMH runs a single benchmark repeatedly by forking a process. This makes sure
+that the benchmark is running in a clean, isolated environment, i.e. not
+impacted by other optimizations that the Java compiler has already performed.</p>
+
+<p>So I started out with the crudest possible method, just using <code>jstack</code>, which is
+again part of JDK. It&rsquo;s definitely not the greatest way of doing this, but
+I wanted to get it working without having to get in between the JMH runner
+process and the forked process. <code>jstack</code> takes a pid and returns a snapshot of
+the current stack. So by using <code>jps</code> (also included in the JDK.) to find the
+forked JMH process, and running <code>jstack</code> against the pid:</p>
+
+<pre><code>jstack $(jps | grep ForkedMain | awk '{ print $1 }') &gt;&gt; /tmp/jstack
+</code></pre>
+
+<p>This assumes that jstack is on your path, otherwise you can find it next to
+your java executable (try <code>which java</code>, or <code>echo $JAVA_HOME</code>)</p>
+
+<p>Anyway, running that we get a single stack trace. We can run this in a loop to
+capture the output of an entire jmh run:</p>
+
+<pre><code>while true;
+do
+  jstack $(jps | grep ForkedMain | awk '{ print $1 }') &gt;&gt; /tmp/jstack
+done
+</code></pre>
+
+<p>There&rsquo;s not much smarts to that, you&rsquo;ll have to manually kill it once JMH is
+done running. It&rsquo;ll also print a bunch of stuff to stderr if a JMH forked
+process isn&rsquo;t currently running. That aside, it&rsquo;ll give you a file to feed
+<a href="https://github.com/brendangregg/FlameGraph">Brendan Gregg&rsquo;s flamegraph tools</a>:</p>
+
+<pre><code>stackcollapse-jstack.pl &lt; /tmp/jstack | flamegraph.pl &gt; /tmp/flame.svg
+</code></pre>
+
+<p>And that&rsquo;ll give you the beautiful picture you saw above. Or something like it.
+I could probably write another entire blog post about interpreting these in the
+context of Clojure, but the essence of it is finding your code in the graph,
+and then looking up the &lsquo;flame&rsquo; to find what it&rsquo;s spending it&rsquo;s time doing.</p>
+
+<h3 id="problems">Problems</h3>
+
+<p>So there&rsquo;s some issues with this. The most obvious is the collection part.
+Ideally I&rsquo;d use a java agent of some description to handle this, but the
+solutions that exist and are described mostly target linux. You&rsquo;ll probably have
+a much better time if you&rsquo;re running on linux using perf as described
+<a href="http://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html#Java">by Brendan</a>.
+Probably the best answer on OS X would be
+<a href="https://github.com/jvm-profiling-tools/honest-profiler">honest profiler</a>.
+I&rsquo;m not sure if the output format for that is parseable by the existing
+flamegraph tools, or if I can get it to start outputting on program startup.</p>
+
+<p>There&rsquo;s obviously some overhead to whatever technique you use to capture the
+stack. This means the benchmark results you get are almost certainly suspect
+while you&rsquo;re profiling. When I&rsquo;m using this technique I&rsquo;m usually looking at
+a specific benchmark so I don&rsquo;t record the results anyway.</p>
+
+<p>I&rsquo;d recommend only using this against a single benchmark, otherwise you&rsquo;ll mix
+the profiles of several benchmarks together. In terms of feedback it&rsquo;s a lot
+faster when you do it that was as well.</p>
+
+<p>In terms of ease, however, this is second to none. If you&rsquo;re writing java,
+you&rsquo;ve already got jstack, and jmh and the FlameGraph scripts are both easy to
+use and cross platform.</p>
+
+<p>These issues aside, the insight I&rsquo;ve gotten from this profiling and
+visualization has been invaluable. I&rsquo;ve gotten a 4x speedup (enough for my case,
+for now) and it&rsquo;s given me a good idea of what to go after next.</p>
+
+<p>So if you&rsquo;re having perf issues, and you&rsquo;re a bit too lazy to write benchmarks
+for all the things, I&rsquo;d highly recommend it.</p>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

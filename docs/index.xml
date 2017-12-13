@@ -6,8 +6,127 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2017</rights>
-    <updated>2017-07-22 23:03:00 &#43;1300 &#43;1300</updated>
+    <updated>2017-12-14 08:08:12 &#43;1300 NZDT</updated>
 
+    
+      
+        <item>
+          <title>Flamegraphs and benchmarks</title>
+          <link>http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</link>
+          <pubDate>Thu, 14 Dec 2017 08:08:12 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
+          <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
+scene. I&amp;rsquo;ve been using it to debug some performance issues with a library I&amp;rsquo;m
+about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bit about
+the why and the how of getting benchmarks to produce
+&lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:
+&lt;img src=&#34;http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;why-use-flamegraphs&#34;&gt;Why use flamegraphs?&lt;/h3&gt;
+
+&lt;p&gt;Why did I go to the effort of generating these things if I could just use Java
+Microbenchmark Harness (JMH) to figure out where it&amp;rsquo;s slow? In order to do that
+I&amp;rsquo;d have to write quite a lot of benchmarks to drill down into where exactly the
+problem is. That&amp;rsquo;s tricky and arduous, since you&amp;rsquo;ve got to make sure that each
+benchmark is realistic. In my case there&amp;rsquo;s quite a bit of complexity buried
+inside the library as well - there&amp;rsquo;s a reasonably compact public api with quite
+a bit of code underneath.&lt;/p&gt;
+
+&lt;p&gt;The other thing is anyone using the library doesn&amp;rsquo;t really care about the
+performance of the internals of the library. Measuring the performance of the
+internals doesn&amp;rsquo;t really tell me much about the user experience. Ideally what I
+want is comprehensive benchmarks of the public APIs, and some sort of profiling
+to help me figure out what code internally is slowing them down.&lt;/p&gt;
+
+&lt;p&gt;So what profiling options do we have? There&amp;rsquo;s stuff like Java Mission Control
+(JMC) that comes bundled with the Java Development Kit (JDK), but I didn&amp;rsquo;t
+really know how to start with scripting that. The way JMH works, (with multiple
+forked processes) also makes it pretty challenging to use the JMC UI to profile.&lt;/p&gt;
+
+&lt;p&gt;Mostly though, I&amp;rsquo;d wanted to use flamegraphs for a while, and this project was
+a simple one to get started on.&lt;/p&gt;
+
+&lt;h3 id=&#34;how-do-i-flamegraph&#34;&gt;How do I flamegraph?&lt;/h3&gt;
+
+&lt;p&gt;Most talks or blog posts about flamegraphs focus on using them to diagnose
+production issues by producing them from live workloads. What we want to do is
+a little different, and somewhat complicated by JMH&amp;rsquo;s way of running benchmarks.
+JMH runs a single benchmark repeatedly by forking a process. This makes sure
+that the benchmark is running in a clean, isolated environment, i.e. not
+impacted by other optimizations that the Java compiler has already performed.&lt;/p&gt;
+
+&lt;p&gt;So I started out with the crudest possible method, just using &lt;code&gt;jstack&lt;/code&gt;, which is
+again part of JDK. It&amp;rsquo;s definitely not the greatest way of doing this, but
+I wanted to get it working without having to get in between the JMH runner
+process and the forked process. &lt;code&gt;jstack&lt;/code&gt; takes a pid and returns a snapshot of
+the current stack. So by using &lt;code&gt;jps&lt;/code&gt; (also included in the JDK.) to find the
+forked JMH process, and running &lt;code&gt;jstack&lt;/code&gt; against the pid:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jstack $(jps | grep ForkedMain | awk &#39;{ print $1 }&#39;) &amp;gt;&amp;gt; /tmp/jstack
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This assumes that jstack is on your path, otherwise you can find it next to
+your java executable (try &lt;code&gt;which java&lt;/code&gt;, or &lt;code&gt;echo $JAVA_HOME&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;Anyway, running that we get a single stack trace. We can run this in a loop to
+capture the output of an entire jmh run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;while true;
+do
+  jstack $(jps | grep ForkedMain | awk &#39;{ print $1 }&#39;) &amp;gt;&amp;gt; /tmp/jstack
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There&amp;rsquo;s not much smarts to that, you&amp;rsquo;ll have to manually kill it once JMH is
+done running. It&amp;rsquo;ll also print a bunch of stuff to stderr if a JMH forked
+process isn&amp;rsquo;t currently running. That aside, it&amp;rsquo;ll give you a file to feed
+&lt;a href=&#34;https://github.com/brendangregg/FlameGraph&#34;&gt;Brendan Gregg&amp;rsquo;s flamegraph tools&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;stackcollapse-jstack.pl &amp;lt; /tmp/jstack | flamegraph.pl &amp;gt; /tmp/flame.svg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And that&amp;rsquo;ll give you the beautiful picture you saw above. Or something like it.
+I could probably write another entire blog post about interpreting these in the
+context of Clojure, but the essence of it is finding your code in the graph,
+and then looking up the &amp;lsquo;flame&amp;rsquo; to find what it&amp;rsquo;s spending it&amp;rsquo;s time doing.&lt;/p&gt;
+
+&lt;h3 id=&#34;problems&#34;&gt;Problems&lt;/h3&gt;
+
+&lt;p&gt;So there&amp;rsquo;s some issues with this. The most obvious is the collection part.
+Ideally I&amp;rsquo;d use a java agent of some description to handle this, but the
+solutions that exist and are described mostly target linux. You&amp;rsquo;ll probably have
+a much better time if you&amp;rsquo;re running on linux using perf as described
+&lt;a href=&#34;http://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html#Java&#34;&gt;by Brendan&lt;/a&gt;.
+Probably the best answer on OS X would be
+&lt;a href=&#34;https://github.com/jvm-profiling-tools/honest-profiler&#34;&gt;honest profiler&lt;/a&gt;.
+I&amp;rsquo;m not sure if the output format for that is parseable by the existing
+flamegraph tools, or if I can get it to start outputting on program startup.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s obviously some overhead to whatever technique you use to capture the
+stack. This means the benchmark results you get are almost certainly suspect
+while you&amp;rsquo;re profiling. When I&amp;rsquo;m using this technique I&amp;rsquo;m usually looking at
+a specific benchmark so I don&amp;rsquo;t record the results anyway.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;d recommend only using this against a single benchmark, otherwise you&amp;rsquo;ll mix
+the profiles of several benchmarks together. In terms of feedback it&amp;rsquo;s a lot
+faster when you do it that was as well.&lt;/p&gt;
+
+&lt;p&gt;In terms of ease, however, this is second to none. If you&amp;rsquo;re writing java,
+you&amp;rsquo;ve already got jstack, and jmh and the FlameGraph scripts are both easy to
+use and cross platform.&lt;/p&gt;
+
+&lt;p&gt;These issues aside, the insight I&amp;rsquo;ve gotten from this profiling and
+visualization has been invaluable. I&amp;rsquo;ve gotten a 4x speedup (enough for my case,
+for now) and it&amp;rsquo;s given me a good idea of what to go after next.&lt;/p&gt;
+
+&lt;p&gt;So if you&amp;rsquo;re having perf issues, and you&amp;rsquo;re a bit too lazy to write benchmarks
+for all the things, I&amp;rsquo;d highly recommend it.&lt;/p&gt;
+</description>
+        </item>
+      
     
       
         <item>
@@ -406,6 +525,41 @@ sure it doesn&amp;rsquo;t happen again part. Also you should go take a look at s
 numbers you&amp;rsquo;re collecting from your testing environments, or if you&amp;rsquo;re not
 collecting any, start. Since if you aren&amp;rsquo;t measuring a thing, it&amp;rsquo;s near
 impossible to improve it.&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Blah blah TODO:changeme</title>
+          <link>http://lfn3.net/2016/10/03/blah-blah-todochangeme/</link>
+          <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2016/10/03/blah-blah-todochangeme/</guid>
+          <description>&lt;p&gt;I don&amp;rsquo;t think any code base that exists for profit and where correctness is
+important should rely solely on a static programming language.&lt;/p&gt;
+
+&lt;p&gt;In any codebase where the costs of errors are high (the environment I&amp;rsquo;m in at
+the moment) you will have a lot of tests, and write a lot of tests.
+(And spend a lot of time fixing tests, but that&amp;rsquo;s a different story.)&lt;/p&gt;
+
+&lt;p&gt;Often we spend more time writing tests than &amp;ldquo;business logic&amp;rdquo; (whatever that means.)
+And in the cases where we don&amp;rsquo;t, usually that means we don&amp;rsquo;t have a solid grasp
+of the problem, or haven&amp;rsquo;t broken it down enough, so we&amp;rsquo;re spending more time
+reworking than we should be.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s significantly easier to write tests in a dynamic language.
+I find writing tests in Clojure much, much quicker and easier than I do writing
+tests in Java. This is in spite of a lot of work that&amp;rsquo;s been put into making
+testing easier at LMAX, and making it more like a dynamic programming language
+environment.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t have an exact comparison, I haven&amp;rsquo;t (yet) written Clojure test code for
+LMAX&amp;rsquo;s core platform.&lt;/p&gt;
+
+&lt;p&gt;If correctness and performance (along any axis, i.e. memory footprint, binary size, etc) don&amp;rsquo;t
+matter (or don&amp;rsquo;t matter that much), then you should almost always just choose a
+dynamic language, at least until you start to have champagne problems.&lt;/p&gt;
 </description>
         </item>
       
