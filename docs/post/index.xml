@@ -531,41 +531,6 @@ impossible to improve it.&lt;/p&gt;
     
       
         <item>
-          <title>Blah blah TODO:changeme</title>
-          <link>http://lfn3.net/2016/10/03/blah-blah-todochangeme/</link>
-          <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>http://lfn3.net/2016/10/03/blah-blah-todochangeme/</guid>
-          <description>&lt;p&gt;I don&amp;rsquo;t think any code base that exists for profit and where correctness is
-important should rely solely on a static programming language.&lt;/p&gt;
-
-&lt;p&gt;In any codebase where the costs of errors are high (the environment I&amp;rsquo;m in at
-the moment) you will have a lot of tests, and write a lot of tests.
-(And spend a lot of time fixing tests, but that&amp;rsquo;s a different story.)&lt;/p&gt;
-
-&lt;p&gt;Often we spend more time writing tests than &amp;ldquo;business logic&amp;rdquo; (whatever that means.)
-And in the cases where we don&amp;rsquo;t, usually that means we don&amp;rsquo;t have a solid grasp
-of the problem, or haven&amp;rsquo;t broken it down enough, so we&amp;rsquo;re spending more time
-reworking than we should be.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s significantly easier to write tests in a dynamic language.
-I find writing tests in Clojure much, much quicker and easier than I do writing
-tests in Java. This is in spite of a lot of work that&amp;rsquo;s been put into making
-testing easier at LMAX, and making it more like a dynamic programming language
-environment.&lt;/p&gt;
-
-&lt;p&gt;I don&amp;rsquo;t have an exact comparison, I haven&amp;rsquo;t (yet) written Clojure test code for
-LMAX&amp;rsquo;s core platform.&lt;/p&gt;
-
-&lt;p&gt;If correctness and performance (along any axis, i.e. memory footprint, binary size, etc) don&amp;rsquo;t
-matter (or don&amp;rsquo;t matter that much), then you should almost always just choose a
-dynamic language, at least until you start to have champagne problems.&lt;/p&gt;
-</description>
-        </item>
-      
-    
-      
-        <item>
           <title>Coupling, Connascence, CSP and Actors</title>
           <link>http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</link>
           <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
