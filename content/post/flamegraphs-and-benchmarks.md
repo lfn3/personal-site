@@ -10,6 +10,7 @@ scene. I've been using it to debug some performance issues with a library I'm
 about to open source called undertaker. I'm gonna tell you a little bit about
 the why and the how of getting benchmarks to produce
 [Flamegraphs](http://www.brendangregg.com/flamegraphs.html) like this:
+
 ![flamegraph](/img/posts/flamegraphs-and-benchmarks/flamegraph.png)
 
 <!--more-->

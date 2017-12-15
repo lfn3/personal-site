@@ -22,8 +22,9 @@
 scene. I&amp;rsquo;ve been using it to debug some performance issues with a library I&amp;rsquo;m
 about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bit about
 the why and the how of getting benchmarks to produce
-&lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:
-&lt;img src=&#34;http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
+&lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;why-use-flamegraphs&#34;&gt;Why use flamegraphs?&lt;/h3&gt;
 
