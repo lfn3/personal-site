@@ -20,3 +20,11 @@ languages on.
 The thing that most appeals to me about spec is that you don't have a parallel language that you write you assertions 
 about the shape of your data in. The signature for a function is plain old Clojure functions when you boil away the
 spec dsl. 
+
+One thing that really bothers me about working in types languages in the "thunk" that happens when I switch between 
+thinking about implementation and types. I only really think about them when I've got some sort of typed jigsaw to put 
+together or tease apart.
+
+###Fusion of identifier and contract
+
+I think this is the most important and most useful part of spec. 
