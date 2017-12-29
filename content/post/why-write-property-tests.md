@@ -5,9 +5,9 @@ title = "Why write property tests"
 
 +++
 
-Just in case you're not sure what a property based test is, it's a test where rather than specifying the input, e.g.
-`1 + 1 = 2`, instead get the computer to generate the input for you, and validate a more abstract property of the 
-thing that you're testing. For example: `x < x + y`. They're also known as generative tests.
+Just in case you're not sure what a property based test is, it's a test where rather than specifying the input and 
+output, e.g. `1 + 1 = 2`, instead get the computer to generate the input for you, and validate a more abstract property 
+of the thing that you're testing. For example: `x < x + y`. They're also known as generative tests. 
 
 Hopefully that shows they're a little more complicated to write (the above example isn't even correct unless we ignore
 negative numbers), but I'm going to spend the rest of this post explaining why I think they're worth writing despite the
@@ -23,7 +23,9 @@ write tests to figure out. Even when I write tests to cover whatever code I just
 that I've written all of the tests I need to. Property based tests go some way towards alleviating this fear, since I 
 no longer have to worry about covering every individual case, but rather just each class of test.
 
-<!-- TODO: more? -->
+That's not to say you shouldn't write example based tests. If you don't write a least a couple of example based tests 
+you won't be certain that the code you've written actually does what you expect it to, unless you can encode the logic
+you're testing in a different way, or you have an oracle of some kind to check against in your property test.
 
 ### You're lazy (and that's not a bad thing)
 
@@ -38,14 +40,6 @@ or "" and "í" for strings. It should also hit the edges of any boundaries you s
 a number in the range 25 - 75, you should see the library emit the values 25 and 75 during any given test run. This 
 means you don't need to worry about the boundary conditions, since they'll already be covered.
 
-### Helps you find the (actual) boundaries of your system
-
-When you first write these tests, and to be honest at this stage they don't even have to have assertions, just calling
-your code and making sure it doesn't explode is enough. When it explodes on some input that you didn't count on getting,
-you'll adjust the generator to not emit those values. At the same time you should step further up the stack, towards
-where your customers interact with the system, and write a test to make sure that your function can't be invoked with
-these values.
-
 ### They go *great* with contracts
 
 I'm of the opinion that one of the best things you can do to make your system more robust is adding contracts to check 
@@ -57,7 +51,18 @@ worrying about the providence of a particular bit of data.
 
 If you then write some simple generative tests at the borders of your system (again, they don't have to assert anything,
 apart from the fact they don't get an error as their response) you can be relatively certain that you don't violate the
-constraints you've specified inside your codebase.
+constraints you've specified inside your codebase. 
+
+### Helps you find the (actual) boundaries of your system
+
+When you first write property tests, and to be honest at this stage they don't even have to have assertions, just 
+calling your code and making sure it doesn't explode is enough. When it explodes on some input that you didn't count on 
+getting, you'll adjust the generator to not emit those values. At the same time you should step further up the stack, 
+towards where your customers interact with the system, and write a test to make sure that your function can't be invoked 
+with these values.
+
+This isn't actually much different from the point above about contracts, it's just that the contracts here are implicit 
+rather than explicit.
 
 ### They're more challenging to write
 
@@ -68,14 +73,15 @@ thing. If you're not copy-pasting tests and tweaking them, but rather thinking a
 to do and what the outwardly visible effects are, it keeps me a lot more engaged with what I'm doing than I might
 otherwise be.
 
-### Make impossible tests, possible.
+### Make impossible (or at least impractical) tests, possible.
 
 Would you write a test that performs 17 different sequenced actions? Probably not unless you already knew there was a 
-bug there, right? 
-
-<!-- TODO: joke about this is your codebase on unit tests, this is your codebase on property tests, with images
- of spiderwebs (find those pictures of spiderwebs made by spiders on drugs)-->
+bug there, right? If you dive into writing stateful tests, you won't have to write the 17 action test, your property 
+testing library will do it for you. In systems where correctness is important and there's lots of state to cover this
+is one of the only ways to get this sort of coverage, short of using production workloads.
 
 ### tl;dr
 
-Property based tests are harder to write than 
+Property based tests are harder to write than unit tests. I don't think this is a bad thing, since it actually makes the
+whole testing process more interesting, at least to me. They give you confidence in your code that regular unit testing
+can't give you, by exploring more states than is practical with example based tests.
