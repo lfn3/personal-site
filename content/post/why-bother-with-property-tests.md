@@ -15,7 +15,7 @@ extra effort you have to put in.
 
 <!-- more -->
 
-### Increase your confidence in your code
+### Increases your confidence in your code
 
 One of the things I've learned over the few years I've spent programming is that I'm wrong *a lot*. Sometimes in obvious
 ways that a compiler will catch and tell me about nearly instantly, other times in ways that I have to go and dig at or
@@ -26,6 +26,10 @@ no longer have to worry about covering every individual case, but rather just ea
 That's not to say you shouldn't write example based tests. If you don't write a least a couple of example based tests 
 you won't be certain that the code you've written actually does what you expect it to, unless you can encode the logic
 you're testing in a different way, or you have an oracle of some kind to check against in your property test.
+
+If you do have an oracle to check against, even one that's only good for a subset of the inputs, that's great! You're
+probably in a position to be super lazy, and might be able to get away with writing only a property single test for 
+the function you're testing.
 
 ### You're lazy, and that's not a bad thing
 
@@ -67,10 +71,14 @@ rather than explicit.
 ### You have to think more
 
 This is the reason I got into programming. Sometimes it's *hard*, and you have to spend a while noodling on a problem
-before you can make a reasonable attack on it. Often, choosing properties to write is one of those hard things.
-I don't think that's a bad thing. Personally I'm far more prone to underthinking a particular bit of code than
-overthinking it, and anything that makes me slow down a bit and worry about what the code is actually supposed to be 
+before you can make a reasonable attack on it. Often, figuring out the properties to write is one of those hard things.
+I don't think that's a bad thing. Personally I'm far more prone to under thinking a particular bit of code than
+over thinking it, and anything that makes me slow down a bit and worry about what the code is actually supposed to be 
 doing is probably a good thing.
+
+I think that's one of the unrealized or underrated advantages of TDD, that you spend more time thinking about what the
+code does and how it does it. Often having read the code I just wrote is enough to make me discover there's something in 
+need of correction. Property testing has the same effect, just more of it.
 
 ### Make impractical tests possible.
 
@@ -86,6 +94,9 @@ suggest you take a look at their efforts.
 
 ### tl;dr
 
-Property based tests are harder to write than unit tests. I don't think this is a bad thing, since it actually makes the
-whole testing process more interesting, at least to me. They give you confidence in your code that regular unit testing
-can't give you, by exploring more states than is practical with example based tests.
+Property based tests are harder to write than unit tests. Sometimes, that doesn't mean you have to spend more time 
+writing them than you would for an equivalent amount of coverage with unit tests. Other times, that extra effort can let
+you test things that wouldn't be practical or possible without property tests. Finally, while writing these tests, you
+often discover that the edges of valid input aren't where you thought they would be, either because of the contracts 
+you wrote, or the implicit contracts of the language or code you're using. If correctness is important to you and your
+application's users, I would highly recommend you put the effort into writing property tests for your system.
