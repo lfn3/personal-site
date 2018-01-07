@@ -1,7 +1,7 @@
 +++
 date = "2017-12-23T09:00:00+13:00"
 draft = true
-title = "Why write property tests"
+title = "Why bother with property tests"
 
 +++
 
@@ -27,7 +27,7 @@ That's not to say you shouldn't write example based tests. If you don't write a 
 you won't be certain that the code you've written actually does what you expect it to, unless you can encode the logic
 you're testing in a different way, or you have an oracle of some kind to check against in your property test.
 
-### You're lazy (and that's not a bad thing)
+### You're lazy, and that's not a bad thing
 
 I don't really love writing tests. For me they're very much a means to an end, in that they help me write code more 
 correctly, faster. Unit tests, in particular, I question the lasting value of quite a bit. More often than not all
@@ -62,23 +62,27 @@ towards where your customers interact with the system, and write a test to make 
 with these values.
 
 This isn't actually much different from the point above about contracts, it's just that the contracts here are implicit 
-rather than explicit.
+rather than explicit. 
 
-### They're more challenging to write
+### You have to think more
 
-This is the reason I got into programming. Sometimes it's *hard*. That's great, one of my favourite things is learning 
-something new, or figuring out how to pull some code apart and put it back together better than it started out. 
-As I said earlier, these kinds of tests are definitely harder to write than example based tests. I think that's a good 
-thing. If you're not copy-pasting tests and tweaking them, but rather thinking about what you actually need to the code
-to do and what the outwardly visible effects are, it keeps me a lot more engaged with what I'm doing than I might
-otherwise be.
+This is the reason I got into programming. Sometimes it's *hard*, and you have to spend a while noodling on a problem
+before you can make a reasonable attack on it. Often, choosing properties to write is one of those hard things.
+I don't think that's a bad thing. Personally I'm far more prone to underthinking a particular bit of code than
+overthinking it, and anything that makes me slow down a bit and worry about what the code is actually supposed to be 
+doing is probably a good thing.
 
-### Make impossible (or at least impractical) tests, possible.
+### Make impractical tests possible.
 
 Would you write a test that performs 17 different sequenced actions? Probably not unless you already knew there was a 
 bug there, right? If you dive into writing stateful tests, you won't have to write the 17 action test, your property 
 testing library will do it for you. In systems where correctness is important and there's lots of state to cover this
 is one of the only ways to get this sort of coverage, short of using production workloads.
+
+These sorts of tests really amplify the "have to think more" aspect, since you have to manipulate your system through a 
+sequence of valid states, and find some properties to actually assert on. Other people have 
+[explained](https://www.youtube.com/watch?v=zi0rHwfiX1Q) how to do this, so if it's something you're interested in I'd 
+suggest you take a look at their efforts. 
 
 ### tl;dr
 
