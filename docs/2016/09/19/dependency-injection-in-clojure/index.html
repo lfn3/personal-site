@@ -84,6 +84,18 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
 
@@ -91,7 +103,7 @@
   </nav>
 
   <div class="sidebar-item bottom">
-    <p>&copy; 2017. All rights reserved.</p>
+    <p>&copy; 2018. All rights reserved.</p>
   </div>
 </div>
 
@@ -115,6 +127,8 @@
   <span class="post-date">Sep 19 2016</span>
   <p>So this is the follow up to a follow up. I&rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read <a href="http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/">my old thoughts on Dependency Injection</a>. Once again, it having been more than 6 months, my opinions have changed.
 The reasons I used dependency injection in C# don&rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.</p>
+
+<p></p>
 
 <p>To recap the previous post, there were three main reasons I advocated using dependency injection (DI) in mainstream OO languages:</p>
 
@@ -172,7 +186,6 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
 <p>Doing something like this does make the db related functions difficult to unit test. In my opinion, that&rsquo;s perfectly ok. Integration tests should be what you&rsquo;re using to validate your database interaction is working correctly, and they don&rsquo;t need to be exhaustive. Unless significant portions of your applications logic live in your database, and then I&rsquo;d argue you&rsquo;ve got a bigger problem.</p>
 
 <p>I&rsquo;m basically out of DI related things to talk about for now, so to wrap up: Most aspects of DI aren&rsquo;t amazingly useful in Clojure. It can still be used to make testing easier, but isn&rsquo;t really necessary. Using lots of simple functions gives you plenty of seams to exploit. Life-cycle management is still important, and Clojure has good libraries for dealing with it that are much more painless to use than the OO solutions I&rsquo;ve seen.</p>
-
 </div>
 
       </div>

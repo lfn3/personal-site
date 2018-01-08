@@ -1,13 +1,132 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title> </title>
+    <title>lfn3 </title>
     <link>http://lfn3.net/</link>
     <language>en-us</language>
     <author>Liam Falconer</author>
-    <rights>(C) 2017</rights>
-    <updated>2017-12-14 08:08:12 &#43;1300 NZDT</updated>
+    <rights>(C) 2018</rights>
+    <updated>2018-01-08 09:00:00 &#43;1300 NZDT</updated>
 
+    
+      
+        <item>
+          <title>Why bother with property tests</title>
+          <link>http://lfn3.net/2018/01/08/why-bother-with-property-tests/</link>
+          <pubDate>Mon, 08 Jan 2018 09:00:00 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
+          <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
+thinking about why we&amp;rsquo;re actually doing this. Obviously I think it&amp;rsquo;s a good idea, but what actual benefits do we get
+from these, apart from slightly more arcane tests?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-a-property-test-anyway&#34;&gt;What is a property test anyway?&lt;/h3&gt;
+
+&lt;p&gt;Just in case you&amp;rsquo;re not sure what a property based test is, it&amp;rsquo;s a test where rather than specifying the input and
+output, e.g. &lt;code&gt;1 + 1 = 2&lt;/code&gt;, instead get the computer to generate the input for you, and validate a more abstract property
+of the thing that you&amp;rsquo;re testing. For example: &lt;code&gt;x &amp;lt; x + y&lt;/code&gt;. They&amp;rsquo;re also known as generative tests.&lt;/p&gt;
+
+&lt;p&gt;Hopefully that shows they&amp;rsquo;re a little more complicated to write (the above example isn&amp;rsquo;t even correct unless we ignore
+negative numbers), but I&amp;rsquo;m going to spend the rest of this post explaining why I think they&amp;rsquo;re worth writing despite the
+extra effort you have to put in.&lt;/p&gt;
+
+&lt;h3 id=&#34;increases-your-confidence-in-your-code&#34;&gt;Increases your confidence in your code&lt;/h3&gt;
+
+&lt;p&gt;One of the things I&amp;rsquo;ve learned over the few years I&amp;rsquo;ve spent programming is that I&amp;rsquo;m wrong &lt;em&gt;a lot&lt;/em&gt;. Sometimes in obvious
+ways that a compiler will catch and tell me about nearly instantly, other times in ways that I have to go and dig at or
+write tests to figure out. Even when I write tests to cover whatever code I just came up with, I&amp;rsquo;m never actually sure
+that I&amp;rsquo;ve written all of the tests I need to. Property based tests go some way towards alleviating this fear, since I
+no longer have to worry about covering every individual case, but rather just each class of test.&lt;/p&gt;
+
+&lt;p&gt;Unless you can encode the logic you&amp;rsquo;re testing in a different way for the test (that&amp;rsquo;s obviously correct!), or you have
+an oracle of some kind to check against in your property test, you&amp;rsquo;re still going to have to write at least one example
+based test. Otherwise you can&amp;rsquo;t really be sure that the code does exactly what you expect it to (and that it will
+continue to do so).&lt;/p&gt;
+
+&lt;p&gt;If you do have an oracle to check against, even one that&amp;rsquo;s only good for a subset of the inputs, that&amp;rsquo;s great! You&amp;rsquo;re
+probably in a position to be super lazy, and might be able to get away with writing only a property single test for
+the function you&amp;rsquo;re testing. Which brings me nicely to my next point:&lt;/p&gt;
+
+&lt;h3 id=&#34;you-re-lazy-and-that-s-not-a-bad-thing&#34;&gt;You&amp;rsquo;re lazy, and that&amp;rsquo;s not a bad thing&lt;/h3&gt;
+
+&lt;p&gt;I don&amp;rsquo;t really love writing tests. For me they&amp;rsquo;re very much a means to an end, in that they help me write code more
+correctly, faster. Unit tests, in particular, I question the lasting value of quite a bit. More often than not all
+they tell you when they break is that you changed some code. I think property tests give you more bang for you buck,
+since usually you  have to make the assertions general enough that they reflect the essence of the function you&amp;rsquo;re testing.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m also a big fan of making the computer do as much work as possible or at least practical. If you use a good property
+testing library, it&amp;rsquo;ll automatically pick out commonly problematic test cases, e.g. -1 and 0 if you&amp;rsquo;re using numbers,
+or &amp;ldquo;&amp;rdquo; and &amp;ldquo;í&amp;rdquo; for strings. It should also hit the edges of any boundaries you specify fairly quickly, so if you request
+a number in the range 25 - 75, you should see the library emit the values 25 and 75 during any given test run. This
+means you don&amp;rsquo;t need to worry about the boundary conditions, since they&amp;rsquo;ll already be covered.&lt;/p&gt;
+
+&lt;p&gt;In addition, there&amp;rsquo;s some kinds of tests where you don&amp;rsquo;t really care too much about the mechanics of what happens,
+you&amp;rsquo;re just looking to check some invariant is preserved. For example, serialization and deserialization. In this case,
+the actual values we pass in to be serialized are not really important to the test, so we can use a property testing
+library to reflect over the method, and feed it arbitrary generated values.&lt;/p&gt;
+
+&lt;h3 id=&#34;they-go-great-with-contracts&#34;&gt;They go &lt;em&gt;great&lt;/em&gt; with contracts&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m of the opinion that one of the best things you can do to make your system more robust is adding contracts to check
+the data that flows through your code. Even if you don&amp;rsquo;t enable them at runtime (or only enable them at the borders of
+your system) they greatly help you confirm the consistency of your system in a way that less advanced type systems
+can otherwise struggle with. Little things like being able to say that a particular value with never be negative,
+throughout your entire system are great. They let you focus on the actual problems you have to solve, rather than
+worrying about the providence of a particular bit of data.&lt;/p&gt;
+
+&lt;p&gt;If you then write some simple generative tests at the borders of your system (they don&amp;rsquo;t have to assert anything,
+apart from the fact they don&amp;rsquo;t get an error as their response) you can be relatively certain that you don&amp;rsquo;t violate the
+constraints you&amp;rsquo;ve specified inside your codebase.&lt;/p&gt;
+
+&lt;h3 id=&#34;helps-you-find-the-actual-boundaries-of-your-system&#34;&gt;Helps you find the (actual) boundaries of your system&lt;/h3&gt;
+
+&lt;p&gt;The first property test you write for any bit of code doesn&amp;rsquo;t even have to have assertions, just calling your code and
+making sure it doesn&amp;rsquo;t explode is enough. The great thing about this test is it&amp;rsquo;s always good. At most, you just need to
+adjust the ranges in your generator when you change the code under test.&lt;/p&gt;
+
+&lt;p&gt;When it does explode on some input that you didn&amp;rsquo;t count on getting, you&amp;rsquo;ll adjust the generator to not emit those values.
+At the same time you should step further up the stack, towards where your customers interact with the system, and write
+a test to make sure that your function can&amp;rsquo;t be invoked with these values.&lt;/p&gt;
+
+&lt;p&gt;This isn&amp;rsquo;t actually much different from the point above about contracts, it&amp;rsquo;s just that the contracts here are implicit
+rather than explicit.&lt;/p&gt;
+
+&lt;h3 id=&#34;you-have-to-think-more&#34;&gt;You have to think more&lt;/h3&gt;
+
+&lt;p&gt;This is the reason I got into programming. Sometimes it&amp;rsquo;s &lt;em&gt;hard&lt;/em&gt;, and you have to spend a while noodling on a problem
+before you can make a reasonable attack on it. Often, figuring out the properties to write is one of those hard things.
+I don&amp;rsquo;t think that&amp;rsquo;s a bad thing. Personally I&amp;rsquo;m far more prone to under thinking a particular bit of code than
+over thinking it, and anything that makes me slow down a bit and worry about what the code is actually supposed to be
+doing is probably a good thing.&lt;/p&gt;
+
+&lt;p&gt;I think that&amp;rsquo;s one of the unrealized or underrated advantages of TDD, that you spend more time thinking about what the
+code does and how it does it. Often having read the code I just wrote is enough to make me discover there&amp;rsquo;s something in
+need of correction. Property testing has the same effect, just more of it.&lt;/p&gt;
+
+&lt;h3 id=&#34;make-impractical-tests-possible&#34;&gt;Make impractical tests possible.&lt;/h3&gt;
+
+&lt;p&gt;Would you write a test that performs 17 different sequenced actions? Probably not unless you already knew there was a
+bug there, right? If you dive into writing stateful tests, you won&amp;rsquo;t have to write the 17 action test, your property
+testing library will do it for you. In systems where correctness is important and there&amp;rsquo;s lots of state to cover this
+is one of the only ways to get this sort of coverage, short of using production workloads.&lt;/p&gt;
+
+&lt;p&gt;These sorts of tests really amplify the &amp;ldquo;have to think more&amp;rdquo; aspect, since you have to manipulate your system through a
+sequence of valid states, and find some properties to actually assert on that hold over the lifecycle of your systen.
+Other people have &lt;a href=&#34;https://www.youtube.com/watch?v=zi0rHwfiX1Q&#34;&gt;explained&lt;/a&gt; how to do this, so if it&amp;rsquo;s something you&amp;rsquo;re
+interested in I&amp;rsquo;d suggest you take a look at their efforts.&lt;/p&gt;
+
+&lt;h3 id=&#34;tl-dr&#34;&gt;tl;dr&lt;/h3&gt;
+
+&lt;p&gt;Property based tests are harder to write than unit tests. Sometimes, that doesn&amp;rsquo;t mean you have to spend more time
+writing them than you would for an equivalent amount of coverage with unit tests. Other times, that extra effort can let
+you test things that wouldn&amp;rsquo;t be practical or possible without property tests. Finally, while writing these tests, you
+often discover that the edges of valid input aren&amp;rsquo;t where you thought they would be, either because of the contracts
+you wrote, or the implicit contracts of the language or code you&amp;rsquo;re using. If correctness is important to you and your
+application&amp;rsquo;s users, I would highly recommend you put some effort into writing property tests for your system.&lt;/p&gt;</description>
+        </item>
+      
     
       
         <item>
@@ -16,15 +135,15 @@
           <pubDate>Thu, 14 Dec 2017 08:08:12 NZDT</pubDate>
           <author>Liam Falconer</author>
           <guid>http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
-          <description>
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
+          <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
 scene. I&amp;rsquo;ve been using it to debug some performance issues with a library I&amp;rsquo;m
 about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bit about
 the why and the how of getting benchmarks to produce
 &lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;why-use-flamegraphs&#34;&gt;Why use flamegraphs?&lt;/h3&gt;
 
@@ -124,8 +243,7 @@ visualization has been invaluable. I&amp;rsquo;ve gotten a 4x speedup (enough fo
 for now) and it&amp;rsquo;s given me a good idea of what to go after next.&lt;/p&gt;
 
 &lt;p&gt;So if you&amp;rsquo;re having perf issues, and you&amp;rsquo;re a bit too lazy to write benchmarks
-for all the things, I&amp;rsquo;d highly recommend it.&lt;/p&gt;
-</description>
+for all the things, I&amp;rsquo;d highly recommend it.&lt;/p&gt;</description>
         </item>
       
     
@@ -142,6 +260,8 @@ This led me to a bit of a surprise when I used
 It evaluates the fspec&amp;rsquo;d function when it&amp;rsquo;s passed to a fdef&amp;rsquo;d function,
 not when you invoke the function. That&amp;rsquo;s probably super unclear, so look below
 the fold for an example.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;So let&amp;rsquo;s say we&amp;rsquo;ve got a function, that&amp;rsquo;s specced:&lt;/p&gt;
 
@@ -187,8 +307,7 @@ they can&amp;rsquo;t cause exceptions, or use &lt;code&gt;with-gen&lt;/code&gt; 
 args that can cause exceptions to be thrown.&lt;/p&gt;
 
 &lt;p&gt;Note all of this is as of clojure.spec 0.1.123, and clojure 1.9.0-alpha17,
-and given those version numbers, likely to change.&lt;/p&gt;
-</description>
+and given those version numbers, likely to change.&lt;/p&gt;</description>
         </item>
       
     
@@ -208,6 +327,8 @@ model and it&amp;rsquo;s API. If you want to learn about that, you should probab
 with &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html&#34;&gt;this&lt;/a&gt;
 or &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html&#34;&gt;this&lt;/a&gt;.
 Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;The problem I was having was that after inserting an annotation I&amp;rsquo;d generated on
 a variable, the code analysis was freaking out about it being in the wrong place.&lt;/p&gt;
@@ -267,8 +388,7 @@ check there is probably a little overly defensive.&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve got a bunch more similar stories tucked away in my brain, so hopefully this
 can be a series that I might actually write semi-regularly, unlike the scattered
-posts I otherwise make&amp;hellip;&lt;/p&gt;
-</description>
+posts I otherwise make&amp;hellip;&lt;/p&gt;</description>
         </item>
       
     
@@ -293,6 +413,8 @@ the options we had, and this post is the result of that.&lt;/p&gt;
 &lt;p&gt;This post assumes you have some knowledge of what property based testing is,
 and how it works. I&amp;rsquo;m just going to compare and contrast Java libraries that
 enable it.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;So we already had two libraries in our codebase for doing property testing:
 &lt;a href=&#34;https://github.com/pholser/junit-quickcheck&#34;&gt;junit-quickcheck&lt;/a&gt; and
@@ -426,8 +548,7 @@ current examples. To a certain extent it&amp;rsquo;s hamstrung by the fact that 
 harder to use lambdas in Java than in more functional languages.&lt;/p&gt;
 
 &lt;p&gt;All the code that I posted here, and used to evaluate these libraries is
-available on &lt;a href=&#34;https://github.com/lfn3/java-comparative-quickchecking&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-</description>
+available on &lt;a href=&#34;https://github.com/lfn3/java-comparative-quickchecking&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</description>
         </item>
       
     
@@ -447,6 +568,8 @@ this:&lt;/p&gt;
 
 &lt;p&gt;But we also collect a bunch of other metrics from our servers and services that,
 until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;Rediscovering these lost numbers started with us deploying a service with debug
 logging we were using to investigate intermittency to production.
@@ -525,8 +648,7 @@ encounter. Not so much the actual finding and fixing part, but more the making
 sure it doesn&amp;rsquo;t happen again part. Also you should go take a look at some of the
 numbers you&amp;rsquo;re collecting from your testing environments, or if you&amp;rsquo;re not
 collecting any, start. Since if you aren&amp;rsquo;t measuring a thing, it&amp;rsquo;s near
-impossible to improve it.&lt;/p&gt;
-</description>
+impossible to improve it.&lt;/p&gt;</description>
         </item>
       
     
@@ -537,9 +659,9 @@ impossible to improve it.&lt;/p&gt;
           <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
           <author>Liam Falconer</author>
           <guid>http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
-          <description>
+          <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
 
-&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;a-crash-course-on-connascence&#34;&gt;A crash course on Connascence&lt;/h2&gt;
 
@@ -599,8 +721,7 @@ impossible to improve it.&lt;/p&gt;
 
 &lt;p&gt;So finally, there&amp;rsquo;s the ability to supervise other actors. I would argue this is probably the most useful part of the actor model, the firm separation of the &amp;lsquo;happy path&amp;rsquo; from the sad path, allowing us to write our &amp;ldquo;business logic&amp;rdquo; without a care (or try-catch) in the world. This is the one aspect of actor systems I think should be exported to the wider programming world. At least in Clojure, it has been, in the form of &lt;a href=&#34;https://github.com/MichaelDrogalis/dire&#34;&gt;dire&lt;/a&gt;. There&amp;rsquo;s some blog posts linked there that explain better than I can why this is such a good thing. Between this and go blocks, I would argue that CSP can provide the most important benefits of actor systems, without what I view as the costs.&lt;/p&gt;
 
-&lt;p&gt;That is not to say I&amp;rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&amp;rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&amp;rsquo;ll just have to do it in Elixir.&lt;/p&gt;
-</description>
+&lt;p&gt;That is not to say I&amp;rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&amp;rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&amp;rsquo;ll just have to do it in Elixir.&lt;/p&gt;</description>
         </item>
       
     
@@ -615,6 +736,8 @@ impossible to improve it.&lt;/p&gt;
           <guid>http://lfn3.net/2016/09/19/dependency-injection-in-clojure/</guid>
           <description>&lt;p&gt;So this is the follow up to a follow up. I&amp;rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read &lt;a href=&#34;http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/&#34;&gt;my old thoughts on Dependency Injection&lt;/a&gt;. Once again, it having been more than 6 months, my opinions have changed.
 The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;To recap the previous post, there were three main reasons I advocated using dependency injection (DI) in mainstream OO languages:&lt;/p&gt;
 
@@ -671,8 +794,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;Doing something like this does make the db related functions difficult to unit test. In my opinion, that&amp;rsquo;s perfectly ok. Integration tests should be what you&amp;rsquo;re using to validate your database interaction is working correctly, and they don&amp;rsquo;t need to be exhaustive. Unless significant portions of your applications logic live in your database, and then I&amp;rsquo;d argue you&amp;rsquo;ve got a bigger problem.&lt;/p&gt;
 
-&lt;p&gt;I&amp;rsquo;m basically out of DI related things to talk about for now, so to wrap up: Most aspects of DI aren&amp;rsquo;t amazingly useful in Clojure. It can still be used to make testing easier, but isn&amp;rsquo;t really necessary. Using lots of simple functions gives you plenty of seams to exploit. Life-cycle management is still important, and Clojure has good libraries for dealing with it that are much more painless to use than the OO solutions I&amp;rsquo;ve seen.&lt;/p&gt;
-</description>
+&lt;p&gt;I&amp;rsquo;m basically out of DI related things to talk about for now, so to wrap up: Most aspects of DI aren&amp;rsquo;t amazingly useful in Clojure. It can still be used to make testing easier, but isn&amp;rsquo;t really necessary. Using lots of simple functions gives you plenty of seams to exploit. Life-cycle management is still important, and Clojure has good libraries for dealing with it that are much more painless to use than the OO solutions I&amp;rsquo;ve seen.&lt;/p&gt;</description>
         </item>
       
     
@@ -733,6 +855,8 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png&#34; alt=&#34;The yellow screen of death&#34; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;p&gt;And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I&amp;rsquo;ve chosen to chop up the hydra a little bit.&lt;/p&gt;
 
 &lt;p&gt;This post just covers how to deal with making IIS catch all the errors that might not get caught inside of your MVC application. I&amp;rsquo;ll dig into the levels closer to MVC in the next post, and then handling error logging in another one after that. They&amp;rsquo;re both already semi-written, so they should follow along soonish. If you aren&amp;rsquo;t really too worried about the reasoning, and trust me enough to just want to get to the money, I&amp;rsquo;ll have a quick summary &amp;ldquo;just do this&amp;rdquo; post up after the long version is finished.&lt;/p&gt;
@@ -777,8 +901,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;I&amp;rsquo;d not hugely comfortable personally with having code execute in my error handlers, but if you&amp;rsquo;re ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users.&lt;/p&gt;
 
-&lt;p&gt;I have created a nuget package to speed this thing up a little, which you can find &lt;a href=&#34;https://www.nuget.org/packages/MVCErrorPages/&#34;&gt;here&lt;/a&gt;, or just run &lt;code&gt;Install-Package MVCErrorPages&lt;/code&gt;. It does include the MVC customErrors stuff, which I&amp;rsquo;m gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then&amp;hellip; good luck, I guess?&lt;/p&gt;
-</description>
+&lt;p&gt;I have created a nuget package to speed this thing up a little, which you can find &lt;a href=&#34;https://www.nuget.org/packages/MVCErrorPages/&#34;&gt;here&lt;/a&gt;, or just run &lt;code&gt;Install-Package MVCErrorPages&lt;/code&gt;. It does include the MVC customErrors stuff, which I&amp;rsquo;m gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then&amp;hellip; good luck, I guess?&lt;/p&gt;</description>
         </item>
       
     
@@ -794,6 +917,8 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
           <author>Liam Falconer</author>
           <guid>http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</guid>
           <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;http://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;m still toiling in the C# mines, but I&amp;rsquo;ve moved from using &lt;a href=&#34;http://www.ninject.org/&#34;&gt;Ninject&lt;/a&gt; to a more&amp;hellip; static library, &lt;a href=&#34;http://autofac.org/&#34;&gt;Autofac&lt;/a&gt;. Ninject suffers from a little bit of &lt;a href=&#34;http://blog.codinghorror.com/new-programming-jargon/&#34;&gt;stringly typing&lt;/a&gt;, while Autofac uses stuff like lambdas and generics to make errors happen at compile time rather than run time, which I&amp;rsquo;m a huge fan of. There&amp;rsquo;s heaps of other neat stuff too, so if you&amp;rsquo;re using C#, it&amp;rsquo;s almost certainly worth checking out if you haven&amp;rsquo;t already used it.&lt;/p&gt;
 
@@ -811,8 +936,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;The last benefit I got is being able to use my test objects for development. I&amp;rsquo;m not sure if this is something that anyone ever touts, but whenever someone needs to make changes to a database, or some service you&amp;rsquo;re dependent on isn&amp;rsquo;t working, I fall back on the objects I&amp;rsquo;ve written for my tests. They&amp;rsquo;re also great early on in development when you&amp;rsquo;re not yet worried about integrating with actual data or services - you just want to prove the UI/UX works. Obviously you have to eventually switch back to the real thing, but avoiding that block, and hopefully maintaining flow is certainly worth the distance from reality.&lt;/p&gt;
 
-&lt;p&gt;So I guess the main reason I embraced DI was because of the confidence that unit tests gave me - but once I was there, it turns out there&amp;rsquo;s other tangible benefits you get - a better awareness of where and why to decouple your code, an easier debugging experience as a result of that. Once you&amp;rsquo;ve got the test objects for testing, they&amp;rsquo;re also perfect for when something external would otherwise stop you from making forward progress. I&amp;rsquo;m sure I&amp;rsquo;m preaching to the choir here, but if you&amp;rsquo;re working in a mainstream OO language, and you aren&amp;rsquo;t using dependency injection, you&amp;rsquo;re missing out.&lt;/p&gt;
-</description>
+&lt;p&gt;So I guess the main reason I embraced DI was because of the confidence that unit tests gave me - but once I was there, it turns out there&amp;rsquo;s other tangible benefits you get - a better awareness of where and why to decouple your code, an easier debugging experience as a result of that. Once you&amp;rsquo;ve got the test objects for testing, they&amp;rsquo;re also perfect for when something external would otherwise stop you from making forward progress. I&amp;rsquo;m sure I&amp;rsquo;m preaching to the choir here, but if you&amp;rsquo;re working in a mainstream OO language, and you aren&amp;rsquo;t using dependency injection, you&amp;rsquo;re missing out.&lt;/p&gt;</description>
         </item>
       
     
@@ -825,8 +949,9 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
           <guid>http://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</guid>
           <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;
 
-&lt;p&gt;Even better, a whole bunch of people have already made some pretty themes for it. Like this one, &lt;a href=&#34;https://github.com/tummychow/lanyon-hugo&#34;&gt;Lanyon&lt;/a&gt;. I&amp;rsquo;ve messed with it a little (I&amp;rsquo;m not a huge fan of pagination, amongst other things.), and I still want to add that &lt;a href=&#34;http://www.reddit.com/r/webdev/comments/1a4ss9/i_couldnt_find_a_decent_guide_on_how_to_make_icon/c8u45lf?context=10000&#34;&gt;lightswitch I mentioned&lt;/a&gt; when I first wrote anything here, but hopefully Hugo&amp;rsquo;s ease of use will mean I actually write some stuff in future, rather than despair at the code I&amp;rsquo;d need to write to get my scripts to do a thing and then go do something else instead.&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Even better, a whole bunch of people have already made some pretty themes for it. Like this one, &lt;a href=&#34;https://github.com/tummychow/lanyon-hugo&#34;&gt;Lanyon&lt;/a&gt;. I&amp;rsquo;ve messed with it a little (I&amp;rsquo;m not a huge fan of pagination, amongst other things.), and I still want to add that &lt;a href=&#34;http://www.reddit.com/r/webdev/comments/1a4ss9/i_couldnt_find_a_decent_guide_on_how_to_make_icon/c8u45lf?context=10000&#34;&gt;lightswitch I mentioned&lt;/a&gt; when I first wrote anything here, but hopefully Hugo&amp;rsquo;s ease of use will mean I actually write some stuff in future, rather than despair at the code I&amp;rsquo;d need to write to get my scripts to do a thing and then go do something else instead.&lt;/p&gt;</description>
         </item>
       
     
@@ -840,6 +965,8 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
           <description>&lt;p&gt;&lt;em&gt;Basically my position on DI has since changed - go take a look at &lt;a href=&#34;http://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/&#34;&gt;Fresh Thoughts on Dependency Injection&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So first of all, to preface this and so you get a little bit of insight from where I&amp;rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&amp;rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&amp;rsquo;d like. Anyway.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;So the shop where I currently get paid is a little behind the times. Legacy code base
 (in the &lt;a href=&#34;http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0131177052&amp;amp;linkCode=as2&amp;amp;tag=byatlascom-20&amp;amp;linkId=A3OM5UCAGXASTXG3&#34;&gt;Micheal Feathers&lt;/a&gt;
@@ -856,8 +983,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;The primary thing that spooks me about DI is the explosion of complexity necessary in its usage. Layer upon layer of factories, facades and interfaces (Seriously. So many interfaces.) follow in it&amp;rsquo;s wake, each seemingly necessary, but all clouding the actual purpose of your software in arcane scribblings. And for what? Sure, you might be able to test it, but if it takes you half an hour to trace through the code to figure out that an error found in production was caused by something 6 layers deep, and would have been found by a test that would only fail very intermittently&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn&amp;rsquo;t break anything. Or at least much.) I don&amp;rsquo;t know that I&amp;rsquo;m at that point. Yet.&lt;/p&gt;
-</description>
+&lt;p&gt;I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn&amp;rsquo;t break anything. Or at least much.) I don&amp;rsquo;t know that I&amp;rsquo;m at that point. Yet.&lt;/p&gt;</description>
         </item>
       
     
@@ -869,6 +995,8 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
           <author>Liam Falconer</author>
           <guid>http://lfn3.net/2013/03/12/fun-with-icon-fonts/</guid>
           <description>&lt;p&gt;So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&amp;hellip; interesting. There isn&amp;rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;First of all, why would you want to do this anyway? Well personally, I like the fact that I stop serving as many images, save on bandwidth, and get all the css and html text attributes for free. Basically the only drawback as far as I can see is the extra work involved in producing vector art and the messing around with turning it into a font. The only other issue is that your icon &lt;em&gt;has&lt;/em&gt; to be mono coloured. You can&amp;rsquo;t have some multicoloured Bob Ross shit. If you want to do something like that, you&amp;rsquo;ll have to use actual images.&lt;/p&gt;
 
@@ -964,8 +1092,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;And so on. Those are just the hex values converted to decimal, prefixed with &amp;amp;# and ending with ;. Much like how you use &amp;amp;nsbp and the like.&lt;/p&gt;
 
-&lt;p&gt;So hopefully you&amp;rsquo;ve made your shiny new startup or whatever even shinier now with svelte, lightweight icon fonts. You are going to cut me in on a slice of the profits, right?&lt;/p&gt;
-</description>
+&lt;p&gt;So hopefully you&amp;rsquo;ve made your shiny new startup or whatever even shinier now with svelte, lightweight icon fonts. You are going to cut me in on a slice of the profits, right?&lt;/p&gt;</description>
         </item>
       
     
@@ -982,6 +1109,8 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
 
 &lt;p&gt;Anyway, at this point, it&amp;rsquo;s a site that&amp;rsquo;s built from &lt;a href=&#34;http://jinja.pocoo.org/&#34;&gt;Jinja2&lt;/a&gt; templates. Mostly. In case you haven&amp;rsquo;t noticed, some bits of it are still not yet entirely working. Mostly the contact page. And all the examples I need to throw on the page that&amp;rsquo;s supposed to convince you to pay me. Which is just a little bit awkward.&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;p&gt;So initally I just planned to generate the blog using &lt;a href=&#34;http://blog.getpelican.com/&#34;&gt;Pelican&lt;/a&gt;, but that seemed like a bit of overkill for what I wanted to do. Plus you know, I can&amp;rsquo;t call myself a real hacker if I don&amp;rsquo;t DIY this bad boy.
 So although it works at the moment, it&amp;rsquo;ll probably be something I polish for quite some time to come.&lt;/p&gt;
 
@@ -995,8 +1124,7 @@ So although it works at the moment, it&amp;rsquo;ll probably be something I poli
 
 &lt;p&gt;Well, congratulations on surviving my aimless rambling for this long.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;This reads way too much like one those tracks giving shoutouts&lt;/em&gt;&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;em&gt;This reads way too much like one those tracks giving shoutouts&lt;/em&gt;&lt;/p&gt;</description>
         </item>
       
     

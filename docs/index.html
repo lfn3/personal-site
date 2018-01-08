@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.16" />
+	<meta name="generator" content="Hugo 0.31.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -85,6 +85,18 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
 
@@ -92,7 +104,7 @@
   </nav>
 
   <div class="sidebar-item bottom">
-    <p>&copy; 2017. All rights reserved.</p>
+    <p>&copy; 2018. All rights reserved.</p>
   </div>
 </div>
 
@@ -115,6 +127,20 @@
   
     
       <div class="post post-summary">
+        <h1 class="post-title"><a href="http://lfn3.net/2018/01/08/why-bother-with-property-tests/">Why bother with property tests</a></h1>
+        <span class="post-date">Jan 8 2018</span>
+        <p>So something I&rsquo;ve been trying to do lately is write more property or generative tests. I&rsquo;ve been spending a bit of time
+thinking about why we&rsquo;re actually doing this. Obviously I think it&rsquo;s a good idea, but what actual benefits do we get
+from these, apart from slightly more arcane tests?</p>
+
+<p></p>
+
+        <a class="read-more" href="http://lfn3.net/2018/01/08/why-bother-with-property-tests/">Read the rest.</a>
+      </div>
+    
+  
+    
+      <div class="post post-summary">
         <h1 class="post-title"><a href="http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/">Flamegraphs and benchmarks</a></h1>
         <span class="post-date">Dec 14 2017</span>
         <p><a href="https://github.com/jgpc42/lein-jmh">lein jmh</a> recently turned up on the Clojure
@@ -125,6 +151,7 @@ the why and the how of getting benchmarks to produce
 
 <p><img src="http://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png" alt="flamegraph" /></p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/">Read the rest.</a>
       </div>
@@ -141,6 +168,7 @@ It evaluates the fspec&rsquo;d function when it&rsquo;s passed to a fdef&rsquo;d
 not when you invoke the function. That&rsquo;s probably super unclear, so look below
 the fold for an example.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2017/07/22/clojure-fspec-surprise/">Read the rest.</a>
       </div>
@@ -160,6 +188,7 @@ with <a href="http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_ov
 or <a href="http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html">this</a>.
 Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2017/05/27/writing-intellij-plugins/">Read the rest.</a>
       </div>
@@ -184,6 +213,7 @@ the options we had, and this post is the result of that.</p>
 and how it works. I&rsquo;m just going to compare and contrast Java libraries that
 enable it.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2017/05/07/property-testing-tooling-in-java/">Read the rest.</a>
       </div>
@@ -203,6 +233,7 @@ this:</p>
 <p>But we also collect a bunch of other metrics from our servers and services that,
 until recently, we didn&rsquo;t have much visibility over.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2017/04/24/performance-checks-on-metrics/">Read the rest.</a>
       </div>
@@ -214,6 +245,7 @@ until recently, we didn&rsquo;t have much visibility over.</p>
         <span class="post-date">Oct 3 2016</span>
         <p>In the last 6 months, I&rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at <a href="http://www.liveopscloud.com/">LiveOps Cloud</a>. We converted one of our core backend services from Clojure&rsquo;s <a href="https://github.com/clojure/core.async">core.async</a> to <a href="http://docs.paralleluniverse.co/pulsar/">Pulsar</a>. Having been a part of that transformation, I now, of course, have <em>opinions</em> that I&rsquo;m going to subject you to. Those opinions boil down to CSP (<a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">Communicating Sequential Processes</a>) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/">Read the rest.</a>
       </div>
@@ -228,6 +260,7 @@ until recently, we didn&rsquo;t have much visibility over.</p>
         <p>So this is the follow up to a follow up. I&rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read <a href="http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/">my old thoughts on Dependency Injection</a>. Once again, it having been more than 6 months, my opinions have changed.
 The reasons I used dependency injection in C# don&rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2016/09/19/dependency-injection-in-clojure/">Read the rest.</a>
       </div>
@@ -237,7 +270,8 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
       <div class="post post-summary">
         <h1 class="post-title"><a href="http://lfn3.net/2015/10/08/leaving-the-malt-mines/">Leaving the M$alt Mines</a></h1>
         <span class="post-date">Oct 8 2015</span>
-        So a little while ago (ok, a couple of months ago now.) I quit my job at Ubquity in favour of one at LiveOps. There were a bunch of reasons for that, but you&rsquo;ll have to buy me a beer to get those out of me. The main draw though, was being able to work with Clojure instead of C# (Hence the punny title). There&rsquo;s a lot of posts about why and how companies moved to Clojure but not so many about individuals - I guess we don&rsquo;t really make good marketing pieces?
+        So a little while ago (ok, a couple of months ago now.) I quit my job at Ubquity in favour of one at LiveOps. There were a bunch of reasons for that, but you&rsquo;ll have to buy me a beer to get those out of me. The main draw though, was being able to work with Clojure instead of C# (Hence the punny title).
+There&rsquo;s a lot of posts about why and how companies moved to Clojure but not so many about individuals - I guess we don&rsquo;t really make good marketing pieces?
 
         <a class="read-more" href="http://lfn3.net/2015/10/08/leaving-the-malt-mines/">Read the rest.</a>
       </div>
@@ -251,6 +285,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
 
 <p><img src="http://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png" alt="The yellow screen of death" /></p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/">Read the rest.</a>
       </div>
@@ -266,6 +301,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
         <span class="post-date">Feb 15 2015</span>
         <p>This is essentially a follow up to an earlier post <a href="http://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/">Dependency Injection - A necessary evil?</a>,  from back when I had more reservations about using DI, and the benefits it gave me. I&rsquo;ve since been fully converted to a &lsquo;believer&rsquo;. This post is bascially about why and how I think that happened.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/">Read the rest.</a>
       </div>
@@ -277,6 +313,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
         <span class="post-date">Feb 14 2015</span>
         <p>So if you&rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called <a href="http://gohugo.io/">Hugo</a>. It seems to support pretty much everything I want it to, which is super. And it&rsquo;s also relatively simple in terms of what it expects from the user, which is also great.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/">Read the rest.</a>
       </div>
@@ -290,6 +327,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
 
 <p>So first of all, to preface this and so you get a little bit of insight from where I&rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&rsquo;d like. Anyway.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/">Read the rest.</a>
       </div>
@@ -301,6 +339,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
         <span class="post-date">Mar 12 2013</span>
         <p>So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&hellip; interesting. There isn&rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2013/03/12/fun-with-icon-fonts/">Read the rest.</a>
       </div>
@@ -316,6 +355,7 @@ The reasons I used dependency injection in C# don&rsquo;t affect me nearly as ba
 
 <p>Anyway, at this point, it&rsquo;s a site that&rsquo;s built from <a href="http://jinja.pocoo.org/">Jinja2</a> templates. Mostly. In case you haven&rsquo;t noticed, some bits of it are still not yet entirely working. Mostly the contact page. And all the examples I need to throw on the page that&rsquo;s supposed to convince you to pay me. Which is just a little bit awkward.</p>
 
+<p></p>
 
         <a class="read-more" href="http://lfn3.net/2013/03/11/the-making-of/">Read the rest.</a>
       </div>

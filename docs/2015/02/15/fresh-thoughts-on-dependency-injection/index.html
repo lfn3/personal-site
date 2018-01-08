@@ -84,6 +84,18 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
 
@@ -91,7 +103,7 @@
   </nav>
 
   <div class="sidebar-item bottom">
-    <p>&copy; 2017. All rights reserved.</p>
+    <p>&copy; 2018. All rights reserved.</p>
   </div>
 </div>
 
@@ -115,6 +127,8 @@
   <span class="post-date">Feb 15 2015</span>
   <p>This is essentially a follow up to an earlier post <a href="http://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/">Dependency Injection - A necessary evil?</a>,  from back when I had more reservations about using DI, and the benefits it gave me. I&rsquo;ve since been fully converted to a &lsquo;believer&rsquo;. This post is bascially about why and how I think that happened.</p>
 
+<p></p>
+
 <p>I&rsquo;m still toiling in the C# mines, but I&rsquo;ve moved from using <a href="http://www.ninject.org/">Ninject</a> to a more&hellip; static library, <a href="http://autofac.org/">Autofac</a>. Ninject suffers from a little bit of <a href="http://blog.codinghorror.com/new-programming-jargon/">stringly typing</a>, while Autofac uses stuff like lambdas and generics to make errors happen at compile time rather than run time, which I&rsquo;m a huge fan of. There&rsquo;s heaps of other neat stuff too, so if you&rsquo;re using C#, it&rsquo;s almost certainly worth checking out if you haven&rsquo;t already used it.</p>
 
 <p>So the reason I was initally led to DI was due to the need to get tests across a fragile part of a long running project. This was basically a calendar you could making bookings on (the process of making a booking was fairly time consuming - the booking form has something like 30 fields on it or something.), and depending on what options you picked, it would block out more or less time around the date you chose. There were a whole bunch of other rules that could also apply, just to make it more fun.</p>
@@ -132,7 +146,6 @@
 <p>The last benefit I got is being able to use my test objects for development. I&rsquo;m not sure if this is something that anyone ever touts, but whenever someone needs to make changes to a database, or some service you&rsquo;re dependent on isn&rsquo;t working, I fall back on the objects I&rsquo;ve written for my tests. They&rsquo;re also great early on in development when you&rsquo;re not yet worried about integrating with actual data or services - you just want to prove the UI/UX works. Obviously you have to eventually switch back to the real thing, but avoiding that block, and hopefully maintaining flow is certainly worth the distance from reality.</p>
 
 <p>So I guess the main reason I embraced DI was because of the confidence that unit tests gave me - but once I was there, it turns out there&rsquo;s other tangible benefits you get - a better awareness of where and why to decouple your code, an easier debugging experience as a result of that. Once you&rsquo;ve got the test objects for testing, they&rsquo;re also perfect for when something external would otherwise stop you from making forward progress. I&rsquo;m sure I&rsquo;m preaching to the choir here, but if you&rsquo;re working in a mainstream OO language, and you aren&rsquo;t using dependency injection, you&rsquo;re missing out.</p>
-
 </div>
 
       </div>

@@ -84,6 +84,18 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
 
@@ -91,7 +103,7 @@
   </nav>
 
   <div class="sidebar-item bottom">
-    <p>&copy; 2017. All rights reserved.</p>
+    <p>&copy; 2018. All rights reserved.</p>
   </div>
 </div>
 
@@ -116,6 +128,8 @@
   <p>So today we&rsquo;re gonna talk about how to make sure you don&rsquo;t show your users something like this:</p>
 
 <p><img src="http://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png" alt="The yellow screen of death" /></p>
+
+<p></p>
 
 <p>And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I&rsquo;ve chosen to chop up the hydra a little bit.</p>
 
@@ -162,7 +176,6 @@
 <p>I&rsquo;d not hugely comfortable personally with having code execute in my error handlers, but if you&rsquo;re ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users.</p>
 
 <p>I have created a nuget package to speed this thing up a little, which you can find <a href="https://www.nuget.org/packages/MVCErrorPages/">here</a>, or just run <code>Install-Package MVCErrorPages</code>. It does include the MVC customErrors stuff, which I&rsquo;m gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then&hellip; good luck, I guess?</p>
-
 </div>
 
       </div>

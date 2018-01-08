@@ -84,6 +84,18 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
 
@@ -91,7 +103,7 @@
   </nav>
 
   <div class="sidebar-item bottom">
-    <p>&copy; 2017. All rights reserved.</p>
+    <p>&copy; 2018. All rights reserved.</p>
   </div>
 </div>
 
@@ -113,9 +125,9 @@
 <div class="post">
   <h1 class="post-title">Coupling, Connascence, CSP and Actors</h1>
   <span class="post-date">Oct 3 2016</span>
-  
+  <p>In the last 6 months, I&rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at <a href="http://www.liveopscloud.com/">LiveOps Cloud</a>. We converted one of our core backend services from Clojure&rsquo;s <a href="https://github.com/clojure/core.async">core.async</a> to <a href="http://docs.paralleluniverse.co/pulsar/">Pulsar</a>. Having been a part of that transformation, I now, of course, have <em>opinions</em> that I&rsquo;m going to subject you to. Those opinions boil down to CSP (<a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">Communicating Sequential Processes</a>) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.</p>
 
-<p>In the last 6 months, I&rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at <a href="http://www.liveopscloud.com/">LiveOps Cloud</a>. We converted one of our core backend services from Clojure&rsquo;s <a href="https://github.com/clojure/core.async">core.async</a> to <a href="http://docs.paralleluniverse.co/pulsar/">Pulsar</a>. Having been a part of that transformation, I now, of course, have <em>opinions</em> that I&rsquo;m going to subject you to. Those opinions boil down to CSP (<a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">Communicating Sequential Processes</a>) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.</p>
+<p></p>
 
 <h2 id="a-crash-course-on-connascence">A crash course on Connascence</h2>
 
@@ -176,7 +188,6 @@
 <p>So finally, there&rsquo;s the ability to supervise other actors. I would argue this is probably the most useful part of the actor model, the firm separation of the &lsquo;happy path&rsquo; from the sad path, allowing us to write our &ldquo;business logic&rdquo; without a care (or try-catch) in the world. This is the one aspect of actor systems I think should be exported to the wider programming world. At least in Clojure, it has been, in the form of <a href="https://github.com/MichaelDrogalis/dire">dire</a>. There&rsquo;s some blog posts linked there that explain better than I can why this is such a good thing. Between this and go blocks, I would argue that CSP can provide the most important benefits of actor systems, without what I view as the costs.</p>
 
 <p>That is not to say I&rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&rsquo;ll just have to do it in Elixir.</p>
-
 </div>
 
       </div>

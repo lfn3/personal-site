@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://lfn3.net/</loc>
-    <lastmod>2017-12-14T08:08:12+13:00</lastmod>
+    <loc>http://lfn3.net/2018/01/08/why-bother-with-property-tests/</loc>
+    <lastmod>2018-01-08T09:00:00+13:00</lastmod>
   </url>
   
   <url>
@@ -89,6 +90,34 @@
   <url>
     <loc>http://lfn3.net/2013/03/11/the-making-of/</loc>
     <lastmod>2013-03-11T18:32:40+12:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/post/</loc>
+    <lastmod>2018-01-08T09:00:00+13:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/slides/</loc>
+    <lastmod>2016-09-21T16:21:44+12:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://lfn3.net/</loc>
+    <lastmod>2018-01-08T09:00:00+13:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
