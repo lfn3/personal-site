@@ -10,7 +10,7 @@
 
   <title>
     
-      Posts &middot; lfn3
+      The unreasonable effectiveness of checklists &middot; lfn3
     
   </title>
 
@@ -125,58 +125,29 @@
 
 
 <div class="post">
-  <h1 class="post-title">Posts</h1>
-  <ul id="list">
-      
-        <li>Jan 9 2018 - <a href="http://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/">The unreasonable effectiveness of checklists</a></li>
+  <h1 class="post-title">The unreasonable effectiveness of checklists</h1>
+  <span class="post-date">Jan 9 2018</span>
+  <p>One of the things we did recently was start using a checklist once we think we&rsquo;ve &lsquo;completed&rsquo; a story.
+The checklist is basically just a big list of features that already exist in our codebase, and some notable gotchas
+that have caught us out before. All we do is go through it and ask ourselves if what we&rsquo;ve just written interacts with
+that feature or gotcha, and if so, have we written a test for it?</p>
 
-      
-        <li>Jan 8 2018 - <a href="http://lfn3.net/2018/01/08/why-bother-with-property-tests/">Why bother with property tests</a></li>
+<p></p>
 
-      
-        <li>Dec 14 2017 - <a href="http://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/">Flamegraphs and benchmarks</a></li>
+<p>The checklist is pretty long as a result, and constantly changing, but still really useful, especially considering the
+amount of effort that goes into it is ~5 minutes per story. In spite of us knowing we&rsquo;re going to go through the
+checklist, we still pretty much always turn up something, either a test that needs writing or some unexpected, broken
+interaction.</p>
 
-      
-        <li>Jul 22 2017 - <a href="http://lfn3.net/2017/07/22/clojure-fspec-surprise/">Clojure fspec surprise</a></li>
+<p>All you have to do is sit down and spent 15 minutes writing a list in markdown of all the major things your
+codebase does. Every time you think you&rsquo;re done with a bit of work, take a copy, delete everything that&rsquo;s irrelevant,
+and tick everything you&rsquo;ve got a test for. Anything that&rsquo;s left, well there&rsquo;s something that&rsquo;s at least untested, and
+maybe if you think about it, buggy. The only other thing we do is try to add to the template when we introduce a bug
+that is due to unexpected interaction between what we&rsquo;re writing, and some other feature.</p>
 
-      
-        <li>May 27 2017 - <a href="http://lfn3.net/2017/05/27/writing-intellij-plugins/">Writing IntelliJ plugins</a></li>
-
-      
-        <li>May 7 2017 - <a href="http://lfn3.net/2017/05/07/property-testing-tooling-in-java/">Property testing tooling in Java</a></li>
-
-      
-        <li>Apr 24 2017 - <a href="http://lfn3.net/2017/04/24/performance-checks-on-metrics/">Performance checks on metrics</a></li>
-
-      
-        <li>Oct 3 2016 - <a href="http://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/">Coupling, Connascence, CSP and Actors</a></li>
-
-      
-        <li>Sep 19 2016 - <a href="http://lfn3.net/2016/09/19/dependency-injection-in-clojure/">Dependency Injection in Clojure</a></li>
-
-      
-        <li>Oct 8 2015 - <a href="http://lfn3.net/2015/10/08/leaving-the-malt-mines/">Leaving the M$alt Mines</a></li>
-
-      
-        <li>Mar 8 2015 - <a href="http://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/">Error Handling in ASP.NET MVC</a></li>
-
-      
-        <li>Feb 15 2015 - <a href="http://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/">Fresh Thoughts on Dependency Injection</a></li>
-
-      
-        <li>Feb 14 2015 - <a href="http://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/">Moving to Hugo and Lanyon</a></li>
-
-      
-        <li>Sep 18 2014 - <a href="http://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/">Dependency Injection - A necessary evil?</a></li>
-
-      
-        <li>Mar 12 2013 - <a href="http://lfn3.net/2013/03/12/fun-with-icon-fonts/">Fun with Icon Fonts</a></li>
-
-      
-        <li>Mar 11 2013 - <a href="http://lfn3.net/2013/03/11/the-making-of/">The Making of</a></li>
-
-      
-  </ul>
+<p>For us, the return on investment for this has been exceptional. We&rsquo;ve caught enough issues that the tiny amount of time
+we&rsquo;ve spent on this has more than paid for itself. And we&rsquo;re not the
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/23579353">only ones</a>.</p>
 </div>
 
       </div>

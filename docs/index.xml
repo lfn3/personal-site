@@ -6,8 +6,39 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2018</rights>
-    <updated>2018-01-08 09:00:00 &#43;1300 NZDT</updated>
+    <updated>2018-01-09 08:23:00 &#43;1300 NZDT</updated>
 
+    
+      
+        <item>
+          <title>The unreasonable effectiveness of checklists</title>
+          <link>http://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</link>
+          <pubDate>Tue, 09 Jan 2018 08:23:00 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</guid>
+          <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
+The checklist is basically just a big list of features that already exist in our codebase, and some notable gotchas
+that have caught us out before. All we do is go through it and ask ourselves if what we&amp;rsquo;ve just written interacts with
+that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The checklist is pretty long as a result, and constantly changing, but still really useful, especially considering the
+amount of effort that goes into it is ~5 minutes per story. In spite of us knowing we&amp;rsquo;re going to go through the
+checklist, we still pretty much always turn up something, either a test that needs writing or some unexpected, broken
+interaction.&lt;/p&gt;
+
+&lt;p&gt;All you have to do is sit down and spent 15 minutes writing a list in markdown of all the major things your
+codebase does. Every time you think you&amp;rsquo;re done with a bit of work, take a copy, delete everything that&amp;rsquo;s irrelevant,
+and tick everything you&amp;rsquo;ve got a test for. Anything that&amp;rsquo;s left, well there&amp;rsquo;s something that&amp;rsquo;s at least untested, and
+maybe if you think about it, buggy. The only other thing we do is try to add to the template when we introduce a bug
+that is due to unexpected interaction between what we&amp;rsquo;re writing, and some other feature.&lt;/p&gt;
+
+&lt;p&gt;For us, the return on investment for this has been exceptional. We&amp;rsquo;ve caught enough issues that the tiny amount of time
+we&amp;rsquo;ve spent on this has more than paid for itself. And we&amp;rsquo;re not the
+&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/23579353&#34;&gt;only ones&lt;/a&gt;.&lt;/p&gt;</description>
+        </item>
+      
     
       
         <item>
