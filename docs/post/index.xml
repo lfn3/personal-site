@@ -6,8 +6,115 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2018</rights>
-    <updated>2018-01-09 08:23:00 &#43;1300 NZDT</updated>
+    <updated>2018-02-05 15:16:00 &#43;1300 NZDT</updated>
 
+    
+      
+        <item>
+          <title>Roasting coffee with a popcorn maker</title>
+          <link>http://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</link>
+          <pubDate>Mon, 05 Feb 2018 15:16:00 NZDT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>http://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</guid>
+          <description>&lt;p&gt;I&amp;rsquo;m a big coffee fan. I&amp;rsquo;m also a massive cheapskate. Normally the first one wins, but the other day I found
+&lt;a href=&#34;https://hackaday.com/2018/01/23/build-an-excellent-coffee-roaster-with-a-satisfyingly-low-price-tag/&#34;&gt;this post&lt;/a&gt;
+about how you can roast your own coffee. Within about an hour I&amp;rsquo;d ordered the necessary bits, and now less than a week
+later, I&amp;rsquo;ve roasted my 5th artisanal microbatch of coffee.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/greasy-beans.jpg&#34; alt=&#34;roasted coffee&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you might be able to tell, I haven&amp;rsquo;t dialed in the actual roasting part of it just yet, but I can definitely tell
+you how to pull apart a popcorn maker.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;So what I&amp;rsquo;ve worked with is one of these:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/pristine.jpg&#34; alt=&#34;Sunbeam popcorn maker&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Which seems to be the only one available in at NZ retail stores. Thankfully, the design of these things doesn&amp;rsquo;t differ
+that much from model to model. Unfortunately I took all these photos &lt;em&gt;after&lt;/em&gt; I&amp;rsquo;d pulled the thing apart, so they&amp;rsquo;re
+more representative than anything else.&lt;/p&gt;
+
+&lt;p&gt;We are going to be doing some damage to the plastic casing, and circumventing the safety measures. Obviously these
+actions are warranty voiding, and do definitely increase the fire risk posed by the altered device. I would not leave it
+unattended, and keep an eye on the machine while it&amp;rsquo;s operating.  Maybe keep a fire extingusher on hand as well.&lt;/p&gt;
+
+&lt;p&gt;Alright so step zero, crack it open. There&amp;rsquo;s screws in the spots marked with arrows. The four outside ones are covered
+with little rubber feet you can just pull off. The other two are deep inside the casing, you&amp;rsquo;ll need a screwdriver with
+a reasonably long shaft to get at them.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/&amp;quot;unopened&amp;quot;.jpg&#34; alt=&#34;&amp;quot;unopened&amp;quot; popcorn maker&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After doing that, you should be able to yank the base off your soon to be coffee maker, and you should be greeted by
+something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/popcorn-maker-insides.jpg&#34; alt=&#34;insides of the popcorn maker&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The bit that we need to deal with immediately in order to free the important parts from their feeble plastic shell is
+the switch:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/switch.jpg&#34; alt=&#34;switch&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You should be able to pull the cables off the switch by hand or with a pair of pliers. We have to do this since the
+switch will only come out if we push it towards the outside of the plastic shell. Once you&amp;rsquo;ve pulled it out you should
+reattach it to the cables which should just press fit back on.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/freed-switch.jpg&#34; alt=&#34;freed switch&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At this point you should be able to pull the whole assembly out of the shell, along with the power cable and the still
+attached base:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/guts.jpg&#34; alt=&#34;extracted guts of the popcorn maker&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s a bit of a choose you own adventure at this point. We&amp;rsquo;ve got to remove the overheat protection measures, and
+although you don&amp;rsquo;t have to remove the base, but it&amp;rsquo;s probably a good idea since otherwise it&amp;rsquo;ll just get in your way.&lt;/p&gt;
+
+&lt;p&gt;Lets start with the base, which is just a case of removing two of the screws retaining the power cable, (indicated with
+the arrows) and then cutting through the plastic base to free the cable. A big pair of side cutters will do the job
+just fine, and will make sure the warranty is voided.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/base.jpg&#34; alt=&#34;base&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once that&amp;rsquo;s done we&amp;rsquo;re onto the increasing fire risk part of the operation. There&amp;rsquo;s a large metal band around the &amp;ldquo;cup&amp;rdquo;,
+holding a thermal fuse:
+&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/fuse.jpg&#34; alt=&#34;thermal-fuse&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The fuse is rated for 196°C, which is a bit lower than what we want. We&amp;rsquo;re targeting around 200°C. So that&amp;rsquo;s got to go,
+along with the other bit that the metal band is holding on:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/thermocouple.jpg&#34; alt=&#34;thermocouple&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a termostat. Unlike the fuse it&amp;rsquo;ll reset itself once it&amp;rsquo;s cooled off, but it&amp;rsquo;s got a slightly lower cutoff at
+180°C.&lt;/p&gt;
+
+&lt;p&gt;The band is held together with a bolt which can just be undone, and then you&amp;rsquo;ll have to cut through a part of it to free
+the thermocouple. Once that was done I just duct taped them together to keep them off to the side while the roaster is
+running.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/duct-taped.jpg&#34; alt=&#34;taped up thermal protection&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The only other thing you need to do at this point is figure out how to handle the thing when it&amp;rsquo;s hot. You could
+probably fashion a handle from some stiff wire, but being an apartment dweller I didn&amp;rsquo;t have any handy. What I did have
+was a pipe wrench:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/pipe-wrench.jpg&#34; alt=&#34;pipe wrench&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Just make sure it&amp;rsquo;s not making contact between the body of the motor and any of the components on the board, and you
+should be able to safely flip the whole thing upside down to extract your roasted coffee.&lt;/p&gt;
+
+&lt;p&gt;One piece of advice I am going to give, is don&amp;rsquo;t use the switch to turn it on or off. I&amp;rsquo;ve managed to electrocute myself
+since it&amp;rsquo;s not that easy to hold in place while operating. I&amp;rsquo;m probably going to replace it with something a bit more
+fit for purpose later.&lt;/p&gt;
+
+&lt;p&gt;Oh and do your roasts outside. It&amp;rsquo;ll spit out a ton of &amp;ldquo;chaff&amp;rdquo; from the beans which you don&amp;rsquo;t really want all over the
+stuff you own. I&amp;rsquo;m thinking of getting some aluminum ducting so I can control where the chaff ends up going.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m going to refrain from offering any further roasting advice, since I definitely don&amp;rsquo;t have anything resembling a
+process dialed in yet. You should go have a look at &lt;a href=&#34;https://www.sweetmarias.com/air-popper-method&#34;&gt;other people&amp;rsquo;s advice&lt;/a&gt;
+on this one, at least until I&amp;rsquo;ve had a chance to &amp;ldquo;dial in&amp;rdquo; my process.&lt;/p&gt;</description>
+        </item>
+      
     
       
         <item>
