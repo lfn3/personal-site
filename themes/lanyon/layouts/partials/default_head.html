@@ -4,9 +4,6 @@
   {{ partial "head.html" . }}
 
   <body>
-
-    {{ partial "sidebar.html" . }}
-
     <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
          content to avoid any CSS collisions with our real content. -->
     <div class="wrap">
@@ -16,6 +13,10 @@
             <a href="/" title="Home">{{ .Site.Params.Title }}</a>
             <small>{{ .Site.Params.Tagline }}</small>
           </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="{{ .Site.Params.Github.Url }}"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="{{ .Site.Params.Twitter.Url }}"> <i class="fa fa-twitter"></i> Twitter</a>
         </div>
       </div>
 

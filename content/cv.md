@@ -2,8 +2,9 @@
 date = "2015-03-03T19:32:05+13:00"
 draft = false
 title = "Curriculum Vitae"
-type = "cv"
+type = "fixed"
 canonifyurls = true
+stylesheet = "cv.css"
 +++
 
 I'm a 25-year-old developer. I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to python, before picking up C# at my previous employer. At the moment I'm writing (and loving) Clojure full-time, after dabbling with it for several years in my spare time.
