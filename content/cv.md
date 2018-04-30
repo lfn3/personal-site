@@ -7,21 +7,39 @@ canonifyurls = true
 stylesheet = "cv.css"
 +++
 
-I'm a 25-year-old developer. I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to python, before picking up C# at my previous employer. At the moment I'm writing (and loving) Clojure full-time, after dabbling with it for several years in my spare time.
+I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to Python, 
+before picking up C# at my previous employer. I've worked on Clojure and Java in high performance, low latency environments.
+I'm passionate and curious about developing optimizing and understanding code.
 
-Previously in my spare time I spent some time learning Go, producing all sorts of odds and ends, some of which can be found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some wisdom in the process, which you can take a look at on [this site](/). I've also been organizing the local [Clojure meetup](http://www.meetup.com/Auckland-Clojure/), putting together talks and workshops.
+Previously in my spare time I spent some time learning Go, producing all sorts of odds and ends, some of which can be 
+found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some 
+wisdom in the process, which you can take a look at on [this site](/). I've also been organizing the local 
+[Clojure meetup](http://www.meetup.com/Auckland-Clojure/), putting together talks and workshops.
 
-I'm actively looking for new opportunities, particularly involving functional programming on the JVM. That said I'm open to any opportunity involving tech I haven't been able to use in production yet, or with a experienced and effective team. If you think your team is passionate about the craft of programming, can offer challenging problems, and contributes back to open source, please to get in touch.
+I'm not actively looking for new opportunities, but I would be open to anything involving functional programming on the 
+JVM, and performance oriented work. If you think your team is passionate about the craft of programming, can offer 
+challenging problems, and contributes back to open source, please to get in touch.
 
 ## Community
 - Organized, spoke and prepared materials for the [Auckland Clojure Meetup](https://www.meetup.com/Auckland-Clojure/)
-- Spoke at the [Nodejs](https://www.meetup.com/AucklandNodeJs/events/229969402/) and [Functional Programming](https://www.meetup.com/Functional-Programming-Auckland/events/233597370/) Meetups.
+- Spoke at the [Nodejs](https://www.meetup.com/AucklandNodeJs/events/229969402/) and 
+[Functional Programming](https://www.meetup.com/Functional-Programming-Auckland/events/233597370/) Meetups.
 - Helped tutor at a [ClojureBridge](https://www.meetup.com/Auckland-Clojure/) event.
-- Contributed to open source projects that support the Clojure community, such as [Clojars](https://github.com/clojars/clojars-web/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Alfn3%20)
+- Contributed to open source projects that support the Clojure community, such as 
+[Clojars](https://github.com/clojars/clojars-web/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Alfn3%20)
 
 ## Employment
+### Developer at [LMAX](https://www.lmax.com/)
+<div class="years">2016 -    </div>
+
+- Wrote high performance, consistently low latency Java code.
+- Contributed to open source projects like [Aeron](https://github.com/real-logic/aeron).
+- Maintained and improved a low time to recovery HA solution.
+- Produced tools like [Undertaker](https://github.com/lfn3/undertaker) and 
+  [IntellijLint](https://github.com/lmax-exchange/intellijlint) that helped our team deliver more quickly and effectively.
+
 ### Developer at [LiveOps](https://www.liveopscloud.com/)
-<div class="years">2015 - 	 </div>
+<div class="years">2015 - 2016</div>
 
 - Worked on the Work Allocation team building several microservices with very high performance, uptime, and consistency requirements.
 - Designed and implemented HA solution for our work queuing service.
