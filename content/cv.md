@@ -7,18 +7,17 @@ canonifyurls = true
 stylesheet = "cv.css"
 +++
 
-I've been writing code for almost 15 years now, beginning by learning C++ as a child and later switching to Python, 
-before picking up C# at my previous employer. I've worked on Clojure and Java in high performance, low latency environments.
-I'm passionate and curious about developing optimizing and understanding code.
+I've been writing code for almost 15 years now, starting by learning C++ and later switching to Python, 
+before picking up C# at my first employer. I've worked on Clojure and Java in high performance, low latency environments,
+with very high uptime requirements. I'm passionate and curious about developing, optimizing and understanding code.
 
-Previously in my spare time I spent some time learning Go, producing all sorts of odds and ends, some of which can be 
-found on [Github](https://github.com/lfn3). Lately I've begun to put my learnings into words and hopefully impart some 
-wisdom in the process, which you can take a look at on [this site](/). I've also been organizing the local 
+I've spent some of my time learning Go and Rust. I've been trying to record as many of my thoughts as I can get into
+shape as I can on [this site](/). I've also been organizing the local 
 [Clojure meetup](http://www.meetup.com/Auckland-Clojure/), putting together talks and workshops.
 
-I'm not actively looking for new opportunities, but I would be open to anything involving functional programming on the 
-JVM, and performance oriented work. If you think your team is passionate about the craft of programming, can offer 
-challenging problems, and contributes back to open source, please to get in touch.
+I'm not actively looking for new opportunities, but I would be open to anything involving functional programming and 
+performance oriented work. If you think your team is passionate about the craft of programming, can offer challenging 
+problems, and contributes back to open source, please to get in touch.
 
 ## Community
 - Organized, spoke and prepared materials for the [Auckland Clojure Meetup](https://www.meetup.com/Auckland-Clojure/)
