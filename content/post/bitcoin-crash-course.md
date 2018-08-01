@@ -1,5 +1,5 @@
 +++
-date = "2018-07-23T11:22:00+01:00"
+date = "2018-08-01T10:40:00+01:00"
 draft = false
 title = "Bitcoin crash course"
 
@@ -28,7 +28,13 @@ participating in the bitcoin blockchain to verify that the inputs are allowed to
 transactions they refer to. The structure is fairly recursive, and probably best described in pictures, rather 
 than words:
 
+![Diagram showing a transaction, it's parts, and how they relate to earlier and later transactions](
+/img/posts/bitcoin-crash-course/bitcoin-block-and-transactions.png)
 
+There are other parts I've omitted from this diagram: the outputs also contain amounts, and the block itself has a 
+header with various information including a value that whoever is mining the block can tweak to try and produce the 
+desired hash. There's many other parts that are even more ancillary to the process, if you're interested refer to the 
+[bitcoin wiki](https://en.bitcoin.it/wiki/Transaction).
 
 It's easiest if we consider the output first, as these form the input to the next transaction. Each output specifies a
 `script`, written in a forth like language. This specifies what `scriptSig` is needed to unlock the output and 
@@ -45,7 +51,7 @@ private key which can be verified by using the corresponding public key. So we j
 
 So anything that isn't an operation get's copied straight onto the stack, so the first thing that happens is the  
 `<sig>` and `<pubKey>` are pushed onto the stack:
-```
+```text
 Stack:
 <sig> <pubkey> 
 
@@ -54,7 +60,7 @@ OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
 `OP_DUP` copies whatever's on the top of stack and pushes it onto the stack, yielding:
-```
+```text
 Stack:
 <sig> <pubkey> <pubkey> 
 
@@ -64,7 +70,7 @@ OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 
 `OP_HASH160` hashes the value on the top of the stack, then pushes it back onto the stack, giving us:
 
-```
+```text
 Stack:
 <sig> <pubkey> <pubKeyHash>
 
@@ -76,7 +82,7 @@ The `pubKeyHash` from the `script` then gets pushed onto the stack, and we then 
 in the previous step. This is the first point at which we actually check the input is allowed to be spent, by 
 verifying that the `pubkey` corresponds to the hash in the `script`. If this step fails, the transaction will get 
 rejected by miners and not included in a block. Assuming this succeeds, we then move on to the final step:
-```
+```text
 Stack:
 <sig> <pubkey>
 
@@ -107,47 +113,7 @@ Similarly, an address is really just a output script that you know you can fulfi
 you'll only supply the `pubKeyHash` in the script we worked through above, but of course if you're using a multisig
 wallet or something else more exotic, you can ask whoever is paying you to use a more complex script.
 
-This about sums up what I think is the essential elements of the bitcoin blockchain.
-
-<!-- 
-
-Holding pen
-
-
-So let's start by talking about an address. A bitcoin address is a public key (or a representation of it, we'll get into
-that later) that we can direct payments to. In order to spend whatever bitcoins are sent to that address, you'll need to
-sign the transaction with the private key corresponding to the public key identifying the address.
-
-One of the interesting bits about this is that the wallet isn't actually a real, concrete thing. It's just a collection 
-of payments that haven't been spent, and some bit of information that someone has allowing them to gain access to those
-payments
-
-This is one of the defining characteristics of bitcoin, that errors are fairly fatal to your net worth, and irrecoverable.
-Barring the generosity of whoever's on the other end, assuming they even exist. 
-
-
-There's several different forms of common `script`s such as pay to `pay-to-PubkeyHash` or `pay-to-ScriptHash`.
-
-
-In the case of `pay-to-PubkeyHash` the script looks like `OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`
-this is combined with a `scriptSig` on the 
-
-
-<!--TODO: is each input signed, or just the whole transaction? Can you include inputs from multiple different addresses?-->
-In order to actually authorise the payment, you have to sign each of the inputs with your private key. The actual 
-mechanics of this are complicated, since a bitcoin transaction also includes a miniature program indicating how to 
-validate a transaction and allow the recipient to actually spend the transactions that were sent to their address.
-There's a bunch of different common programs &... 
-
-#TODO! 
-
-In order to get your transaction actually processed by "the blockchain" (actually the lucky computer that mines the next block)
-you need to leave a small amount of "change" in your transaction that will be given to the miner to include your transaction.
-This is a way of aligning the incentives of miners and people who want to use bitcoin.
-
-Each transaction takes up a certain amount of space in a block (measured in bytes). The amount of payment you offer 
-should correspond to amount of data your transaction will take up in the block, since miners can choose between include
-your transaction or any other transaction, and will want to pack the ones that result in the largest payout to them.
-
-
--->
+This about sums up what I think are the essential elements of the bitcoin blockchain, which is to say, transactions and
+their constituent parts. Of those parts the most complex and crucial to the operation of the bitcoin payment 
+infrastructure is the script mechanism, used to verify that you're actually allowed to spend any coins sent your way.
+If you've got any questions or got corrections, message me on [twitter](https://twitter.com/lfln3).
