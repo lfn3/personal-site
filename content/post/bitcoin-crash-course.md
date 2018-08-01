@@ -2,6 +2,7 @@
 date = "2018-08-01T10:40:00+01:00"
 draft = false
 title = "Bitcoin crash course"
+tags = ["LMAX"]
 
 +++
 
