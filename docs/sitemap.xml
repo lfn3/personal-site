@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lfn3.net/2018/08/01/bitcoin-crash-course/</loc>
+    <lastmod>2018-08-01T10:40:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lfn3.net/slides/property-testing-made-simple/</loc>
     <lastmod>2018-05-07T20:01:44+13:00</lastmod>
   </url>
@@ -113,13 +118,19 @@
   </url>
   
   <url>
+    <loc>https://lfn3.net/</loc>
+    <lastmod>2018-08-01T10:40:00+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lfn3.net/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lfn3.net/post/</loc>
-    <lastmod>2018-02-06T17:40:00+13:00</lastmod>
+    <lastmod>2018-08-01T10:40:00+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -131,12 +142,6 @@
   
   <url>
     <loc>https://lfn3.net/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://lfn3.net/</loc>
-    <lastmod>2018-05-07T20:01:44+13:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,13 +1,133 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>lfn3 </title>
+    <title> </title>
     <link>https://lfn3.net/</link>
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2018</rights>
-    <updated>2018-05-07 20:01:44 &#43;1300 &#43;1300</updated>
+    <updated>2018-08-01 10:40:00 &#43;0100 BST</updated>
 
+    
+      
+        <item>
+          <title>Bitcoin crash course</title>
+          <link>https://lfn3.net/2018/08/01/bitcoin-crash-course/</link>
+          <pubDate>Wed, 01 Aug 2018 10:40:00 BST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>https://lfn3.net/2018/08/01/bitcoin-crash-course/</guid>
+          <description>&lt;p&gt;I&amp;rsquo;ve just moved to London, and been working on &lt;a href=&#34;https://www.lmaxdigital.com/&#34;&gt;LMAX Digital&lt;/a&gt; and as a resulted been given
+a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there&amp;rsquo;s a
+near zero chance I&amp;rsquo;m going to remember it as I&amp;rsquo;ve moved on to another area of work, so I figured I&amp;rsquo;d better write it
+all down before I forget it all.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and the only
+thing that actually exists as a concrete object is the transaction. This is what actually goes into any given block
+on a blockchain.&lt;/p&gt;
+
+&lt;p&gt;So let&amp;rsquo;s talk a little about the structure of the actual payments or transactions. There&amp;rsquo;s some header information, but
+mostly they consist of inputs and outputs. The inputs are the unspent outputs in a previous transaction that you have
+the ability to spend, and the outputs are the payments that you want to send to other addresses.
+Of course it&amp;rsquo;s a little more complicated than that, since we have to have some verification - you have to form a
+transaction that proves you can actually spend the inputs, and create some sort of condition that needs to be met for
+the recipient to spend your outputs.&lt;/p&gt;
+
+&lt;p&gt;This is done by building up a script from the inputs and outputs of transactions. The script is run by all the nodes
+participating in the bitcoin blockchain to verify that the inputs are allowed to consume the outputs from older
+transactions they refer to. The structure is fairly recursive, and probably best described in pictures, rather
+than words:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/bitcoin-crash-course/bitcoin-block-and-transactions.png&#34; alt=&#34;Diagram showing a transaction, it&#39;s parts, and how they relate to earlier and later transactions&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are other parts I&amp;rsquo;ve omitted from this diagram: the outputs also contain amounts, and the block itself has a
+header with various information including a value that whoever is mining the block can tweak to try and produce the
+desired hash. There&amp;rsquo;s many other parts that are even more ancillary to the process, if you&amp;rsquo;re interested refer to the
+&lt;a href=&#34;https://en.bitcoin.it/wiki/Transaction&#34;&gt;bitcoin wiki&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s easiest if we consider the output first, as these form the input to the next transaction. Each output specifies a
+&lt;code&gt;script&lt;/code&gt;, written in a forth like language. This specifies what &lt;code&gt;scriptSig&lt;/code&gt; is needed to unlock the output and
+spend it. When it comes time to spend that output, we prepend the &lt;code&gt;scriptSig&lt;/code&gt; that&amp;rsquo;s provided with the input, and
+check that the script leaves &lt;code&gt;true&lt;/code&gt; on top of the stack.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s work through an example of that. The most common &lt;code&gt;script&lt;/code&gt; is &lt;code&gt;Pay-to-PubkeyHash&lt;/code&gt; which looks something like:
+&lt;code&gt;OP_DUP OP_HASH160 &amp;lt;pubKeyHash&amp;gt; OP_EQUALVERIFY OP_CHECKSIG&lt;/code&gt;. &lt;code&gt;&amp;lt;pubKeyHash&amp;gt;&lt;/code&gt; is a placeholder for the hash of an actual
+public key, provided by whoever wants to receive the payment. This is often what&amp;rsquo;s referred to as an address.
+The corresponding &lt;code&gt;scriptSig&lt;/code&gt; that&amp;rsquo;s used to spend this transaction will look like: &lt;code&gt;&amp;lt;sig&amp;gt; &amp;lt;pubKey&amp;gt;&lt;/code&gt;. The reason for
+this is that public keys can be relatively widely shared or unsecured, so we include a signature generated from the
+private key which can be verified by using the corresponding public key. So we join the two together and get:
+&lt;code&gt;&amp;lt;sig&amp;gt; &amp;lt;pubKey&amp;gt; OP_DUP OP_HASH160 &amp;lt;pubKeyHash&amp;gt; OP_EQUALVERIFY OP_CHECKSIG&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;So anything that isn&amp;rsquo;t an operation get&amp;rsquo;s copied straight onto the stack, so the first thing that happens is the&lt;br /&gt;
+&lt;code&gt;&amp;lt;sig&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;pubKey&amp;gt;&lt;/code&gt; are pushed onto the stack:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Stack:
+&amp;lt;sig&amp;gt; &amp;lt;pubkey&amp;gt; 
+
+Remaining Script:
+OP_DUP OP_HASH160 &amp;lt;pubKeyHash&amp;gt; OP_EQUALVERIFY OP_CHECKSIG
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;OP_DUP&lt;/code&gt; copies whatever&amp;rsquo;s on the top of stack and pushes it onto the stack, yielding:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Stack:
+&amp;lt;sig&amp;gt; &amp;lt;pubkey&amp;gt; &amp;lt;pubkey&amp;gt; 
+
+Remaining Script:
+OP_HASH160 &amp;lt;pubKeyHash&amp;gt; OP_EQUALVERIFY OP_CHECKSIG
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;OP_HASH160&lt;/code&gt; hashes the value on the top of the stack, then pushes it back onto the stack, giving us:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Stack:
+&amp;lt;sig&amp;gt; &amp;lt;pubkey&amp;gt; &amp;lt;pubKeyHash&amp;gt;
+
+Remaining Script:
+&amp;lt;pubKeyHash&amp;gt; OP_EQUALVERIFY OP_CHECKSIG
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;pubKeyHash&lt;/code&gt; from the &lt;code&gt;script&lt;/code&gt; then gets pushed onto the stack, and we then compare it to the hash we generated
+in the previous step. This is the first point at which we actually check the input is allowed to be spent, by
+verifying that the &lt;code&gt;pubkey&lt;/code&gt; corresponds to the hash in the &lt;code&gt;script&lt;/code&gt;. If this step fails, the transaction will get
+rejected by miners and not included in a block. Assuming this succeeds, we then move on to the final step:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Stack:
+&amp;lt;sig&amp;gt; &amp;lt;pubkey&amp;gt;
+
+Remaining Script:
+OP_CHECKSIG
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;OP_CHECKSIG&lt;/code&gt; does what it says on the can, checking the signature on the stack was produced using the private key
+corresponding to the public key on the stack, and that the signature is for the contents of the entire transaction.
+This leaves either &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; on the stack, which indicates if the transaction is valid or not.&lt;/p&gt;
+
+&lt;p&gt;At this point the transaction can be broadcast to the blockchain, where miners will run the same set of checks before
+deciding if they want to include it in the block they&amp;rsquo;re mining or not. Their choice is mostly based on how many
+bitcoins you&amp;rsquo;re willing to give them: during the process of forming a transaction you should leave an amount from your
+inputs that isn&amp;rsquo;t allocated to an output for the miner to claim, to incentivize them to pick your transaction to be
+included in the block.&lt;/p&gt;
+
+&lt;p&gt;As each block is of a fixed size (1mb at the time of writing) miners will want to pack the block
+with the transactions offering the highest payout to them. For this reason transaction fees are often measured in
+Satoshis per byte (a Satoshi is the smallest useable increment of a bitcoin: one hundred millionth of a bitcoin).&lt;/p&gt;
+
+&lt;p&gt;What I think is most interesting about this is what we left out: we didn&amp;rsquo;t talk about wallets or addresses,
+since they&amp;rsquo;re abstractions we&amp;rsquo;ve built on top of transactions. A wallet is, at a bare minimum, the keys required to
+produce the signatures for a given output. Often we want other features like knowing the balance we have available
+(that&amp;rsquo;s the sum of all the unspent transactions we have the ability to produce signatures for).&lt;/p&gt;
+
+&lt;p&gt;Similarly, an address is really just a output script that you know you can fulfill the requirements for. Typically
+you&amp;rsquo;ll only supply the &lt;code&gt;pubKeyHash&lt;/code&gt; in the script we worked through above, but of course if you&amp;rsquo;re using a multisig
+wallet or something else more exotic, you can ask whoever is paying you to use a more complex script.&lt;/p&gt;
+
+&lt;p&gt;This about sums up what I think are the essential elements of the bitcoin blockchain, which is to say, transactions and
+their constituent parts. Of those parts the most complex and crucial to the operation of the bitcoin payment
+infrastructure is the script mechanism, used to verify that you&amp;rsquo;re actually allowed to spend any coins sent your way.
+If you&amp;rsquo;ve got any questions or got corrections, message me on &lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;twitter&lt;/a&gt;.&lt;/p&gt;</description>
+        </item>
+      
     
       
     
@@ -15,7 +135,7 @@
         <item>
           <title>Roasters log 1</title>
           <link>https://lfn3.net/2018/02/06/roasters-log-1/</link>
-          <pubDate>Tue, 06 Feb 2018 17:40:00 NZDT</pubDate>
+          <pubDate>Tue, 06 Feb 2018 17:40:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2018/02/06/roasters-log-1/</guid>
           <description>&lt;p&gt;So I&amp;rsquo;m up to roast number 7 at this point (probably 8 or 9 by the time I&amp;rsquo;ve finished this blog post&amp;hellip;).
@@ -87,7 +207,7 @@ hit at least a couple of my goals, and so far I&amp;rsquo;m definitely enjoying 
         <item>
           <title>Roasting coffee with a popcorn maker</title>
           <link>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</link>
-          <pubDate>Mon, 05 Feb 2018 15:16:00 NZDT</pubDate>
+          <pubDate>Mon, 05 Feb 2018 15:16:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</guid>
           <description>&lt;p&gt;I&amp;rsquo;m a big coffee fan. I&amp;rsquo;m also a massive cheapskate. Normally the first one wins, but the other day I found
@@ -194,7 +314,7 @@ on this one, at least until I&amp;rsquo;ve had a chance to &amp;ldquo;dial in&am
         <item>
           <title>The unreasonable effectiveness of checklists</title>
           <link>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</link>
-          <pubDate>Tue, 09 Jan 2018 08:23:00 NZDT</pubDate>
+          <pubDate>Tue, 09 Jan 2018 08:23:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</guid>
           <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
@@ -225,7 +345,7 @@ we&amp;rsquo;ve spent on this has more than paid for itself. And we&amp;rsquo;re
         <item>
           <title>Why bother with property tests</title>
           <link>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</link>
-          <pubDate>Mon, 08 Jan 2018 09:00:00 NZDT</pubDate>
+          <pubDate>Mon, 08 Jan 2018 09:00:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
           <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
@@ -344,7 +464,7 @@ application&amp;rsquo;s users, I would highly recommend you put some effort into
         <item>
           <title>Flamegraphs and benchmarks</title>
           <link>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</link>
-          <pubDate>Thu, 14 Dec 2017 08:08:12 NZDT</pubDate>
+          <pubDate>Thu, 14 Dec 2017 08:08:12 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
           <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
@@ -527,7 +647,7 @@ and given those version numbers, likely to change.&lt;/p&gt;</description>
         <item>
           <title>Writing IntelliJ plugins</title>
           <link>https://lfn3.net/2017/05/27/writing-intellij-plugins/</link>
-          <pubDate>Sat, 27 May 2017 10:21:00 NZST</pubDate>
+          <pubDate>Sat, 27 May 2017 10:21:00 &#43;1200</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2017/05/27/writing-intellij-plugins/</guid>
           <description>&lt;p&gt;I&amp;rsquo;ve spent some time working on an IntelliJ plugin during our free time at work.
@@ -608,7 +728,7 @@ posts I otherwise make&amp;hellip;&lt;/p&gt;</description>
         <item>
           <title>Property testing tooling in Java</title>
           <link>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</link>
-          <pubDate>Sun, 07 May 2017 11:43:00 NZST</pubDate>
+          <pubDate>Sun, 07 May 2017 11:43:00 &#43;1200</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</guid>
           <description>&lt;p&gt;The NZ contingent of LMAX went to &lt;a href=&#34;http://codemania.io/&#34;&gt;Codemania&lt;/a&gt; at the end
@@ -768,7 +888,7 @@ available on &lt;a href=&#34;https://github.com/lfn3/java-comparative-quickcheck
         <item>
           <title>Performance checks on metrics</title>
           <link>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</link>
-          <pubDate>Mon, 24 Apr 2017 21:31:22 NZST</pubDate>
+          <pubDate>Mon, 24 Apr 2017 21:31:22 &#43;1200</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</guid>
           <description>&lt;p&gt;At &lt;a href=&#34;https://www.lmax.com/&#34;&gt;LMAX&lt;/a&gt; we do &lt;a href=&#34;https://www.symphonious.net/testing-at-lmax/&#34;&gt;a lot of automated testing&lt;/a&gt;, including running several
@@ -868,7 +988,7 @@ impossible to improve it.&lt;/p&gt;</description>
         <item>
           <title>Coupling, Connascence, CSP and Actors</title>
           <link>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</link>
-          <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
+          <pubDate>Mon, 03 Oct 2016 23:10:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
           <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
@@ -943,7 +1063,7 @@ impossible to improve it.&lt;/p&gt;</description>
         <item>
           <title>Dependency Injection in Clojure</title>
           <link>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</link>
-          <pubDate>Mon, 19 Sep 2016 21:57:44 NZST</pubDate>
+          <pubDate>Mon, 19 Sep 2016 21:57:44 &#43;1200</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</guid>
           <description>&lt;p&gt;So this is the follow up to a follow up. I&amp;rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read &lt;a href=&#34;https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/&#34;&gt;my old thoughts on Dependency Injection&lt;/a&gt;. Once again, it having been more than 6 months, my opinions have changed.
@@ -1014,7 +1134,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
         <item>
           <title>Leaving the M$alt Mines</title>
           <link>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</link>
-          <pubDate>Thu, 08 Oct 2015 22:38:13 NZDT</pubDate>
+          <pubDate>Thu, 08 Oct 2015 22:38:13 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</guid>
           <description>&lt;p&gt;So a little while ago (ok, a couple of months ago now.) I quit my job at &lt;a href=&#34;https://www.ubiquity.co.nz/&#34;&gt;Ubquity&lt;/a&gt; in favour of one at &lt;a href=&#34;http://www.liveops.com/&#34;&gt;LiveOps&lt;/a&gt;. There were a bunch of reasons for that, but you&amp;rsquo;ll have to buy me a beer to get those out of me. The main draw though, was being able to work with &lt;a href=&#34;http://Clojure.org/&#34;&gt;Clojure&lt;/a&gt; instead of C# (Hence the punny title).&lt;/p&gt;
@@ -1060,7 +1180,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
         <item>
           <title>Error Handling in ASP.NET MVC</title>
           <link>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</link>
-          <pubDate>Sun, 08 Mar 2015 23:06:00 NZDT</pubDate>
+          <pubDate>Sun, 08 Mar 2015 23:06:00 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</guid>
           <description>&lt;p&gt;So today we&amp;rsquo;re gonna talk about how to make sure you don&amp;rsquo;t show your users something like this:&lt;/p&gt;
@@ -1125,7 +1245,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
         <item>
           <title>Fresh Thoughts on Dependency Injection</title>
           <link>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</link>
-          <pubDate>Sun, 15 Feb 2015 12:10:22 NZDT</pubDate>
+          <pubDate>Sun, 15 Feb 2015 12:10:22 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</guid>
           <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;
@@ -1156,7 +1276,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
         <item>
           <title>Moving to Hugo and Lanyon</title>
           <link>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</link>
-          <pubDate>Sat, 14 Feb 2015 18:52:49 NZDT</pubDate>
+          <pubDate>Sat, 14 Feb 2015 18:52:49 &#43;1300</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</guid>
           <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;
@@ -1171,7 +1291,7 @@ The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly a
         <item>
           <title>Dependency Injection - A necessary evil?</title>
           <link>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</link>
-          <pubDate>Thu, 18 Sep 2014 07:27:25 NZST</pubDate>
+          <pubDate>Thu, 18 Sep 2014 07:27:25 &#43;1200</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</guid>
           <description>&lt;p&gt;&lt;em&gt;Basically my position on DI has since changed - go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/&#34;&gt;Fresh Thoughts on Dependency Injection&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;

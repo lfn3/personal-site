@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Bitcoin crash course &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Bitcoin crash course</h1>
+  <span class="post-date">Aug 1 2018</span>
+  <p>I&rsquo;ve just moved to London, and been working on <a href="https://www.lmaxdigital.com/">LMAX Digital</a> and as a resulted been given
+a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there&rsquo;s a
+near zero chance I&rsquo;m going to remember it as I&rsquo;ve moved on to another area of work, so I figured I&rsquo;d better write it
+all down before I forget it all.</p>
+
+<p></p>
+
+<p>There&rsquo;s quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and the only
+thing that actually exists as a concrete object is the transaction. This is what actually goes into any given block
+on a blockchain.</p>
+
+<p>So let&rsquo;s talk a little about the structure of the actual payments or transactions. There&rsquo;s some header information, but
+mostly they consist of inputs and outputs. The inputs are the unspent outputs in a previous transaction that you have
+the ability to spend, and the outputs are the payments that you want to send to other addresses.
+Of course it&rsquo;s a little more complicated than that, since we have to have some verification - you have to form a
+transaction that proves you can actually spend the inputs, and create some sort of condition that needs to be met for
+the recipient to spend your outputs.</p>
+
+<p>This is done by building up a script from the inputs and outputs of transactions. The script is run by all the nodes
+participating in the bitcoin blockchain to verify that the inputs are allowed to consume the outputs from older
+transactions they refer to. The structure is fairly recursive, and probably best described in pictures, rather
+than words:</p>
+
+<p><img src="https://lfn3.net/img/posts/bitcoin-crash-course/bitcoin-block-and-transactions.png" alt="Diagram showing a transaction, it's parts, and how they relate to earlier and later transactions" /></p>
+
+<p>There are other parts I&rsquo;ve omitted from this diagram: the outputs also contain amounts, and the block itself has a
+header with various information including a value that whoever is mining the block can tweak to try and produce the
+desired hash. There&rsquo;s many other parts that are even more ancillary to the process, if you&rsquo;re interested refer to the
+<a href="https://en.bitcoin.it/wiki/Transaction">bitcoin wiki</a>.</p>
+
+<p>It&rsquo;s easiest if we consider the output first, as these form the input to the next transaction. Each output specifies a
+<code>script</code>, written in a forth like language. This specifies what <code>scriptSig</code> is needed to unlock the output and
+spend it. When it comes time to spend that output, we prepend the <code>scriptSig</code> that&rsquo;s provided with the input, and
+check that the script leaves <code>true</code> on top of the stack.</p>
+
+<p>Let&rsquo;s work through an example of that. The most common <code>script</code> is <code>Pay-to-PubkeyHash</code> which looks something like:
+<code>OP_DUP OP_HASH160 &lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code>. <code>&lt;pubKeyHash&gt;</code> is a placeholder for the hash of an actual
+public key, provided by whoever wants to receive the payment. This is often what&rsquo;s referred to as an address.
+The corresponding <code>scriptSig</code> that&rsquo;s used to spend this transaction will look like: <code>&lt;sig&gt; &lt;pubKey&gt;</code>. The reason for
+this is that public keys can be relatively widely shared or unsecured, so we include a signature generated from the
+private key which can be verified by using the corresponding public key. So we join the two together and get:
+<code>&lt;sig&gt; &lt;pubKey&gt; OP_DUP OP_HASH160 &lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code></p>
+
+<p>So anything that isn&rsquo;t an operation get&rsquo;s copied straight onto the stack, so the first thing that happens is the<br />
+<code>&lt;sig&gt;</code> and <code>&lt;pubKey&gt;</code> are pushed onto the stack:</p>
+
+<pre><code class="language-text">Stack:
+&lt;sig&gt; &lt;pubkey&gt; 
+
+Remaining Script:
+OP_DUP OP_HASH160 &lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG
+</code></pre>
+
+<p><code>OP_DUP</code> copies whatever&rsquo;s on the top of stack and pushes it onto the stack, yielding:</p>
+
+<pre><code class="language-text">Stack:
+&lt;sig&gt; &lt;pubkey&gt; &lt;pubkey&gt; 
+
+Remaining Script:
+OP_HASH160 &lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG
+</code></pre>
+
+<p><code>OP_HASH160</code> hashes the value on the top of the stack, then pushes it back onto the stack, giving us:</p>
+
+<pre><code class="language-text">Stack:
+&lt;sig&gt; &lt;pubkey&gt; &lt;pubKeyHash&gt;
+
+Remaining Script:
+&lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG
+</code></pre>
+
+<p>The <code>pubKeyHash</code> from the <code>script</code> then gets pushed onto the stack, and we then compare it to the hash we generated
+in the previous step. This is the first point at which we actually check the input is allowed to be spent, by
+verifying that the <code>pubkey</code> corresponds to the hash in the <code>script</code>. If this step fails, the transaction will get
+rejected by miners and not included in a block. Assuming this succeeds, we then move on to the final step:</p>
+
+<pre><code class="language-text">Stack:
+&lt;sig&gt; &lt;pubkey&gt;
+
+Remaining Script:
+OP_CHECKSIG
+</code></pre>
+
+<p><code>OP_CHECKSIG</code> does what it says on the can, checking the signature on the stack was produced using the private key
+corresponding to the public key on the stack, and that the signature is for the contents of the entire transaction.
+This leaves either <code>true</code> or <code>false</code> on the stack, which indicates if the transaction is valid or not.</p>
+
+<p>At this point the transaction can be broadcast to the blockchain, where miners will run the same set of checks before
+deciding if they want to include it in the block they&rsquo;re mining or not. Their choice is mostly based on how many
+bitcoins you&rsquo;re willing to give them: during the process of forming a transaction you should leave an amount from your
+inputs that isn&rsquo;t allocated to an output for the miner to claim, to incentivize them to pick your transaction to be
+included in the block.</p>
+
+<p>As each block is of a fixed size (1mb at the time of writing) miners will want to pack the block
+with the transactions offering the highest payout to them. For this reason transaction fees are often measured in
+Satoshis per byte (a Satoshi is the smallest useable increment of a bitcoin: one hundred millionth of a bitcoin).</p>
+
+<p>What I think is most interesting about this is what we left out: we didn&rsquo;t talk about wallets or addresses,
+since they&rsquo;re abstractions we&rsquo;ve built on top of transactions. A wallet is, at a bare minimum, the keys required to
+produce the signatures for a given output. Often we want other features like knowing the balance we have available
+(that&rsquo;s the sum of all the unspent transactions we have the ability to produce signatures for).</p>
+
+<p>Similarly, an address is really just a output script that you know you can fulfill the requirements for. Typically
+you&rsquo;ll only supply the <code>pubKeyHash</code> in the script we worked through above, but of course if you&rsquo;re using a multisig
+wallet or something else more exotic, you can ask whoever is paying you to use a more complex script.</p>
+
+<p>This about sums up what I think are the essential elements of the bitcoin blockchain, which is to say, transactions and
+their constituent parts. Of those parts the most complex and crucial to the operation of the bitcoin payment
+infrastructure is the script mechanism, used to verify that you&rsquo;re actually allowed to spend any coins sent your way.
+If you&rsquo;ve got any questions or got corrections, message me on <a href="https://twitter.com/lfln3">twitter</a>.</p>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

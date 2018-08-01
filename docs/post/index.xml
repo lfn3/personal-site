@@ -1,94 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>lfn3 </title>
+    <title>Posts on </title>
     <link>https://lfn3.net/post/</link>
-    <language>en-us</language>
-    <author>Liam Falconer</author>
-    <rights>(C) 2018</rights>
-    <updated>2018-02-06 17:40:00 &#43;1300 NZDT</updated>
-
+    <description>Recent content in Posts on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 01 Aug 2018 10:40:00 +0100</lastBuildDate>
     
+	<atom:link href="https://lfn3.net/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bitcoin crash course</title>
+      <link>https://lfn3.net/2018/08/01/bitcoin-crash-course/</link>
+      <pubDate>Wed, 01 Aug 2018 10:40:00 +0100</pubDate>
       
-        <item>
-          <title>Roasters log 1</title>
-          <link>https://lfn3.net/2018/02/06/roasters-log-1/</link>
-          <pubDate>Tue, 06 Feb 2018 17:40:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2018/02/06/roasters-log-1/</guid>
-          <description>&lt;p&gt;So I&amp;rsquo;m up to roast number 7 at this point (probably 8 or 9 by the time I&amp;rsquo;ve finished this blog post&amp;hellip;).
+      <guid>https://lfn3.net/2018/08/01/bitcoin-crash-course/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve just moved to London, and been working on &lt;a href=&#34;https://www.lmaxdigital.com/&#34;&gt;LMAX Digital&lt;/a&gt; and as a resulted been given
+a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there&amp;rsquo;s a
+near zero chance I&amp;rsquo;m going to remember it as I&amp;rsquo;ve moved on to another area of work, so I figured I&amp;rsquo;d better write it
+all down before I forget it all.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Roasters log 1</title>
+      <link>https://lfn3.net/2018/02/06/roasters-log-1/</link>
+      <pubDate>Tue, 06 Feb 2018 17:40:00 +1300</pubDate>
+      
+      <guid>https://lfn3.net/2018/02/06/roasters-log-1/</guid>
+      <description>&lt;p&gt;So I&amp;rsquo;m up to roast number 7 at this point (probably 8 or 9 by the time I&amp;rsquo;ve finished this blog post&amp;hellip;).
 I&amp;rsquo;m beginning to think maybe I like the process of roasting coffee more than drinking it - my biggest issue at this
 point is that I can&amp;rsquo;t iterate quickly enough on the roasts because I don&amp;rsquo;t drink coffee quickly enough.
 I only want to roast enough coffee for about a 5 days worth of drinking, i.e. ~5 batches in my wee popcorn machine,
 since apparently the &amp;ldquo;freshness&amp;rdquo; really starts to fall off after 5 or so days. I&amp;rsquo;m tempted to try and foist it on my
 friends, but I think I need to try and dial it in a bit first.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Yesterday I picked up a copy of
-&lt;a target=&#34;_blank&#34; href=&#34;https://www.amazon.com/gp/product/0312312199/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0312312199&amp;linkCode=as2&amp;tag=lfn3-20&amp;linkId=72d49be7363b38d8efe23e82bd03cc48&#34;&gt;Home Coffee Roasting: Romance and Revival&lt;/a&gt;
-&lt;img src=&#34;//ir-na.amazon-adsystem.com/e/ir?t=lfn3-20&amp;l=am2&amp;o=1&amp;a=0312312199&#34; width=&#34;1&#34; height=&#34;1&#34; border=&#34;0&#34; alt=&#34;&#34; style=&#34;border:none !important; margin:0px !important;&#34; /&gt;
-from the library. I&amp;rsquo;ve been jumping all over the book, but so far it&amp;rsquo;s been great. I&amp;rsquo;ve already locked in my
-&lt;a href=&#34;https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/&#34;&gt;roaster&lt;/a&gt;, so a lot of advice about what the options are is
-somewhat wasted on me, but probably the most important thing in there is keeping a log.&lt;/p&gt;
-
-&lt;p&gt;Which I wish I&amp;rsquo;d been doing from my first roast, but I was a bit excited to get started. As a result my first couple of
-roasts were all over the place in terms of quantity, darkness etc. I was messing around, rather than experimenting.
-Exhibit A being this &amp;ldquo;innovation&amp;rdquo;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasters-log-1/potted-coffee-roaster.jpg&#34; alt=&#34;potted coffee roaster&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;While it definitely sped up my roasts I don&amp;rsquo;t think it added much to the flavour. The thing I have stuck with, however,
-is using my wife&amp;rsquo;s hairdryer on a &amp;lsquo;cool&amp;rsquo; setting to cool the beans after I dump them out of the roaster. This is to try
-and stop the roasting process as fast as possible once the beans have left the roaster. Due to the residual heat inside
-the beans it would otherwise continue for a while after they&amp;rsquo;re dumped out of the roaster. It also helps get rid of bits
-of chaff still stuck to the beans.&lt;/p&gt;
-
-&lt;p&gt;Anyway, what I&amp;rsquo;ve noticed so far is there&amp;rsquo;s a pretty reasonable amount of variability. Between my sixth and seventh
-roasts the first crack (when the coffee beans make a cracking sound as they start to undergo
-&lt;a href=&#34;https://en.wikipedia.org/wiki/Pyrolysis&#34;&gt;pyrolysis&lt;/a&gt;) happened at 2 minutes, 15 seconds and 3 minutes, 7 seconds
-respectively. That&amp;rsquo;s 52 seconds, or about a fifth of the total time I spent roasting the beans (I targeted 5 &amp;amp; 6 minutes
-for those roasts). As you can see from the picture below, there&amp;rsquo;s only a slight difference in colour as a result.
-&lt;img src=&#34;https://lfn3.net/img/posts/roasters-log-1/6-and-7-comparison.jpg&#34; alt=&#34;roasts 6 and 7&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m not sure what&amp;rsquo;s causing that variability. I don&amp;rsquo;t have any effective means of measuring temperature, yet.
-I tried some digital thermometers that are rated up to 300°C, but although the probe might have been fine at that
-temperature, the display most definitely was not. I&amp;rsquo;m planning on drilling a hole through the side of the tin can I&amp;rsquo;ve
-put over the top of the metal &amp;ldquo;cup&amp;rdquo; and pushing the probe in through there to stop the display from overheating.
-Need to pinch a drill from my dad&amp;rsquo;s place first though.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve also ordered a &lt;a href=&#34;https://en.wikipedia.org/wiki/Thermocouple&#34;&gt;thermocouple&lt;/a&gt; from China by way of
-&lt;a href=&#34;https://www.ebay.com/itm/302541549268&#34;&gt;eBay&lt;/a&gt;, but of course that&amp;rsquo;ll probably take a month or so to show up, but when
-it does the amount of science I&amp;rsquo;m gonna be able to do is gonna go through the roof (I&amp;rsquo;m talking like continuous profiling
-and pretty graphs and stuff). Really looking forward to that.&lt;/p&gt;
-
-&lt;p&gt;So that means only variable I can effectively vary at this point is roasting time. (I need to get a scale as well) So
-I&amp;rsquo;m gonna totally try and science the hell out of that in the meantime. Based on discussions online it seems like I
-should be trying to target longer rather than shorter roasting times at lower (average) temperatures.
-Unfortunately I don&amp;rsquo;t have any way of controlling that, and I&amp;rsquo;m in a country where 240v is the standard, so the machine
-I&amp;rsquo;m using is a 2400 watt one. This probably means it&amp;rsquo;s heating up way to fast (I was seeing 200°C on the thermometer
-within a couple of minutes before the display gave out on me.)&lt;/p&gt;
-
-&lt;p&gt;The other thing I&amp;rsquo;m somewhat intentionally sacrificing control over is the amount of time the coffee is resting for
-between roasting and drinking. At the moment I&amp;rsquo;m laying in stocks until the weekend, when I should be able to get
-a scale to further refine the process. At that point I&amp;rsquo;m gonna try and consistently roast every day so we&amp;rsquo;re always
-drinking the coffee the same number of days after the roast.&lt;/p&gt;
-
-&lt;p&gt;Lots of variables to keep track of. At least the coffee I&amp;rsquo;ve produced so far is drinkable, and it&amp;rsquo;s definitely cheaper
-than buying it from the supermarket. The ideas that are bubbling out of my head in terms of potential improvements are
-numerous enough to keep me busy for a while, let alone the process of refining what I&amp;rsquo;m already working with. So I&amp;rsquo;ve
-hit at least a couple of my goals, and so far I&amp;rsquo;m definitely enjoying geeking out on the process.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Roasting coffee with a popcorn maker</title>
+      <link>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</link>
+      <pubDate>Mon, 05 Feb 2018 15:16:00 +1300</pubDate>
       
-        <item>
-          <title>Roasting coffee with a popcorn maker</title>
-          <link>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</link>
-          <pubDate>Mon, 05 Feb 2018 15:16:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</guid>
-          <description>&lt;p&gt;I&amp;rsquo;m a big coffee fan. I&amp;rsquo;m also a massive cheapskate. Normally the first one wins, but the other day I found
+      <guid>https://lfn3.net/2018/02/05/roasting-coffee-with-a-popcorn-maker/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a big coffee fan. I&amp;rsquo;m also a massive cheapskate. Normally the first one wins, but the other day I found
 &lt;a href=&#34;https://hackaday.com/2018/01/23/build-an-excellent-coffee-roaster-with-a-satisfyingly-low-price-tag/&#34;&gt;this post&lt;/a&gt;
 about how you can roast your own coffee. Within about an hour I&amp;rsquo;d ordered the necessary bits, and now less than a week
 later, I&amp;rsquo;ve roasted my 5th artisanal microbatch of coffee.&lt;/p&gt;
@@ -98,254 +56,43 @@ later, I&amp;rsquo;ve roasted my 5th artisanal microbatch of coffee.&lt;/p&gt;
 &lt;p&gt;As you might be able to tell, I haven&amp;rsquo;t dialed in the actual roasting part of it just yet, but I can definitely tell
 you how to pull apart a popcorn maker.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So what I&amp;rsquo;ve worked with is one of these:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/pristine.jpg&#34; alt=&#34;Sunbeam popcorn maker&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Which seems to be the only one available in at NZ retail stores. Thankfully, the design of these things doesn&amp;rsquo;t differ
-that much from model to model. Unfortunately I took all these photos &lt;em&gt;after&lt;/em&gt; I&amp;rsquo;d pulled the thing apart, so they&amp;rsquo;re
-more representative than anything else.&lt;/p&gt;
-
-&lt;p&gt;We are going to be doing some damage to the plastic casing, and circumventing the safety measures. Obviously these
-actions are warranty voiding, and do definitely increase the fire risk posed by the altered device. I would not leave it
-unattended, and keep an eye on the machine while it&amp;rsquo;s operating.  Maybe keep a fire extingusher on hand as well.&lt;/p&gt;
-
-&lt;p&gt;Alright so step zero, crack it open. There&amp;rsquo;s screws in the spots marked with arrows. The four outside ones are covered
-with little rubber feet you can just pull off. The other two are deep inside the casing, you&amp;rsquo;ll need a screwdriver with
-a reasonably long shaft to get at them.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/&amp;quot;unopened&amp;quot;.jpg&#34; alt=&#34;&amp;quot;unopened&amp;quot; popcorn maker&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After doing that, you should be able to yank the base off your soon to be coffee maker, and you should be greeted by
-something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/popcorn-maker-insides.jpg&#34; alt=&#34;insides of the popcorn maker&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The bit that we need to deal with immediately in order to free the important parts from their feeble plastic shell is
-the switch:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/switch.jpg&#34; alt=&#34;switch&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You should be able to pull the cables off the switch by hand or with a pair of pliers. We have to do this since the
-switch will only come out if we push it towards the outside of the plastic shell. Once you&amp;rsquo;ve pulled it out you should
-reattach it to the cables which should just press fit back on.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/freed-switch.jpg&#34; alt=&#34;freed switch&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;At this point you should be able to pull the whole assembly out of the shell, along with the power cable and the still
-attached base:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/guts.jpg&#34; alt=&#34;extracted guts of the popcorn maker&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s a bit of a choose you own adventure at this point. We&amp;rsquo;ve got to remove the overheat protection measures, and
-although you don&amp;rsquo;t have to remove the base, but it&amp;rsquo;s probably a good idea since otherwise it&amp;rsquo;ll just get in your way.&lt;/p&gt;
-
-&lt;p&gt;Lets start with the base, which is just a case of removing two of the screws retaining the power cable, (indicated with
-the arrows) and then cutting through the plastic base to free the cable. A big pair of side cutters will do the job
-just fine, and will make sure the warranty is voided.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/base.jpg&#34; alt=&#34;base&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once that&amp;rsquo;s done we&amp;rsquo;re onto the increasing fire risk part of the operation. There&amp;rsquo;s a large metal band around the &amp;ldquo;cup&amp;rdquo;,
-holding a thermal fuse:
-&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/fuse.jpg&#34; alt=&#34;thermal-fuse&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The fuse is rated for 196°C, which is a bit lower than what we want. We&amp;rsquo;re targeting around 200°C. So that&amp;rsquo;s got to go,
-along with the other bit that the metal band is holding on:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/thermocouple.jpg&#34; alt=&#34;thermocouple&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a termostat. Unlike the fuse it&amp;rsquo;ll reset itself once it&amp;rsquo;s cooled off, but it&amp;rsquo;s got a slightly lower cutoff at
-180°C.&lt;/p&gt;
-
-&lt;p&gt;The band is held together with a bolt which can just be undone, and then you&amp;rsquo;ll have to cut through a part of it to free
-the thermocouple. Once that was done I just duct taped them together to keep them off to the side while the roaster is
-running.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/duct-taped.jpg&#34; alt=&#34;taped up thermal protection&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The only other thing you need to do at this point is figure out how to handle the thing when it&amp;rsquo;s hot. You could
-probably fashion a handle from some stiff wire, but being an apartment dweller I didn&amp;rsquo;t have any handy. What I did have
-was a pipe wrench:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/pipe-wrench.jpg&#34; alt=&#34;pipe wrench&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Just make sure it&amp;rsquo;s not making contact between the body of the motor and any of the components on the board, and you
-should be able to safely flip the whole thing upside down to extract your roasted coffee.&lt;/p&gt;
-
-&lt;p&gt;One piece of advice I am going to give, is don&amp;rsquo;t use the switch to turn it on or off. I&amp;rsquo;ve managed to electrocute myself
-since it&amp;rsquo;s not that easy to hold in place while operating. I&amp;rsquo;m probably going to replace it with something a bit more
-fit for purpose later.&lt;/p&gt;
-
-&lt;p&gt;Oh and do your roasts outside. It&amp;rsquo;ll spit out a ton of &amp;ldquo;chaff&amp;rdquo; from the beans which you don&amp;rsquo;t really want all over the
-stuff you own. I&amp;rsquo;m thinking of getting some aluminum ducting so I can control where the chaff ends up going.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m going to refrain from offering any further roasting advice, since I definitely don&amp;rsquo;t have anything resembling a
-process dialed in yet. You should go have a look at &lt;a href=&#34;https://www.sweetmarias.com/air-popper-method&#34;&gt;other people&amp;rsquo;s advice&lt;/a&gt;
-on this one, at least until I&amp;rsquo;ve had a chance to &amp;ldquo;dial in&amp;rdquo; my process.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>The unreasonable effectiveness of checklists</title>
+      <link>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</link>
+      <pubDate>Tue, 09 Jan 2018 08:23:00 +1300</pubDate>
       
-        <item>
-          <title>The unreasonable effectiveness of checklists</title>
-          <link>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</link>
-          <pubDate>Tue, 09 Jan 2018 08:23:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</guid>
-          <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
+      <guid>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</guid>
+      <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
 The checklist is basically just a big list of features that already exist in our codebase, and some notable gotchas
 that have caught us out before. All we do is go through it and ask ourselves if what we&amp;rsquo;ve just written interacts with
 that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The checklist is pretty long as a result, and constantly changing, but still really useful, especially considering the
-amount of effort that goes into it is ~5 minutes per story. In spite of us knowing we&amp;rsquo;re going to go through the
-checklist, we still pretty much always turn up something, either a test that needs writing or some unexpected, broken
-interaction.&lt;/p&gt;
-
-&lt;p&gt;All you have to do is sit down and spent 15 minutes writing a list in markdown of all the major things your
-codebase does. Every time you think you&amp;rsquo;re done with a bit of work, take a copy, delete everything that&amp;rsquo;s irrelevant,
-and tick everything you&amp;rsquo;ve got a test for. Anything that&amp;rsquo;s left, well there&amp;rsquo;s something that&amp;rsquo;s at least untested, and
-maybe if you think about it, buggy. The only other thing we do is try to add to the template when we introduce a bug
-that is due to unexpected interaction between what we&amp;rsquo;re writing, and some other feature.&lt;/p&gt;
-
-&lt;p&gt;For us, the return on investment for this has been exceptional. We&amp;rsquo;ve caught enough issues that the tiny amount of time
-we&amp;rsquo;ve spent on this has more than paid for itself. And we&amp;rsquo;re not the
-&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/23579353&#34;&gt;only ones&lt;/a&gt;.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Why bother with property tests</title>
+      <link>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</link>
+      <pubDate>Mon, 08 Jan 2018 09:00:00 +1300</pubDate>
       
-        <item>
-          <title>Why bother with property tests</title>
-          <link>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</link>
-          <pubDate>Mon, 08 Jan 2018 09:00:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
-          <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
+      <guid>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
+      <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
 thinking about why we&amp;rsquo;re actually doing this. Obviously I think it&amp;rsquo;s a good idea, but what actual benefits do we get
 from these, apart from slightly more arcane tests?&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;what-is-a-property-test-anyway&#34;&gt;What is a property test anyway?&lt;/h3&gt;
-
-&lt;p&gt;Just in case you&amp;rsquo;re not sure what a property based test is, it&amp;rsquo;s a test where rather than specifying the input and
-output, e.g. &lt;code&gt;1 + 1 = 2&lt;/code&gt;, instead get the computer to generate the input for you, and validate a more abstract property
-of the thing that you&amp;rsquo;re testing. For example: &lt;code&gt;x &amp;lt; x + y&lt;/code&gt;. They&amp;rsquo;re also known as generative tests.&lt;/p&gt;
-
-&lt;p&gt;Hopefully that shows they&amp;rsquo;re a little more complicated to write (the above example isn&amp;rsquo;t even correct unless we ignore
-negative numbers), but I&amp;rsquo;m going to spend the rest of this post explaining why I think they&amp;rsquo;re worth writing despite the
-extra effort you have to put in.&lt;/p&gt;
-
-&lt;h3 id=&#34;increases-your-confidence-in-your-code&#34;&gt;Increases your confidence in your code&lt;/h3&gt;
-
-&lt;p&gt;One of the things I&amp;rsquo;ve learned over the few years I&amp;rsquo;ve spent programming is that I&amp;rsquo;m wrong &lt;em&gt;a lot&lt;/em&gt;. Sometimes in obvious
-ways that a compiler will catch and tell me about nearly instantly, other times in ways that I have to go and dig at or
-write tests to figure out. Even when I write tests to cover whatever code I just came up with, I&amp;rsquo;m never actually sure
-that I&amp;rsquo;ve written all of the tests I need to. Property based tests go some way towards alleviating this fear, since I
-no longer have to worry about covering every individual case, but rather just each class of test.&lt;/p&gt;
-
-&lt;p&gt;Unless you can encode the logic you&amp;rsquo;re testing in a different way for the test (that&amp;rsquo;s obviously correct!), or you have
-an oracle of some kind to check against in your property test, you&amp;rsquo;re still going to have to write at least one example
-based test. Otherwise you can&amp;rsquo;t really be sure that the code does exactly what you expect it to (and that it will
-continue to do so).&lt;/p&gt;
-
-&lt;p&gt;If you do have an oracle to check against, even one that&amp;rsquo;s only good for a subset of the inputs, that&amp;rsquo;s great! You&amp;rsquo;re
-probably in a position to be super lazy, and might be able to get away with writing only a property single test for
-the function you&amp;rsquo;re testing. Which brings me nicely to my next point:&lt;/p&gt;
-
-&lt;h3 id=&#34;you-re-lazy-and-that-s-not-a-bad-thing&#34;&gt;You&amp;rsquo;re lazy, and that&amp;rsquo;s not a bad thing&lt;/h3&gt;
-
-&lt;p&gt;I don&amp;rsquo;t really love writing tests. For me they&amp;rsquo;re very much a means to an end, in that they help me write code more
-correctly, faster. Unit tests, in particular, I question the lasting value of quite a bit. More often than not all
-they tell you when they break is that you changed some code. I think property tests give you more bang for you buck,
-since usually you  have to make the assertions general enough that they reflect the essence of the function you&amp;rsquo;re testing.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m also a big fan of making the computer do as much work as possible or at least practical. If you use a good property
-testing library, it&amp;rsquo;ll automatically pick out commonly problematic test cases, e.g. -1 and 0 if you&amp;rsquo;re using numbers,
-or &amp;ldquo;&amp;rdquo; and &amp;ldquo;í&amp;rdquo; for strings. It should also hit the edges of any boundaries you specify fairly quickly, so if you request
-a number in the range 25 - 75, you should see the library emit the values 25 and 75 during any given test run. This
-means you don&amp;rsquo;t need to worry about the boundary conditions, since they&amp;rsquo;ll already be covered.&lt;/p&gt;
-
-&lt;p&gt;In addition, there&amp;rsquo;s some kinds of tests where you don&amp;rsquo;t really care too much about the mechanics of what happens,
-you&amp;rsquo;re just looking to check some invariant is preserved. For example, serialization and deserialization. In this case,
-the actual values we pass in to be serialized are not really important to the test, so we can use a property testing
-library to reflect over the method, and feed it arbitrary generated values.&lt;/p&gt;
-
-&lt;h3 id=&#34;they-go-great-with-contracts&#34;&gt;They go &lt;em&gt;great&lt;/em&gt; with contracts&lt;/h3&gt;
-
-&lt;p&gt;I&amp;rsquo;m of the opinion that one of the best things you can do to make your system more robust is adding contracts to check
-the data that flows through your code. Even if you don&amp;rsquo;t enable them at runtime (or only enable them at the borders of
-your system) they greatly help you confirm the consistency of your system in a way that less advanced type systems
-can otherwise struggle with. Little things like being able to say that a particular value with never be negative,
-throughout your entire system are great. They let you focus on the actual problems you have to solve, rather than
-worrying about the providence of a particular bit of data.&lt;/p&gt;
-
-&lt;p&gt;If you then write some simple generative tests at the borders of your system (they don&amp;rsquo;t have to assert anything,
-apart from the fact they don&amp;rsquo;t get an error as their response) you can be relatively certain that you don&amp;rsquo;t violate the
-constraints you&amp;rsquo;ve specified inside your codebase.&lt;/p&gt;
-
-&lt;h3 id=&#34;helps-you-find-the-actual-boundaries-of-your-system&#34;&gt;Helps you find the (actual) boundaries of your system&lt;/h3&gt;
-
-&lt;p&gt;The first property test you write for any bit of code doesn&amp;rsquo;t even have to have assertions, just calling your code and
-making sure it doesn&amp;rsquo;t explode is enough. The great thing about this test is it&amp;rsquo;s always good. At most, you just need to
-adjust the ranges in your generator when you change the code under test.&lt;/p&gt;
-
-&lt;p&gt;When it does explode on some input that you didn&amp;rsquo;t count on getting, you&amp;rsquo;ll adjust the generator to not emit those values.
-At the same time you should step further up the stack, towards where your customers interact with the system, and write
-a test to make sure that your function can&amp;rsquo;t be invoked with these values.&lt;/p&gt;
-
-&lt;p&gt;This isn&amp;rsquo;t actually much different from the point above about contracts, it&amp;rsquo;s just that the contracts here are implicit
-rather than explicit.&lt;/p&gt;
-
-&lt;h3 id=&#34;you-have-to-think-more&#34;&gt;You have to think more&lt;/h3&gt;
-
-&lt;p&gt;This is the reason I got into programming. Sometimes it&amp;rsquo;s &lt;em&gt;hard&lt;/em&gt;, and you have to spend a while noodling on a problem
-before you can make a reasonable attack on it. Often, figuring out the properties to write is one of those hard things.
-I don&amp;rsquo;t think that&amp;rsquo;s a bad thing. Personally I&amp;rsquo;m far more prone to under thinking a particular bit of code than
-over thinking it, and anything that makes me slow down a bit and worry about what the code is actually supposed to be
-doing is probably a good thing.&lt;/p&gt;
-
-&lt;p&gt;I think that&amp;rsquo;s one of the unrealized or underrated advantages of TDD, that you spend more time thinking about what the
-code does and how it does it. Often having read the code I just wrote is enough to make me discover there&amp;rsquo;s something in
-need of correction. Property testing has the same effect, just more of it.&lt;/p&gt;
-
-&lt;h3 id=&#34;make-impractical-tests-possible&#34;&gt;Make impractical tests possible.&lt;/h3&gt;
-
-&lt;p&gt;Would you write a test that performs 17 different sequenced actions? Probably not unless you already knew there was a
-bug there, right? If you dive into writing stateful tests, you won&amp;rsquo;t have to write the 17 action test, your property
-testing library will do it for you. In systems where correctness is important and there&amp;rsquo;s lots of state to cover this
-is one of the only ways to get this sort of coverage, short of using production workloads.&lt;/p&gt;
-
-&lt;p&gt;These sorts of tests really amplify the &amp;ldquo;have to think more&amp;rdquo; aspect, since you have to manipulate your system through a
-sequence of valid states, and find some properties to actually assert on that hold over the lifecycle of your systen.
-Other people have &lt;a href=&#34;https://www.youtube.com/watch?v=zi0rHwfiX1Q&#34;&gt;explained&lt;/a&gt; how to do this, so if it&amp;rsquo;s something you&amp;rsquo;re
-interested in I&amp;rsquo;d suggest you take a look at their efforts.&lt;/p&gt;
-
-&lt;h3 id=&#34;tl-dr&#34;&gt;tl;dr&lt;/h3&gt;
-
-&lt;p&gt;Property based tests are harder to write than unit tests. Sometimes, that doesn&amp;rsquo;t mean you have to spend more time
-writing them than you would for an equivalent amount of coverage with unit tests. Other times, that extra effort can let
-you test things that wouldn&amp;rsquo;t be practical or possible without property tests. Finally, while writing these tests, you
-often discover that the edges of valid input aren&amp;rsquo;t where you thought they would be, either because of the contracts
-you wrote, or the implicit contracts of the language or code you&amp;rsquo;re using. If correctness is important to you and your
-application&amp;rsquo;s users, I would highly recommend you put some effort into writing property tests for your system.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Flamegraphs and benchmarks</title>
+      <link>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</link>
+      <pubDate>Thu, 14 Dec 2017 08:08:12 +1300</pubDate>
       
-        <item>
-          <title>Flamegraphs and benchmarks</title>
-          <link>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</link>
-          <pubDate>Thu, 14 Dec 2017 08:08:12 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
-          <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
+      <guid>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
 scene. I&amp;rsquo;ve been using it to debug some performance issues with a library I&amp;rsquo;m
 about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bit about
 the why and the how of getting benchmarks to produce
@@ -353,182 +100,32 @@ the why and the how of getting benchmarks to produce
 
 &lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;why-use-flamegraphs&#34;&gt;Why use flamegraphs?&lt;/h3&gt;
-
-&lt;p&gt;Why did I go to the effort of generating these things if I could just use Java
-Microbenchmark Harness (JMH) to figure out where it&amp;rsquo;s slow? In order to do that
-I&amp;rsquo;d have to write quite a lot of benchmarks to drill down into where exactly the
-problem is. That&amp;rsquo;s tricky and arduous, since you&amp;rsquo;ve got to make sure that each
-benchmark is realistic. In my case there&amp;rsquo;s quite a bit of complexity buried
-inside the library as well - there&amp;rsquo;s a reasonably compact public api with quite
-a bit of code underneath.&lt;/p&gt;
-
-&lt;p&gt;The other thing is anyone using the library doesn&amp;rsquo;t really care about the
-performance of the internals of the library. Measuring the performance of the
-internals doesn&amp;rsquo;t really tell me much about the user experience. Ideally what I
-want is comprehensive benchmarks of the public APIs, and some sort of profiling
-to help me figure out what code internally is slowing them down.&lt;/p&gt;
-
-&lt;p&gt;So what profiling options do we have? There&amp;rsquo;s stuff like Java Mission Control
-(JMC) that comes bundled with the Java Development Kit (JDK), but I didn&amp;rsquo;t
-really know how to start with scripting that. The way JMH works, (with multiple
-forked processes) also makes it pretty challenging to use the JMC UI to profile.&lt;/p&gt;
-
-&lt;p&gt;Mostly though, I&amp;rsquo;d wanted to use flamegraphs for a while, and this project was
-a simple one to get started on.&lt;/p&gt;
-
-&lt;h3 id=&#34;how-do-i-flamegraph&#34;&gt;How do I flamegraph?&lt;/h3&gt;
-
-&lt;p&gt;Most talks or blog posts about flamegraphs focus on using them to diagnose
-production issues by producing them from live workloads. What we want to do is
-a little different, and somewhat complicated by JMH&amp;rsquo;s way of running benchmarks.
-JMH runs a single benchmark repeatedly by forking a process. This makes sure
-that the benchmark is running in a clean, isolated environment, i.e. not
-impacted by other optimizations that the Java compiler has already performed.&lt;/p&gt;
-
-&lt;p&gt;So I started out with the crudest possible method, just using &lt;code&gt;jstack&lt;/code&gt;, which is
-again part of JDK. It&amp;rsquo;s definitely not the greatest way of doing this, but
-I wanted to get it working without having to get in between the JMH runner
-process and the forked process. &lt;code&gt;jstack&lt;/code&gt; takes a pid and returns a snapshot of
-the current stack. So by using &lt;code&gt;jps&lt;/code&gt; (also included in the JDK.) to find the
-forked JMH process, and running &lt;code&gt;jstack&lt;/code&gt; against the pid:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;jstack $(jps | grep ForkedMain | awk &#39;{ print $1 }&#39;) &amp;gt;&amp;gt; /tmp/jstack
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This assumes that jstack is on your path, otherwise you can find it next to
-your java executable (try &lt;code&gt;which java&lt;/code&gt;, or &lt;code&gt;echo $JAVA_HOME&lt;/code&gt;)&lt;/p&gt;
-
-&lt;p&gt;Anyway, running that we get a single stack trace. We can run this in a loop to
-capture the output of an entire jmh run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;while true;
-do
-  jstack $(jps | grep ForkedMain | awk &#39;{ print $1 }&#39;) &amp;gt;&amp;gt; /tmp/jstack
-done
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There&amp;rsquo;s not much smarts to that, you&amp;rsquo;ll have to manually kill it once JMH is
-done running. It&amp;rsquo;ll also print a bunch of stuff to stderr if a JMH forked
-process isn&amp;rsquo;t currently running. That aside, it&amp;rsquo;ll give you a file to feed
-&lt;a href=&#34;https://github.com/brendangregg/FlameGraph&#34;&gt;Brendan Gregg&amp;rsquo;s flamegraph tools&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;stackcollapse-jstack.pl &amp;lt; /tmp/jstack | flamegraph.pl &amp;gt; /tmp/flame.svg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And that&amp;rsquo;ll give you the beautiful picture you saw above. Or something like it.
-I could probably write another entire blog post about interpreting these in the
-context of Clojure, but the essence of it is finding your code in the graph,
-and then looking up the &amp;lsquo;flame&amp;rsquo; to find what it&amp;rsquo;s spending it&amp;rsquo;s time doing.&lt;/p&gt;
-
-&lt;h3 id=&#34;problems&#34;&gt;Problems&lt;/h3&gt;
-
-&lt;p&gt;So there&amp;rsquo;s some issues with this. The most obvious is the collection part.
-Ideally I&amp;rsquo;d use a java agent of some description to handle this, but the
-solutions that exist and are described mostly target linux. You&amp;rsquo;ll probably have
-a much better time if you&amp;rsquo;re running on linux using perf as described
-&lt;a href=&#34;http://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html#Java&#34;&gt;by Brendan&lt;/a&gt;.
-Probably the best answer on OS X would be
-&lt;a href=&#34;https://github.com/jvm-profiling-tools/honest-profiler&#34;&gt;honest profiler&lt;/a&gt;.
-I&amp;rsquo;m not sure if the output format for that is parseable by the existing
-flamegraph tools, or if I can get it to start outputting on program startup.&lt;/p&gt;
-
-&lt;p&gt;There&amp;rsquo;s obviously some overhead to whatever technique you use to capture the
-stack. This means the benchmark results you get are almost certainly suspect
-while you&amp;rsquo;re profiling. When I&amp;rsquo;m using this technique I&amp;rsquo;m usually looking at
-a specific benchmark so I don&amp;rsquo;t record the results anyway.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;d recommend only using this against a single benchmark, otherwise you&amp;rsquo;ll mix
-the profiles of several benchmarks together. In terms of feedback it&amp;rsquo;s a lot
-faster when you do it that was as well.&lt;/p&gt;
-
-&lt;p&gt;In terms of ease, however, this is second to none. If you&amp;rsquo;re writing java,
-you&amp;rsquo;ve already got jstack, and jmh and the FlameGraph scripts are both easy to
-use and cross platform.&lt;/p&gt;
-
-&lt;p&gt;These issues aside, the insight I&amp;rsquo;ve gotten from this profiling and
-visualization has been invaluable. I&amp;rsquo;ve gotten a 4x speedup (enough for my case,
-for now) and it&amp;rsquo;s given me a good idea of what to go after next.&lt;/p&gt;
-
-&lt;p&gt;So if you&amp;rsquo;re having perf issues, and you&amp;rsquo;re a bit too lazy to write benchmarks
-for all the things, I&amp;rsquo;d highly recommend it.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Clojure fspec surprise</title>
+      <link>https://lfn3.net/2017/07/22/clojure-fspec-surprise/</link>
+      <pubDate>Sat, 22 Jul 2017 23:03:00 +1300</pubDate>
       
-        <item>
-          <title>Clojure fspec surprise</title>
-          <link>https://lfn3.net/2017/07/22/clojure-fspec-surprise/</link>
-          <pubDate>Sat, 22 Jul 2017 23:03:00 &#43;1300</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2017/07/22/clojure-fspec-surprise/</guid>
-          <description>&lt;p&gt;Recently when writing Clojure I&amp;rsquo;ve been trying to cover everything I can in specs.
+      <guid>https://lfn3.net/2017/07/22/clojure-fspec-surprise/</guid>
+      <description>&lt;p&gt;Recently when writing Clojure I&amp;rsquo;ve been trying to cover everything I can in specs.
 This led me to a bit of a surprise when I used
 &lt;a href=&#34;https://clojure.org/guides/spec#_higher_order_functions&#34;&gt;&lt;code&gt;fspec&lt;/code&gt;&lt;/a&gt;.
 It evaluates the fspec&amp;rsquo;d function when it&amp;rsquo;s passed to a fdef&amp;rsquo;d function,
 not when you invoke the function. That&amp;rsquo;s probably super unclear, so look below
 the fold for an example.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So let&amp;rsquo;s say we&amp;rsquo;ve got a function, that&amp;rsquo;s specced:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn applier [f x y]
-  (f x y))
-
-(s/fdef applier
-        :args (s/cat :f (s/fspec :args (s/cat :x int? :y int?)
-                                 :ret int?)
-                     :x int?
-                     :y int?)
-        :ret int?)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Obviously this example may be slightly contrived. So since we&amp;rsquo;re all conscientious
-and stuff, we run around with all our vars instrumented all the time. At some
-point, we put the following into the repl:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(applier (fn [x y]
-           (prn x)
-           x) 12345 3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Surprisingly, this results in:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;-1
-0
-...
-131
-28566
-12345
-12345
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;being printed. What&amp;rsquo;s happening here is that the function you pass in is getting
-checked to see if it matches the fspec. That was a little unexpected to me.
-Especially since in my case, my fspec&amp;rsquo;d function threw an exception in some cases,
-leading to a bit of a rabbit hole.&lt;/p&gt;
-
-&lt;p&gt;Which leads to one more bit of advice: &amp;ldquo;specs cover non-exceptional use&amp;rdquo;.
-There isn&amp;rsquo;t a &lt;code&gt;throws&lt;/code&gt; spec. You want to write your &lt;code&gt;:args&lt;/code&gt; specs such that
-they can&amp;rsquo;t cause exceptions, or use &lt;code&gt;with-gen&lt;/code&gt; to make sure you don&amp;rsquo;t generate
-args that can cause exceptions to be thrown.&lt;/p&gt;
-
-&lt;p&gt;Note all of this is as of clojure.spec 0.1.123, and clojure 1.9.0-alpha17,
-and given those version numbers, likely to change.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Writing IntelliJ plugins</title>
+      <link>https://lfn3.net/2017/05/27/writing-intellij-plugins/</link>
+      <pubDate>Sat, 27 May 2017 10:21:00 +1200</pubDate>
       
-        <item>
-          <title>Writing IntelliJ plugins</title>
-          <link>https://lfn3.net/2017/05/27/writing-intellij-plugins/</link>
-          <pubDate>Sat, 27 May 2017 10:21:00 NZST</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2017/05/27/writing-intellij-plugins/</guid>
-          <description>&lt;p&gt;I&amp;rsquo;ve spent some time working on an IntelliJ plugin during our free time at work.
+      <guid>https://lfn3.net/2017/05/27/writing-intellij-plugins/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve spent some time working on an IntelliJ plugin during our free time at work.
 There&amp;rsquo;s quite a bit of stuff I&amp;rsquo;ve learned from either reading source or messing
 with things until they worked, and I thought I&amp;rsquo;d record some of that.&lt;/p&gt;
 
@@ -538,78 +135,16 @@ with &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architect
 or &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html&#34;&gt;this&lt;/a&gt;.
 Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The problem I was having was that after inserting an annotation I&amp;rsquo;d generated on
-a variable, the code analysis was freaking out about it being in the wrong place.&lt;/p&gt;
-
-&lt;p&gt;This was inside a quickfix, and the code in question looked something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;PsiElementFactory factory = JavaPsiFacade.getElementFactory(project);
-
-PsiAnnotation annotation = factory.createAnnotationFromText(
-  &amp;quot;@&amp;quot; + annotationToApply.getSubtypeFQN(),
-  variableToAnnotate.getContainingFile());
-
-if (variableToAnnotate != null) {
-    variableToAnnotate.addBefore(annotation,
-                                 variableToAnnotate.getTypeElement());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The code it was generating looked correct after it&amp;rsquo;d been output, but I was
-getting complaints that &amp;ldquo;annotations are not allowed here&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/writing-intellij-plugins/after-quickfix.png&#34; alt=&#34;annotations not allowed here&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Along with it not showing the inspection I&amp;rsquo;d fixed as being fixed. (You can see
-the quickfix is still available). I had a look at the PsiTree and it looked
-correct.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/writing-intellij-plugins/psi-tree.png&#34; alt=&#34;psitree&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can see the annotation element is there, inside the modifier list. There&amp;rsquo;s
-one thing that&amp;rsquo;s important to know about the Psi Viewer: It reparses the code in
-question, it doesn&amp;rsquo;t use the same PsiTree as the editor does for file you&amp;rsquo;re
-looking at.&lt;/p&gt;
-
-&lt;p&gt;Hopefully that should give away the issue: I was putting the annotation directly
-under the variable PsiElement, rather than inside a ModifierList. The fix was
-pretty simple, what I ended up doing was this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;PsiElementFactory factory = JavaPsiFacade.getElementFactory(project);
-
-PsiAnnotation annotation = factory.createAnnotationFromText(
-  &amp;quot;@&amp;quot; + annotationToApply.getSubtypeFQN(),
-  variableToAnnotate.getContainingFile());
-
-if (variableToAnnotate != null &amp;amp;&amp;amp;
-    variableToAnnotate.getModifierList() != null) {
-  variableToAnnotate.getModifierList().add(annotation);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Rather than just putting the annotation on the variable, I pull out the modifier
-list and put it on the end.&lt;/p&gt;
-
-&lt;p&gt;It seems like every variable has a modifier list regardless of if it actually
-has any modifiers, i.e. at worst there should be an empty list. So the null
-check there is probably a little overly defensive.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve got a bunch more similar stories tucked away in my brain, so hopefully this
-can be a series that I might actually write semi-regularly, unlike the scattered
-posts I otherwise make&amp;hellip;&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Property testing tooling in Java</title>
+      <link>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</link>
+      <pubDate>Sun, 07 May 2017 11:43:00 +1200</pubDate>
       
-        <item>
-          <title>Property testing tooling in Java</title>
-          <link>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</link>
-          <pubDate>Sun, 07 May 2017 11:43:00 NZST</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</guid>
-          <description>&lt;p&gt;The NZ contingent of LMAX went to &lt;a href=&#34;http://codemania.io/&#34;&gt;Codemania&lt;/a&gt; at the end
+      <guid>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</guid>
+      <description>&lt;p&gt;The NZ contingent of LMAX went to &lt;a href=&#34;http://codemania.io/&#34;&gt;Codemania&lt;/a&gt; at the end
 of last week. And it was awesome, I always come out of there excited to make
 things. Then usually I give myself a hangover which puts an end to that.
 Anyway, the two themes we picked out from the conference were automate more,
@@ -624,152 +159,16 @@ the options we had, and this post is the result of that.&lt;/p&gt;
 and how it works. I&amp;rsquo;m just going to compare and contrast Java libraries that
 enable it.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So we already had two libraries in our codebase for doing property testing:
-&lt;a href=&#34;https://github.com/pholser/junit-quickcheck&#34;&gt;junit-quickcheck&lt;/a&gt; and
-&lt;a href=&#34;https://github.com/ncredinburgh/QuickTheories&#34;&gt;quicktheories&lt;/a&gt;.
-I leaned slightly more towards quicktheories to start with, since it&amp;rsquo;s got a more
-functional API that I&amp;rsquo;m a bit of a sucker for.&lt;/p&gt;
-
-&lt;p&gt;Junit, and by extension, junit-quickcheck, doesn&amp;rsquo;t have a very functional api.
-But that&amp;rsquo;s actually a good thing when you&amp;rsquo;re writing Java. Coming from a Clojure
-background, the functional programming options available in Java feel a little
-clunky to be honest. Junit has been around for a while, and has an api that
-doesn&amp;rsquo;t really try to hide that. Which is fine! It&amp;rsquo;s easy to read and reason
-about in the context of the language it lives in.&lt;/p&gt;
-
-&lt;p&gt;The junit-quickcheck library pretty logically follows the path that junit laid
-out, using annotations and test methods that take arguments to do it&amp;rsquo;s thing:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Property
-public void simple(String s1, String s2)
-{
-    assertEquals(s1.length() + s2.length(), (s1 + s2).length());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The api for &amp;ldquo;I want to use this particular example&amp;rdquo; is pretty obvious:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
-public void example()
-{
-    simple(&amp;quot;hello&amp;quot;, &amp;quot;world!&amp;quot;);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The thing I like most about this library is it&amp;rsquo;s simple and approachable for
-people who are at least a little familiar with Java and Junit. Even the way you
-write a generator is comparatively simple:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MatrixGenerator extends Generator&amp;lt;Matrix&amp;gt; {
-    public MatrixGenerator() {
-        super(Matrix.class);
-    }
-
-    @Override
-    public Matrix generate(SourceOfRandomness sourceOfRandomness,
-                           GenerationStatus generationStatus) {
-        int width = sourceOfRandomness.nextInt(0, 1000);
-        int height = sourceOfRandomness.nextInt(0, 1000);
-
-        int[][] matrix = new int[width][height];
-
-        for (int i = 0; i &amp;lt; width; i++) {
-            for (int j = 0; j &amp;lt; height; j++) {
-                matrix[i][j] = sourceOfRandomness.nextInt();
-            }
-        }
-
-        return new Matrix(matrix);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Yes, it&amp;rsquo;s verbose, but &lt;em&gt;shrug&lt;/em&gt; it&amp;rsquo;s Java. Go figure.&lt;/p&gt;
-
-&lt;p&gt;So that should have given you a vague idea of how junit-quickcheck works, so I&amp;rsquo;m
-going to contrast that with quicktheories. The first example of checking string
-length looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
-public void simple() {
-    qt().forAll(strings().allPossible().ofLengthBetween(0, 100),
-                strings().allPossible().ofLengthBetween(0, 100))
-        .checkAssert((s1, s2) -&amp;gt;
-          assertEquals(s1.length() + s2.length(), (s1 + s2).length()));
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Clearly, it&amp;rsquo;s a lot more functional, right? The generators are configured using
-builders, we can write our function as a lambda&amp;hellip; but the test body is 4 times
-the size of the junit-quickcheck example, and the actual bit we care about,
-&lt;code&gt;assertEquals...&lt;/code&gt; is a lot more&amp;hellip; buried than in the junit-quickcheck example.
-This is a problem that gets worse, as you write more complex tests.&lt;/p&gt;
-
-&lt;p&gt;Another issue I have with quicktheories is that it doesn&amp;rsquo;t integrate amazingly
-well with the rest of Junit. The &lt;code&gt;@Before&lt;/code&gt; annotation doesn&amp;rsquo;t work as expected,
-you have to explicitly call it in the middle of your assertion.&lt;/p&gt;
-
-&lt;p&gt;I guess this is the general problem with quicktheories. It&amp;rsquo;s just not Java-y
-enough, and that sticks out. The process for producing new generators suffers
-terribly from this in my opinion:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Source&amp;lt;Matrix&amp;gt; matrixSource =
-  Source.of(
-    integers().between(1, 100)
-              .combine(
-                integers().between(1, 100),
-                //Can&#39;t size generator based on prior generators?
-                lists().arrayListsOf(integers().all())
-                       .ofSizeBetween(1, 100),
-                (w, h, vals) -&amp;gt; {
-                  int[][] arr = new int[w][h];
-                  for (int i = 0; i &amp;lt; w; i++) {
-                    for (int j = 0; j &amp;lt; h; j++) {
-                      arr[i][j] = vals.get((i + j) % vals.size());
-                    }
-                  }
-                  return new Matrix(arr);
-                }));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note this doesn&amp;rsquo;t include functionality to allow shrinking. Compare to the
-junit-quickcheck generator above. I think the junit-quickcheck generator is
-considerably easier to read, and you get shrinking out of the source of
-randomness, rather than having to supply it yourself.&lt;/p&gt;
-
-&lt;p&gt;There is one problem both these libraries share, in that they require you to
-specify all of the input you require to a test up front, either in the args to
-a &lt;code&gt;@Property&lt;/code&gt; annotated method, or in the &lt;code&gt;qt().forAll()&lt;/code&gt; call. I was hopeful
-that the &amp;ldquo;dark horse&amp;rdquo; entrant
-&lt;a href=&#34;https://github.com/HypothesisWorks/hypothesis-java&#34;&gt;hypothesis&lt;/a&gt;
-would let me write tests that read a little better.&lt;/p&gt;
-
-&lt;p&gt;This was not the case. It&amp;rsquo;s not ready for prime time, which the author
-openly admits. It&amp;rsquo;s a real shame, since I the programming model looks very
-appealing.&lt;/p&gt;
-
-&lt;p&gt;So the conclusion I came to was that junit-quickcheck was the best option I
-could find at the moment. It integrates the best with Junit, and has a simple,
-idiomatic api. Quicktheories could be improved to make it more competitive, for
-example by making generators have sane defaults that are more succinct than the
-current examples. To a certain extent it&amp;rsquo;s hamstrung by the fact that it is just
-harder to use lambdas in Java than in more functional languages.&lt;/p&gt;
-
-&lt;p&gt;All the code that I posted here, and used to evaluate these libraries is
-available on &lt;a href=&#34;https://github.com/lfn3/java-comparative-quickchecking&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Performance checks on metrics</title>
+      <link>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</link>
+      <pubDate>Mon, 24 Apr 2017 21:31:22 +1200</pubDate>
       
-        <item>
-          <title>Performance checks on metrics</title>
-          <link>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</link>
-          <pubDate>Mon, 24 Apr 2017 21:31:22 NZST</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</guid>
-          <description>&lt;p&gt;At &lt;a href=&#34;https://www.lmax.com/&#34;&gt;LMAX&lt;/a&gt; we do &lt;a href=&#34;https://www.symphonious.net/testing-at-lmax/&#34;&gt;a lot of automated testing&lt;/a&gt;, including running several
+      <guid>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</guid>
+      <description>&lt;p&gt;At &lt;a href=&#34;https://www.lmax.com/&#34;&gt;LMAX&lt;/a&gt; we do &lt;a href=&#34;https://www.symphonious.net/testing-at-lmax/&#34;&gt;a lot of automated testing&lt;/a&gt;, including running several
 dedicated environments for performance testing. We&amp;rsquo;ve got a lot of specific
 numbers that come out of these environments that we surface on dashboards like
 this:&lt;/p&gt;
@@ -779,559 +178,115 @@ this:&lt;/p&gt;
 &lt;p&gt;But we also collect a bunch of other metrics from our servers and services that,
 until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Rediscovering these lost numbers started with us deploying a service with debug
-logging we were using to investigate intermittency to production.
-This gave some of our web servers a hard time, since they were logging lots more
-on certain types of requests. It didn&amp;rsquo;t have a huge impact, but it
-was definitely something we noticed, and didn&amp;rsquo;t really want to repeat.
-Especially since it took longer than we would have liked to trace the performance
-problems back to the additional logging.&lt;/p&gt;
-
-&lt;p&gt;This is the kind of thing you can&amp;rsquo;t really catch with the approach we use to
-cover our really performance sensitive code paths, which is a combination of
-replaying events and JMH micro-benchmarking. This is not because you wouldn&amp;rsquo;t
-actually be able to catch a performance regression with these tools, but because
-the time and effort we would expend. Covering everything that might possibly cause
-a performance problem at some point in the future with a JMH benchmark would
-probably double our already significant number of tests. Not to mention that it
-would massively increase how long our tests take to run.&lt;/p&gt;
-
-&lt;p&gt;So we decided needed something to cover more ground. Turns out that we already
-had the data we needed, we just weren&amp;rsquo;t actually making decisions based on it.
-We collect a &lt;em&gt;lot&lt;/em&gt; of information from all of our environments, for example
-one of our CI environments has around 600,000 metrics that have had numbers
-against them across all of it&amp;rsquo;s servers. There&amp;rsquo;s a ton of potentially useful
-information in there: GC pause times, open file handles, as well as more
-application specific stuff.&lt;/p&gt;
-
-&lt;p&gt;We do surface all of that in some pretty (basic) graphs:
-&lt;img src=&#34;https://lfn3.net/img/posts/performance-checks-on-metrics/jodie.png&#34; alt=&#34;jodie&#34; /&gt;
-These do get used when we&amp;rsquo;re troubleshooting, and can generate alerts in our
-production monitoring. But we haven&amp;rsquo;t really exploited them fully for our
-testing cycle.&lt;/p&gt;
-
-&lt;p&gt;The open file handles we&amp;rsquo;d already used in a check on some of our reporting
-services, since we&amp;rsquo;d had issues with those not cleaning up after
-themselves. We thought we&amp;rsquo;d take that and riff on it a little
-for other numbers.&lt;/p&gt;
-
-&lt;p&gt;Our goal was to &amp;ldquo;catch regressions in unexpected places&amp;rdquo;, so we took
-a bunch of system and jvm level metrics we thought might be applicable:
-GC Pause times, running proc count, and load average. We picked these since
-they&amp;rsquo;re some of the more general performance indicators we could think of.
-That&amp;rsquo;s good since we&amp;rsquo;re looking to catch any and all regressions, rather than
-target anything application specific.&lt;/p&gt;
-
-&lt;p&gt;Essentially all we did was pick the average or maximum for these values out of our
-metric store, and compare it to a number in our checker. We set some overrides
-for specific values on specific services, since we expect some of our services
-like the exchange to use a lot more resources than say our web app servers.&lt;/p&gt;
-
-&lt;p&gt;Of course we wanted to prove this would have actually caught the problem that
-kicked all this off, so we ran these tests over the metrics we collected from
-the dodgy build to verify that it would have failed if they were in place.
-In that case, the load average check did fail due to all the additional string
-processing we were doing.&lt;/p&gt;
-
-&lt;p&gt;These checks are pretty crude at the moment. We&amp;rsquo;re hoping they&amp;rsquo;ll be effective
-in the long run, but if they aren&amp;rsquo;t, that&amp;rsquo;s fine. Crude measures can be refined,
-but things you aren&amp;rsquo;t looking at are never gonna be improved. Of course if we
-figure out at some point these checks are causing us more pain than they&amp;rsquo;re
-saving us, we&amp;rsquo;ll look at finding another solution.&lt;/p&gt;
-
-&lt;p&gt;We did try some mildly fancy stuff involving doing a regression over the data to
-check if we were leaking resources over time, but our acceptance style (involving
-hardware and topology pretty close to our production environments) perf test
-runs take on the order of half an hour, which isn&amp;rsquo;t really long enough to produce
-an alertable trend.&lt;/p&gt;
-
-&lt;p&gt;This process also delivered some value in another way. In the process of setting
-overrides for our services, we discovered that some of them were experiencing
-longer GC pauses than we would like. Again, these are off the path we have
-pretty well covered. None of them are at panic inducing levels, but some are
-definitely at moderate concern inducing levels, and something we&amp;rsquo;re digging into.&lt;/p&gt;
-
-&lt;p&gt;Hopefully this showed you a little bit of our process for dealing with issues we
-encounter. Not so much the actual finding and fixing part, but more the making
-sure it doesn&amp;rsquo;t happen again part. Also you should go take a look at some of the
-numbers you&amp;rsquo;re collecting from your testing environments, or if you&amp;rsquo;re not
-collecting any, start. Since if you aren&amp;rsquo;t measuring a thing, it&amp;rsquo;s near
-impossible to improve it.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Coupling, Connascence, CSP and Actors</title>
+      <link>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</link>
+      <pubDate>Mon, 03 Oct 2016 23:10:00 +1300</pubDate>
       
-        <item>
-          <title>Coupling, Connascence, CSP and Actors</title>
-          <link>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</link>
-          <pubDate>Mon, 03 Oct 2016 23:10:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
-          <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
+      <guid>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
+      <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;a-crash-course-on-connascence&#34;&gt;A crash course on Connascence&lt;/h2&gt;
-
-&lt;p&gt;First of all, a little description about what connascence is, since as far as I know it&amp;rsquo;s a relatively uncommon term. It&amp;rsquo;s used to describe the degree of dependency between components in a OO (object oriented) system. Two components are connascent if a change to one would require a change to another. We can also talk about the strength of a connascence, where stronger connascences imply the change is more difficult to apply. There is more detail on &lt;a href=&#34;https://en.wikipedia.org/wiki/Connascence&#34;&gt;wikipedia&lt;/a&gt;, which I recommend you read if you want to follow along.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ll give an example of two connascences first, however:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn validate [data]
-  (and (= (:type data) :person)
-       (:name data)
-       (:age data)))
-
-(defn has-parent? [data]
-  (and (:name data)
-       (:parent data)
-       (= (:type data) :person)))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This code is intentionally pretty bad, but you can imagine the case where this might be spread over multiple code bases somehow. We can describe how bad it is as a connascence of algorithm: both &lt;code&gt;validate&lt;/code&gt; and &lt;code&gt;has-parent?&lt;/code&gt; depend on similar logic. This can be relatively trivially fixed:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn is-person? [data]
-  (and (= (:type data) :person)
-       (:name data)))
-
-(defn validate [data]
-  (and (is-person? data)
-       (:age data)))
-
-(defn has-parent? [data]
-  (and (is-person? data)
-       (:parent data))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We&amp;rsquo;ve reduced what was previously a connascence of algorithm to a connascence of name - they both depend on the same extracted function. Hopefully it makes sense that we prefer weaker forms of connascence, and less of it where possible.&lt;/p&gt;
-
-&lt;h2 id=&#34;actors-vs-csp&#34;&gt;Actors vs CSP&lt;/h2&gt;
-
-&lt;p&gt;I&amp;rsquo;ve got a few reasons for preferring CSP style to actor style. One of the big ones is that actors have introduced pervasive, name based dependencies throughout our code base, via the actor registry mechanism. Normally connascence of name isn&amp;rsquo;t really a problem, but I would argue in the case of actors it is, since these names are both common and smeared across the code base. This also introduces a dependence on the actor registry itself.&lt;/p&gt;
-
-&lt;p&gt;This means that our registry is global state, that all our actors depend on - a connascence of identity. I don&amp;rsquo;t think this is necessarily a bad thing, after all a database is a giant blob of global state, and &amp;lsquo;using a database&amp;rsquo; has been a pervasive and effective idea in software engineering. The problem here is the semantics of the &amp;lsquo;database&amp;rsquo;. Actor registries intentionally prevent registering multiple actors under the same name. This isn&amp;rsquo;t a bad thing, until you want to write tests using actors, since you now have to write setup and tear down code for each test. This is not a fun experience.&lt;/p&gt;
-
-&lt;p&gt;The mechanism of communication in core.async is the channel, which doesn&amp;rsquo;t have the same global scope as an actor registration (you can of course make them have global scope, but I&amp;rsquo;ll talk about that a bit later). You don&amp;rsquo;t even have to close channels once you&amp;rsquo;ve completed your tests, as typically go blocks won&amp;rsquo;t continue executing without you placing additional work on the channel that has now fallen out of scope. Of course some memory will be consumed by the parked blocks, but usually this isn&amp;rsquo;t a problem.&lt;/p&gt;
-
-&lt;p&gt;Another issue that arises during testing is the promiscuous communication that happens between actors. Since any actor can invoke behaviour on another just by looking it up in the registry and sending it a message, you typically have to do a lot of actor mocking. This is that connascence of name again. Macros can help with the mocking, but it&amp;rsquo;s still a lot more verbose than supplying channels to a function and pulling or pushing results to them. You could claim that it&amp;rsquo;s easier for actors to communicate actors when you don&amp;rsquo;t have to pass around channels, however if you &lt;em&gt;really&lt;/em&gt; want to (and it&amp;rsquo;s not something I&amp;rsquo;d normally recommend) you can simply place a channel in a &lt;code&gt;def&lt;/code&gt; or even a derefable data structure (probably an &lt;code&gt;atom&lt;/code&gt; or a &lt;code&gt;promise&lt;/code&gt;) and get access to it where you need, but with a clearer link between it and it&amp;rsquo;s producers or consumers.&lt;/p&gt;
-
-&lt;p&gt;This is a recurring pattern I&amp;rsquo;ve found - it&amp;rsquo;s a lot easier to implement actor&amp;rsquo;s functionality with core.async than the other way around. For instance a registry can be easily implemented with &lt;code&gt;compare-and-swap!&lt;/code&gt; on a global atom containing a map. You can express a more options here when you encounter an existing registration, such as transparently using the one in place, replacing it, or going the Pulsar route of throwing an exception. The important thing here is that you have a choice about it. For a case of a feature that&amp;rsquo;s more difficult to implement in Pulsar, there is customized queues. In Pulsar you have to implement an entire Actor, and some sort of feedback mechanism from consumer to queue (coupling the consumer to it&amp;rsquo;s queue), otherwise it will just saturate the consumer&amp;rsquo;s mailbox, rather than retaining the items in the queue. In core.async, all one has to do is reify the take and put protocols, which can be done trivially by closing over a channel or two. This queue can be used anywhere, rather than just where a consumer is designed for it.&lt;/p&gt;
-
-&lt;p&gt;There are stylistic differences, inherited from the linage of these two systems that introduce their own connascences. Pulsar of course follows the example of Erlang, a language where pattern matching on tuples is pervasive. While potentially powerful, it introduces a reliance on the ordering of parameters that is a stronger connascence than the idiomatic way of conveying data in Clojure. Normally if you want to pass a message around in Clojure, you will use a map, where lookup is done by name rather than by position. This isn&amp;rsquo;t a hard or fast rule, and it&amp;rsquo;s not normally something that really concerns me to be honest. Again, normally a connascence of position isn&amp;rsquo;t a big deal - every function call has it to some degree, but the fact it exists among supposedly decoupled actors is what I find troubling.&lt;/p&gt;
-
-&lt;h2 id=&#34;too-many-masks&#34;&gt;Too many masks&lt;/h2&gt;
-
-&lt;p&gt;On the topic of coupling, there is the actor itself. Personally I think actors have conflated several different concepts together, state being the most egregious one. Which of course I would say, being a Clojure programmer. What I mean by that is that whenever you&amp;rsquo;re working with actors, state is right there, ready for you to reach out and grab it. One thing that makes me very happy about Clojure is that you have to jump through a few hoops to get mutability, and in doing so, you have to think about it. Being forced to have that moment is a good thing.&lt;/p&gt;
-
-&lt;p&gt;What else is in an actor? A queue, in the form of a mailbox. Actor systems are designed to be &amp;lsquo;fire and forget&amp;rsquo;. This is great in terms of decoupling, at least for the senders. Pulsars implementation, however, is a little less inspiring. In some trials, we&amp;rsquo;ve had messages in a mailbox disappear. There&amp;rsquo;s also the problem of dead actors disappearing from the registry. Since looking up an actor is a blocking operation, in practice it isn&amp;rsquo;t actually fire and forget. Contrast this with core.async, where a &amp;lsquo;actor&amp;rsquo; (go-loop) and it&amp;rsquo;s channels are distinct entities. At most, you&amp;rsquo;ll be able to disappear the item a go-loop is currently processing if you manage to blow it up.&lt;/p&gt;
-
-&lt;p&gt;Another property that actors provide is fault isolation. This isn&amp;rsquo;t a feature that&amp;rsquo;s missing from other programming languages. The difference in actor based systems is it&amp;rsquo;s pervasive nature - you can&amp;rsquo;t not have it. That is definitely a good thing. Actors aren&amp;rsquo;t the only way to get it, of course - Java threads and core.async go blocks are both perfectly capable of exploding without affecting things around them, but you have to choose to apply these, rather than getting it by default. I would say that this and the final property are the two important parts of actors, and they are cohesive, rather than coupled.&lt;/p&gt;
-
-&lt;p&gt;So finally, there&amp;rsquo;s the ability to supervise other actors. I would argue this is probably the most useful part of the actor model, the firm separation of the &amp;lsquo;happy path&amp;rsquo; from the sad path, allowing us to write our &amp;ldquo;business logic&amp;rdquo; without a care (or try-catch) in the world. This is the one aspect of actor systems I think should be exported to the wider programming world. At least in Clojure, it has been, in the form of &lt;a href=&#34;https://github.com/MichaelDrogalis/dire&#34;&gt;dire&lt;/a&gt;. There&amp;rsquo;s some blog posts linked there that explain better than I can why this is such a good thing. Between this and go blocks, I would argue that CSP can provide the most important benefits of actor systems, without what I view as the costs.&lt;/p&gt;
-
-&lt;p&gt;That is not to say I&amp;rsquo;m going to give up entirely on actors, however. I would like to take a closer look at Erlang or Elixir, and I&amp;rsquo;m quite interested in what the Elixir community produces in terms of patterns and architecture. The pure and ideal form of actors is appealing, and certainly offers a more perfect model than other OO languages. That said, we probably will not be using Pulsar again, or attempting to port another system. Most of the benefit we gained was in terms of a cleaner code base, which I would argue was in spite of Pulsar, rather than due to it. A concerted clean up effort could have had much the same effect as the rewrite we attempted, taken less time, and delivered more value. Next time we&amp;rsquo;ll just have to do it in Elixir.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Dependency Injection in Clojure</title>
+      <link>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</link>
+      <pubDate>Mon, 19 Sep 2016 21:57:44 +1200</pubDate>
       
-        <item>
-          <title>Dependency Injection in Clojure</title>
-          <link>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</link>
-          <pubDate>Mon, 19 Sep 2016 21:57:44 NZST</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</guid>
-          <description>&lt;p&gt;So this is the follow up to a follow up. I&amp;rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read &lt;a href=&#34;https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/&#34;&gt;my old thoughts on Dependency Injection&lt;/a&gt;. Once again, it having been more than 6 months, my opinions have changed.
+      <guid>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</guid>
+      <description>&lt;p&gt;So this is the follow up to a follow up. I&amp;rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read &lt;a href=&#34;https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/&#34;&gt;my old thoughts on Dependency Injection&lt;/a&gt;. Once again, it having been more than 6 months, my opinions have changed.
 The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;To recap the previous post, there were three main reasons I advocated using dependency injection (DI) in mainstream OO languages:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Made it easier (or in some cases, possible) to write unit tests&lt;/li&gt;
-&lt;li&gt;Enforced more separation of concerns in design&lt;/li&gt;
-&lt;li&gt;Allowed development without external dependencies&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The first reason is still somewhat valid in Clojure, but to a much lesser extent. The last two, not so much. There is one facet of DI that is widely used in Clojure - life-cycle management, which I will discuss at the end.&lt;/p&gt;
-
-&lt;p&gt;So the initial reason I adopted DI was to make it easier to write tests. I didn&amp;rsquo;t realise this at the time, but this is because it introduces &lt;a href=&#34;http://www.informit.com/articles/article.aspx?p=359417&amp;amp;seqNum=2&#34;&gt;seams&lt;/a&gt; into a program. Seams are places where you can swap out behavior without affecting the rest of the program. Consciously inserting seams isn&amp;rsquo;t required nearly as much in Clojure, since &lt;a href=&#34;https://clojuredocs.org/clojure.core/with-redefs&#34;&gt;&lt;code&gt;with-redefs&lt;/code&gt;&lt;/a&gt; allows you to use every single function as a seam. Since most of your program should be functions, this makes it trivial to mock out side-effecting or non-deterministic operations. For example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn slurp-and-split [file-name]
-  (-&amp;gt;&amp;gt; (slurp file-name) ;Read in file as a string
-       (str/split-lines)
-       (map str/trim)))
-
-(deftest slurp-and-split-splits
-  (with-redefs [slurp (constantly &amp;quot;1
-                                   2&amp;quot;)]
-    (is (= (list &amp;quot;1&amp;quot; &amp;quot;2&amp;quot;) (slurp-and-split &amp;quot;&amp;quot;)))))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see using &lt;a href=&#34;https://clojuredocs.org/clojure.core/with-redefs&#34;&gt;&lt;code&gt;with-redefs&lt;/code&gt;&lt;/a&gt; is also much, much more simple and succinct than any other mocking or stubbing library I&amp;rsquo;ve dealt with, but that&amp;rsquo;s mostly since Clojure has stuff like &lt;a href=&#34;https://clojuredocs.org/clojure.core/constantly&#34;&gt;&lt;code&gt;constantly&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I think it&amp;rsquo;s worth mentioning, I can&amp;rsquo;t really see a good way of making the above function more amenable to DI. Passing in the slurp function is possible, but then I want to wrap that up inside another function in any case. If we were using a database or something similar it would make more sense:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn get-user [db user-id]
-  (query db &amp;quot;SELECT name, email FROM users WHERE id = ?&amp;quot; user-id))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But this function itself would become the target of mocking using &lt;code&gt;with-redefs&lt;/code&gt;, presuming query returns a map or vector. One issue with this function is that we have to manually thread db through to the call sites. I know from experience that can be painful, it&amp;rsquo;s very similar to the problems you have in OO code bases with threading values through constructors and objects that don&amp;rsquo;t need them. But by using some other Clojure libraries I mention at the end, this could be rewritten to omit the &lt;code&gt;db&lt;/code&gt; parameter, eliminating that issue.&lt;/p&gt;
-
-&lt;p&gt;That aside, we still don&amp;rsquo;t have to inject test seams, which alleviates a lot of design burden. You don&amp;rsquo;t have to inflict &amp;lsquo;&lt;a href=&#34;http://david.heinemeierhansson.com/2014/test-induced-design-damage.html&#34;&gt;test induced design damage&lt;/a&gt;&amp;rsquo; on your code base. I used to view the hyper-abstracted, hollowed out designs that resulted from widespread use of DI as good, but now I just see this as needlessly complex. In Clojure, the simple act of extracting functions creates a lot of room for adding tests. As a functional language Clojure has great tools for putting functions together, which makes chopping up and recombining your code relatively painless, even without editor support.&lt;/p&gt;
-
-&lt;p&gt;This means that separation of concerns is a &lt;em&gt;lot&lt;/em&gt; easier to achieve in Clojure, since it&amp;rsquo;s easier to pull apart functions. Part of this is also that functions aren&amp;rsquo;t coupled to the data they operate on by a class definition - you just have the arguments they&amp;rsquo;re passed rather than some ambient state. You still have to be conscious of functions that involve external resources but this is the case in OO languages as well. Ideally these functions can be identified by the namespace they live in, because it has something scary like the name of a database in it.&lt;/p&gt;
-
-&lt;p&gt;Development without those kinds of external deps is also a lot easier. A well designed Clojure program is, again, mostly functions. And definitely the &amp;lsquo;business logic&amp;rsquo; should be almost entirely pure functions - you should be trying to push all the side-effects to the edges of your system. So hopefully (as long as you have some sample data to work with) it should be trivial for you to try out new code in the REPL without having to rely on the presence of databases and the like.&lt;/p&gt;
-
-&lt;p&gt;There is one place where something of DI is still of value in Clojure, and that&amp;rsquo;s when dealing with stuff that has a life-cycle. Most good DI libs &lt;a href=&#34;http://autofac.readthedocs.io/en/latest/lifetime/index.html&#34;&gt;try&lt;/a&gt; &lt;a href=&#34;http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-factory-scopes&#34;&gt;to&lt;/a&gt; &lt;a href=&#34;https://github.com/Netflix/governator/wiki/Lifecycle-Management&#34;&gt;deal&lt;/a&gt; with this as well. Clojure has two well known solutions to life-cycle management, &lt;a href=&#34;https://github.com/stuartsierra/component&#34;&gt;Component&lt;/a&gt; and &lt;a href=&#34;https://github.com/tolitius/mount&#34;&gt;Mount&lt;/a&gt;. They&amp;rsquo;re both much, much more simple than the OO options, probably since they aren&amp;rsquo;t &lt;a href=&#34;https://www.infoq.com/presentations/Simple-Made-Easy&#34;&gt;complected&lt;/a&gt; with other requirements. They don&amp;rsquo;t tackle of problems that OO DI libraries have to, since many of these problems are alleviated by providing first class functions (That&amp;rsquo;s an entire other post though).&lt;/p&gt;
-
-&lt;p&gt;Since the only problem these Clojure libraries have to solve is &amp;lsquo;start these things&amp;rsquo; they boil down to &amp;lsquo;tell me about all of the things&amp;rsquo;. The two libraries take very different approaches to this, Component using an API that was more familiar to me, coming from OO, while Mount&amp;rsquo;s usage feels to me as if it embraces the design of Clojure more. Other people &lt;a href=&#34;https://www.reddit.com/r/Clojure/comments/41p73n/contrasting_component_and_mount/&#34;&gt;have&lt;/a&gt; &lt;a href=&#34;http://yogthos.net/posts/2016-01-19-ContrastingComponentAndMount.html&#34;&gt;written&lt;/a&gt; &lt;a href=&#34;https://github.com/tolitius/mount/blob/master/doc/differences-from-component.md&#34;&gt;more&lt;/a&gt; about the differences between these libraries. Personally I don&amp;rsquo;t have strong opinions about which one is better (or even if one of them is better), they both solve the problem and it&amp;rsquo;s great we have good options in this area.&lt;/p&gt;
-
-&lt;p&gt;Looping back around to our &lt;code&gt;get-user&lt;/code&gt; function from the beginning, I&amp;rsquo;ll demonstrate how we would eliminate the &lt;code&gt;db&lt;/code&gt; parameter using mount (there&amp;rsquo;s less code involved than component, so of course it&amp;rsquo;s more impressive.)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defstate db :start (create-db-connection connection-string))
-
-(defn get-user [user-id]
-  (query db &amp;quot;SELECT name, email FROM users WHERE id = ?&amp;quot; user-id))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you invoke &lt;code&gt;(mount.core/start)&lt;/code&gt; somewhere near your &lt;code&gt;-main&lt;/code&gt; function, this will result in the &lt;code&gt;:start&lt;/code&gt; function in all the &lt;code&gt;defstate&lt;/code&gt; mount can find being called (There&amp;rsquo;s a bit more to it than that, of course, you&amp;rsquo;ll want to see the &lt;a href=&#34;https://github.com/tolitius/mount&#34;&gt;readme&lt;/a&gt; to actually get started using it).&lt;/p&gt;
-
-&lt;p&gt;Doing something like this does make the db related functions difficult to unit test. In my opinion, that&amp;rsquo;s perfectly ok. Integration tests should be what you&amp;rsquo;re using to validate your database interaction is working correctly, and they don&amp;rsquo;t need to be exhaustive. Unless significant portions of your applications logic live in your database, and then I&amp;rsquo;d argue you&amp;rsquo;ve got a bigger problem.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m basically out of DI related things to talk about for now, so to wrap up: Most aspects of DI aren&amp;rsquo;t amazingly useful in Clojure. It can still be used to make testing easier, but isn&amp;rsquo;t really necessary. Using lots of simple functions gives you plenty of seams to exploit. Life-cycle management is still important, and Clojure has good libraries for dealing with it that are much more painless to use than the OO solutions I&amp;rsquo;ve seen.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Leaving the M$alt Mines</title>
+      <link>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</link>
+      <pubDate>Thu, 08 Oct 2015 22:38:13 +1300</pubDate>
       
-        <item>
-          <title>Leaving the M$alt Mines</title>
-          <link>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</link>
-          <pubDate>Thu, 08 Oct 2015 22:38:13 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</guid>
-          <description>&lt;p&gt;So a little while ago (ok, a couple of months ago now.) I quit my job at &lt;a href=&#34;https://www.ubiquity.co.nz/&#34;&gt;Ubquity&lt;/a&gt; in favour of one at &lt;a href=&#34;http://www.liveops.com/&#34;&gt;LiveOps&lt;/a&gt;. There were a bunch of reasons for that, but you&amp;rsquo;ll have to buy me a beer to get those out of me. The main draw though, was being able to work with &lt;a href=&#34;http://Clojure.org/&#34;&gt;Clojure&lt;/a&gt; instead of C# (Hence the punny title).&lt;/p&gt;
-
-&lt;p&gt;There&amp;rsquo;s a lot of posts about why and how &lt;a href=&#34;https://puppetlabs.com/blog/new-era-application-services-puppet-labs&#34;&gt;companies&lt;/a&gt; &lt;a href=&#34;http://www.pitheringabout.com/?p=693&#34;&gt;moved&lt;/a&gt; &lt;a href=&#34;https://yow.eventer.com/yow-2013-1080/lessons-learned-from-adopting-Clojure-by-jey-fields-1397&#34;&gt;to&lt;/a&gt; &lt;a href=&#34;http://thoughtworks.github.io/p2/issue09/two-months-early/&#34;&gt;Clojure&lt;/a&gt; but not so many about individuals - I guess we don&amp;rsquo;t really make good marketing pieces? (I&amp;rsquo;m going to have to eat my hat on this one: &lt;a href=&#34;http://owenrh.me.uk/blog/2015/08/24/&#34;&gt;Owen Rees-Hayward&lt;/a&gt; totally beat me to the punch.)&lt;/p&gt;
-
-&lt;p&gt;So I&amp;rsquo;m going to tell you a little about why I made the jump to Clojure.&lt;/p&gt;
-
-&lt;!--More--&gt;
-
-&lt;p&gt;One of the main reasons I want to use Clojure is selfish - there are terrific productivity gains &lt;a href=&#34;http://www.paulgraham.com/avg.html&#34;&gt;promised&lt;/a&gt; with any lisp, along with &amp;ldquo;magic mind expanding powers&amp;rdquo;. By that I mean the claim that it&amp;rsquo;ll make you think about solving problems differently. I&amp;rsquo;m not certain how much that&amp;rsquo;s happened yet. I know I do code differently, but it&amp;rsquo;s difficult to separate thought patterns from the languages that they&amp;rsquo;re encoded in.&lt;/p&gt;
-
-&lt;p&gt;But the point is, anything that makes me a better programmer, or at the very least broadens my skill set, is something I want to try. I&amp;rsquo;ve already done that, of course, but there&amp;rsquo;s a big degree of difference between using something for, well, fun basically, and using it in anger. Spending 8 hours a day doing something is probably a pretty good way to get used to wielding it. I already feel just as productive as I was after two years working in C# - I&amp;rsquo;ve got a lot of theories about why that is, but that&amp;rsquo;s something I&amp;rsquo;ll save for a later post.&lt;/p&gt;
-
-&lt;p&gt;So I&amp;rsquo;ve used Clojure in the past, but it&amp;rsquo;s always been dabbling rather than full on commitment - I&amp;rsquo;d mess with something once every couple of months and then drift off again and forget everything just in time to try and pick it all up again. Clojure wasn&amp;rsquo;t the only programming language I had repeated flings with - I&amp;rsquo;ve been bellyaching about my choice of programming language for a while. C# is too verbose, corporate and bland, Go doesn&amp;rsquo;t have enough abstractive power, F# is undersupported (I mean both in the sense of it&amp;rsquo;s corporate master and it&amp;rsquo;s not so super array of libraries), Rust involves too much compiler fighting, ditto Haskell. Yeah. I&amp;rsquo;m fussy. Even Clojure makes compromises, but at least the choices it makes I can understand (and agree with) the reasoning behind.&lt;/p&gt;
-
-&lt;p&gt;Case in point, basing off the JVM. You trade startup time and memory use for a huge ecosystem that&amp;rsquo;s been built up over many, many years, and a stellar virtual machine. (Yes, that&amp;rsquo;s other people&amp;rsquo;s words, I&amp;rsquo;m not enough of an expert on the JVM to trust my own commentary.) To me, that seems like a pretty good deal. That said, I&amp;rsquo;m massively hopeful that Clojurescript will prove viable as a serverside lanuguage under node, since it doesn&amp;rsquo;t have the memory footprint or the startup time of the JVM hosted version of Clojure. (This is probably more related to the agressive optimizations that the Closure compiler does, which incurs a hit at compile time as a result.)&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s another thing that&amp;rsquo;s worth mentioning. Don&amp;rsquo;t read this as me bashing on Javascript, because I&amp;rsquo;d probably pick it as my favourite of any C styled langauge, for a bunch of reasons I won&amp;rsquo;t get into here. It has it&amp;rsquo;s warts (if you haven&amp;rsquo;t seen it yet Gary Bernhardt&amp;rsquo;s &lt;a href=&#34;https://www.destroyallsoftware.com/talks/wat&#34;&gt;&amp;ldquo;Javascript Wat&amp;rdquo; talk&lt;/a&gt; is a great way to witness a few of them in a few minutes.) and when you throw in the general terribleness of a few implementations, it becomes a little unpalatable. Thankfully, there&amp;rsquo;s clojurescript.&lt;/p&gt;
-
-&lt;p&gt;Being able to write your front and back end code in the same language with the same semantics is a godsend. I don&amp;rsquo;t get to do a lot of it at work, but not having to make a language context switch every time something needs to get tweaked on the front end is amazing, and having exactly the same data structures shared between the client and the server is really useful. These a whole bunch of pretty amazing libraries and tooling, like figwheel, devcards, and om.&lt;/p&gt;
-
-&lt;p&gt;So now it&amp;rsquo;s probably worth discussing the elephant in the room. You know, what normally drives people away from lisps. The parens (also known by their proper name, the parenthesis. But that makes my brain kinda go thunk every time I write it.). All of the parens. Yeah, Clojure has that &amp;lsquo;problem&amp;rsquo;. There&amp;rsquo;s ways to mitigate it (the -&amp;gt; and -&amp;gt;&amp;gt; threading macros, or as I like to call them, the spear and pointy spear.) but you&amp;rsquo;ll still see more ()&amp;rsquo;s than in say C# or Java.&lt;/p&gt;
-
-&lt;p&gt;On the other hand, C# and Java have their own sea of brackets problems, it&amp;rsquo;s just that they tend to be curlier than in Clojure. You also get some chunks in your bracket soup in the form of a ton of keywords. The average Clojure namespace (probably the closest equivalent to a class, and they do compile down to a class, but not as you know it.) doesn&amp;rsquo;t have half the amount of stuff that litters your average java/C#/blub class.&lt;/p&gt;
-
-&lt;p&gt;But if you&amp;rsquo;ve been working in a language for any length of time, you&amp;rsquo;ve probably stopped conciously noticing a whole bunch of things - you don&amp;rsquo;t have to actually look for stuff like the class keyword or the indications that something is a method - you only actually see the names and just kind of know about the surrounding fluff.&lt;/p&gt;
-
-&lt;p&gt;The same thing essentially happens in clojure. It&amp;rsquo;s only occasionally that you actually need to go hunting for a stray paren. Rainbow parens and a little bit of bracket match-y highlight-y stuff makes that go away. Or makes the parens you&amp;rsquo;ve got too many of go away. There&amp;rsquo;s other tricks as well - Structual editing (aka paredit) seems promising, but also kinda scary. My first encounter with it reminded me of the first time I used vim - mostly an experience of &amp;ldquo;what the fcsk is going on&amp;rdquo;. That&amp;rsquo;s something I&amp;rsquo;m going to try and fix, however.&lt;/p&gt;
-
-&lt;p&gt;Ok, so that being dealt with, there&amp;rsquo;s one more big draw to clojure (in my opinion, of course. There&amp;rsquo;s lots of other reasons, but I&amp;rsquo;m just trying to hit the high notes here.) and it&amp;rsquo;s not so much about the language itself as the ecosystem around it, the way it was created, and how that affects the Clojure community. First of all, Rich Hickey gives a lot of very good talks, (you should check them out. It&amp;rsquo;ll make your brain think all different and stuff) and uses a lot of interesting vocabulary. I don&amp;rsquo;t think I&amp;rsquo;ve ever heard the term complect uttered by someone who isn&amp;rsquo;t at least a little bit of a functional programming nerd.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s not the fancy choice of words that really matters, but the stuff behind that - the thinking, and the amount of it that gets done. In spite of the REPL, and the opportunity that gives you to really quickly iterate on your code, the &amp;lsquo;best practice&amp;rsquo; for a working clojurist is to think a lot about problems before you tackle them - Hammock Driven Development (as coined by, you guessed it, Rich.)&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s something that shows elsewhere - in my admittedly thus far limited interaction with the wider Clojure community, I&amp;rsquo;ve found people to be a lot more thoughtful and considerate than I&amp;rsquo;ve encountered in other communities. That might just be a side-effect of the relatively small size of the community, but I&amp;rsquo;d like to hope it&amp;rsquo;s something that will persist as more people come into the fold. It&amp;rsquo;s helped make me a lot more comfortable with saying &amp;ldquo;I don&amp;rsquo;t know&amp;rdquo; than I was in the past. That probably has something do to with me knowing the response won&amp;rsquo;t be ridicule. And I think it&amp;rsquo;s something that&amp;rsquo;s rubbed off on me a little, which is great. So much of coding is about how you interact with other people, not just in person but through what you produce. Having a little compassion for the people who are going to be suffering through your code later (even if it is going to be you) can only be a good thing.&lt;/p&gt;
-
-&lt;p&gt;I know the &amp;ldquo;Clojure journey&amp;rdquo; is only really just beginning (doing it for work is completely different to doing it for fun, but I&amp;rsquo;ve already said that), but so far it&amp;rsquo;s all promising. It&amp;rsquo;s different to pretty much any other programming language I&amp;rsquo;ve worked with, which is making it both interesting and challenging.  There&amp;rsquo;s a pragmatic, considered design that infects anything that touches it. In a good way, mind you. It&amp;rsquo;s gotten into the community, who in my dealings and observations (read: lurking!) are all nice in a way that&amp;rsquo;s pretty uncharateristic of the internet. So yeah. I think I&amp;rsquo;ll be happy here, hopefully for quite some time to come.&lt;/p&gt;
-</description>
-        </item>
-      
+      <guid>https://lfn3.net/2015/10/08/leaving-the-malt-mines/</guid>
+      <description>So a little while ago (ok, a couple of months ago now.) I quit my job at Ubquity in favour of one at LiveOps. There were a bunch of reasons for that, but you&amp;rsquo;ll have to buy me a beer to get those out of me. The main draw though, was being able to work with Clojure instead of C# (Hence the punny title).
+There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure but not so many about individuals - I guess we don&amp;rsquo;t really make good marketing pieces?</description>
+    </item>
     
+    <item>
+      <title>Error Handling in ASP.NET MVC</title>
+      <link>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</link>
+      <pubDate>Sun, 08 Mar 2015 23:06:00 +1300</pubDate>
       
-        <item>
-          <title>Error Handling in ASP.NET MVC</title>
-          <link>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</link>
-          <pubDate>Sun, 08 Mar 2015 23:06:00 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</guid>
-          <description>&lt;p&gt;So today we&amp;rsquo;re gonna talk about how to make sure you don&amp;rsquo;t show your users something like this:&lt;/p&gt;
+      <guid>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</guid>
+      <description>&lt;p&gt;So today we&amp;rsquo;re gonna talk about how to make sure you don&amp;rsquo;t show your users something like this:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png&#34; alt=&#34;The yellow screen of death&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;And then making sure that you know that they would have been shown that, and hopefully give you some more infomation to boot. Originally this post was going to be a bit of a monster, but I&amp;rsquo;ve chosen to chop up the hydra a little bit.&lt;/p&gt;
-
-&lt;p&gt;This post just covers how to deal with making IIS catch all the errors that might not get caught inside of your MVC application. I&amp;rsquo;ll dig into the levels closer to MVC in the next post, and then handling error logging in another one after that. They&amp;rsquo;re both already semi-written, so they should follow along soonish. If you aren&amp;rsquo;t really too worried about the reasoning, and trust me enough to just want to get to the money, I&amp;rsquo;ll have a quick summary &amp;ldquo;just do this&amp;rdquo; post up after the long version is finished.&lt;/p&gt;
-
-&lt;p&gt;So. Let&amp;rsquo;s cover the territory of possible ways to show custom error pages to your users, because this being something from Microsoft, there&amp;rsquo;s at least six ways to do a thing, and none of them are exactly what you want. Well, ok. There&amp;rsquo;s only like 4 that I know of:&lt;/p&gt;
-
-&lt;p&gt;You can use an exception handling filter, like the HandleErrorAttribute that&amp;rsquo;s included by default, or you can use a module (basically the same idea as a filter, but further up the chain.), the most promienent example of which would probably be ELMAH. Further torwards the edges of MVC, you can turn to the customErrors thing in your web.config, which as far as I can tell is implemented with a module as well, or finally you can look to the httpErrors option, which lives inside of IIS rather than MVC, but is also in your web.config.&lt;/p&gt;
-
-&lt;p&gt;Basically I&amp;rsquo;m of the opinion you should always pick #4, the IIS option, since it&amp;rsquo;s the highest level of coverage. Anything that goes wrong with all of the other options will end up with whatever is in the &lt;code&gt;httpErrors&lt;/code&gt; tag getting shown.&lt;/p&gt;
-
-&lt;p&gt;You can mix and match any of the other ones along with that to suit your preference, I usually also use the customErrors option, since this is the point most outside of the MVC pipeline but still inside it you can catch exceptions, so it gives you the least exposure to potential issues with your MVC site. At least that&amp;rsquo;s my reasoning, you may come up with a different calculus.&lt;/p&gt;
-
-&lt;p&gt;The reason I don&amp;rsquo;t use filters is because an error inside of your filter config or somewhere inside your global.asax or whatever will cause them to fail completely. The config option does leave you open to issues in your web.config, but if that&amp;rsquo;s hosed you have to rely on your base IIS config. Which hopefully won&amp;rsquo;t show anything ugly to your users. You should probably check that.&lt;/p&gt;
-
-&lt;p&gt;The other issue with filters is they won&amp;rsquo;t fire for what I call the &amp;ldquo;deathmurder exceptions&amp;rdquo; - stuff like stack overflows and out of memory exceptions that just totally kill your application. The stuff you define under that httpErrors tag is, once again, what will save your ass.&lt;/p&gt;
-
-&lt;p&gt;So let&amp;rsquo;s cover that first.&lt;/p&gt;
-
-&lt;p&gt;So in order to deal with this, you have to add another section to your web.config, under the &lt;code&gt;system.webserver&lt;/code&gt; tag:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;httpErrors errorMode=&amp;quot;Custom&amp;quot;&amp;gt;
-  &amp;lt;remove statusCode=&amp;quot;404&amp;quot;/&amp;gt;
-  &amp;lt;error statusCode=&amp;quot;404&amp;quot; path=&amp;quot;/Views/Errors/404.html&amp;quot; responseMode=&amp;quot;File&amp;quot; /&amp;gt;
-  &amp;lt;remove statusCode=&amp;quot;500&amp;quot;/&amp;gt;
-  &amp;lt;error statusCode=&amp;quot;500&amp;quot; path=&amp;quot;/Views/Errors/500.html&amp;quot; responseMode=&amp;quot;File&amp;quot; /&amp;gt;
-&amp;lt;/httpErrors&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So what&amp;rsquo;s going on here is we&amp;rsquo;re telling IIS to use pretty error pages using the &lt;code&gt;errorMode=&amp;quot;Custom&amp;quot;&lt;/code&gt; attribute. You can set that to &lt;code&gt;DetailedLocalOnly&lt;/code&gt; for general use, but while we&amp;rsquo;re messing with this stuff, we want to make sure you&amp;rsquo;ll actually see the custom error pages, so leave it as &lt;code&gt;Custom&lt;/code&gt; for the moment.&lt;/p&gt;
-
-&lt;p&gt;The rest of it is basically removing the default IIS error pages (otherwise it&amp;rsquo;ll spew at you when you start up the app) and replacing them with our own static HTML files. You can use .aspx files here, but if you get to this point, something has probably gone terribly wrong inside your app, so I would try and avoid relying on any code actually doing anything.&lt;/p&gt;
-
-&lt;p&gt;There are a couple of additonal attributes you might be considering adding, like &lt;code&gt;defaultPath&lt;/code&gt; and &lt;code&gt;defaultResponseMode&lt;/code&gt; however defaultPath seems to cause IIS express to throw it&amp;rsquo;s own exception when running on my machine which would seem to make &lt;code&gt;defaultResponseMode&lt;/code&gt; somewhat pointless. But if you manage to get it working, please let me know &lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;@lfln3&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There is another option if you want to use some custom code, where you can change the &lt;code&gt;responseMode&lt;/code&gt; to &lt;code&gt;ExecuteUrl&lt;/code&gt; and then point the path to an .aspx file. This does mean it will rewrite the response code to a 200, however, which is probably not what you want. To cover that, you can add this snippet to the top of your .aspx file.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language=&amp;quot;C#&amp;quot; %&amp;gt;
-&amp;lt;% Response.StatusCode = 404; %&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ideally there&amp;rsquo;d be some way of jacking the error status code when getting directed from the custom error definition, but I haven&amp;rsquo;t figured out a way of doing that yet, or if it&amp;rsquo;s even possible. If anyone&amp;rsquo;s got any ideas, once again hit me up at &lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;@lfln3&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;d not hugely comfortable personally with having code execute in my error handlers, but if you&amp;rsquo;re ok with it, go nuts. In any case, this should basically iron-clad your app against the possiblity of showing any ugly yellow pages to your users.&lt;/p&gt;
-
-&lt;p&gt;I have created a nuget package to speed this thing up a little, which you can find &lt;a href=&#34;https://www.nuget.org/packages/MVCErrorPages/&#34;&gt;here&lt;/a&gt;, or just run &lt;code&gt;Install-Package MVCErrorPages&lt;/code&gt;. It does include the MVC customErrors stuff, which I&amp;rsquo;m gonna cover in a later installment. But in the meantime, google should be able to help you out. Until then&amp;hellip; good luck, I guess?&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Fresh Thoughts on Dependency Injection</title>
+      <link>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</link>
+      <pubDate>Sun, 15 Feb 2015 12:10:22 +1300</pubDate>
       
-        <item>
-          <title>Fresh Thoughts on Dependency Injection</title>
-          <link>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</link>
-          <pubDate>Sun, 15 Feb 2015 12:10:22 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</guid>
-          <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;
+      <guid>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</guid>
+      <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m still toiling in the C# mines, but I&amp;rsquo;ve moved from using &lt;a href=&#34;http://www.ninject.org/&#34;&gt;Ninject&lt;/a&gt; to a more&amp;hellip; static library, &lt;a href=&#34;http://autofac.org/&#34;&gt;Autofac&lt;/a&gt;. Ninject suffers from a little bit of &lt;a href=&#34;http://blog.codinghorror.com/new-programming-jargon/&#34;&gt;stringly typing&lt;/a&gt;, while Autofac uses stuff like lambdas and generics to make errors happen at compile time rather than run time, which I&amp;rsquo;m a huge fan of. There&amp;rsquo;s heaps of other neat stuff too, so if you&amp;rsquo;re using C#, it&amp;rsquo;s almost certainly worth checking out if you haven&amp;rsquo;t already used it.&lt;/p&gt;
-
-&lt;p&gt;So the reason I was initally led to DI was due to the need to get tests across a fragile part of a long running project. This was basically a calendar you could making bookings on (the process of making a booking was fairly time consuming - the booking form has something like 30 fields on it or something.), and depending on what options you picked, it would block out more or less time around the date you chose. There were a whole bunch of other rules that could also apply, just to make it more fun.&lt;/p&gt;
-
-&lt;p&gt;In any case, it was painful to manually test, and we ran into some weird bugs around public holidays and that sort of thing that we very luckily caught before they made it into production. It took that to get management to sign off on me adding tests to this area of the code. Since doing that, it&amp;rsquo;s been (unsurprisingly) bug free.&lt;/p&gt;
-
-&lt;p&gt;This experience was enough to sell me on the complexity trade offs of DI. At this point I still haven&amp;rsquo;t fully embraced TDD or anything - I tend to mostly apply tests to areas I&amp;rsquo;m nervous about rather than everything. Not that I would have the time to put them on everything at my day job in any case.&lt;/p&gt;
-
-&lt;p&gt;The other thing that I came to realize was that DI really does enforce cleaner separation between your code - you&amp;rsquo;re constantly asking if this bit of code really belongs in your controllers (and the answer is usually no.) so tons of stuff gets pushed further out, where it&amp;rsquo;s easier to abstract and extract for reuse. Presently I&amp;rsquo;m in the process of using T4 templates to generate a whole bunch of boilerplate I was writing for a lot of projects at work, something I probably never would have realised was an option without using DI.&lt;/p&gt;
-
-&lt;p&gt;Being able to draw clean lines around parts of your system also means that you can reason about them in isolation. Anything that means you don&amp;rsquo;t have to juggle a whole bunch of infomation at once is great, and by splitting everything up for the purposes of injection it becomes much more explict where exactly any bad data is coming from, as long as you let your injected objects maintain responsiblity for their output. That is, output from anything injected should be modified as little as possible - project it into a new form, rather than mutating it&amp;rsquo;s existing one if necessary.&lt;/p&gt;
-
-&lt;p&gt;And since you&amp;rsquo;ve got these independent objects, if you can&amp;rsquo;t pin down what exactly is causing an error, it&amp;rsquo;s a lot easier to write code to help you find out. Put the code into a test harness, through a whole bunch of stuff at it, and make sure your invariants hold. Just make sure you print out the inputs that cause a faliure when an assertion fails.&lt;/p&gt;
-
-&lt;p&gt;The last benefit I got is being able to use my test objects for development. I&amp;rsquo;m not sure if this is something that anyone ever touts, but whenever someone needs to make changes to a database, or some service you&amp;rsquo;re dependent on isn&amp;rsquo;t working, I fall back on the objects I&amp;rsquo;ve written for my tests. They&amp;rsquo;re also great early on in development when you&amp;rsquo;re not yet worried about integrating with actual data or services - you just want to prove the UI/UX works. Obviously you have to eventually switch back to the real thing, but avoiding that block, and hopefully maintaining flow is certainly worth the distance from reality.&lt;/p&gt;
-
-&lt;p&gt;So I guess the main reason I embraced DI was because of the confidence that unit tests gave me - but once I was there, it turns out there&amp;rsquo;s other tangible benefits you get - a better awareness of where and why to decouple your code, an easier debugging experience as a result of that. Once you&amp;rsquo;ve got the test objects for testing, they&amp;rsquo;re also perfect for when something external would otherwise stop you from making forward progress. I&amp;rsquo;m sure I&amp;rsquo;m preaching to the choir here, but if you&amp;rsquo;re working in a mainstream OO language, and you aren&amp;rsquo;t using dependency injection, you&amp;rsquo;re missing out.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Moving to Hugo and Lanyon</title>
+      <link>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</link>
+      <pubDate>Sat, 14 Feb 2015 18:52:49 +1300</pubDate>
       
-        <item>
-          <title>Moving to Hugo and Lanyon</title>
-          <link>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</link>
-          <pubDate>Sat, 14 Feb 2015 18:52:49 NZDT</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</guid>
-          <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;
+      <guid>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</guid>
+      <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Even better, a whole bunch of people have already made some pretty themes for it. Like this one, &lt;a href=&#34;https://github.com/tummychow/lanyon-hugo&#34;&gt;Lanyon&lt;/a&gt;. I&amp;rsquo;ve messed with it a little (I&amp;rsquo;m not a huge fan of pagination, amongst other things.), and I still want to add that &lt;a href=&#34;http://www.reddit.com/r/webdev/comments/1a4ss9/i_couldnt_find_a_decent_guide_on_how_to_make_icon/c8u45lf?context=10000&#34;&gt;lightswitch I mentioned&lt;/a&gt; when I first wrote anything here, but hopefully Hugo&amp;rsquo;s ease of use will mean I actually write some stuff in future, rather than despair at the code I&amp;rsquo;d need to write to get my scripts to do a thing and then go do something else instead.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Dependency Injection - A necessary evil?</title>
+      <link>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</link>
+      <pubDate>Thu, 18 Sep 2014 07:27:25 +1200</pubDate>
       
-        <item>
-          <title>Dependency Injection - A necessary evil?</title>
-          <link>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</link>
-          <pubDate>Thu, 18 Sep 2014 07:27:25 NZST</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</guid>
-          <description>&lt;p&gt;&lt;em&gt;Basically my position on DI has since changed - go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/&#34;&gt;Fresh Thoughts on Dependency Injection&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+      <guid>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Basically my position on DI has since changed - go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/&#34;&gt;Fresh Thoughts on Dependency Injection&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So first of all, to preface this and so you get a little bit of insight from where I&amp;rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&amp;rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&amp;rsquo;d like. Anyway.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So the shop where I currently get paid is a little behind the times. Legacy code base
-(in the &lt;a href=&#34;http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0131177052&amp;amp;linkCode=as2&amp;amp;tag=byatlascom-20&amp;amp;linkId=A3OM5UCAGXASTXG3&#34;&gt;Micheal Feathers&lt;/a&gt;
-&amp;ldquo;Legacy code is code without tests&amp;rdquo; sense) and an enterprise-y monolithic feel. There&amp;rsquo;s some seemingly arbitrary layering and attempts to divide responsibility, but (to me at least) they seem to all follow their own internal logic rather than any cohesive structure.
-&lt;img src=&#34;http://ir-na.amazon-adsystem.com/e/ir?t=byatlascom-20&amp;l=as2&amp;o=1&amp;a=0131177052&#34; width=&#34;1&#34; height=&#34;1&#34; border=&#34;0&#34; alt=&#34;&#34; style=&#34;border:none !important; margin:0px !important;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Luckily, I&amp;rsquo;ve managed to largely dodge that particular bullet, and mostly work on stuff external to the mothership.&lt;/p&gt;
-
-&lt;p&gt;One of the things I&amp;rsquo;ve been trying to adopt is unit testing (or just testing in general). It&amp;rsquo;s proven to be far more difficult to implement in ASP.net MVC than I was expecting (hoping?). One of the tools you are essentially required to lean on (which is not entirely a bad thing, admittedly.) is dependency injection (hereafter referred to as DI), which, as the title implies, I view as almost as much of a pain as it is useful.&lt;/p&gt;
-
-&lt;p&gt;It does, very usefully, impose a need to split apart unrelated functionality. There seems to be a very real love of gigantic libaries, sprouting tendrils to handle every possible eventuality, in the C# world. I&amp;rsquo;ve seen my co-workers build them, repeatedly, fuelled by some sort of steriodially inflamed Not Invented Here syndrome. By using DI you stand a far better chance of producing something that&amp;rsquo;s at least slightly reusable.&lt;/p&gt;
-
-&lt;p&gt;I can sympathize with their distrust of DI a little, at least. DHH has recently spoken of &amp;ldquo;test induced design damage&amp;rdquo; and I think it&amp;rsquo;s certainly possible (ok, I know it&amp;rsquo;s possible, I&amp;rsquo;ve done it.) to contort your code into strange and impossible shapes as a result of desire to test everything that&amp;rsquo;s not nailed down.&lt;/p&gt;
-
-&lt;p&gt;The primary thing that spooks me about DI is the explosion of complexity necessary in its usage. Layer upon layer of factories, facades and interfaces (Seriously. So many interfaces.) follow in it&amp;rsquo;s wake, each seemingly necessary, but all clouding the actual purpose of your software in arcane scribblings. And for what? Sure, you might be able to test it, but if it takes you half an hour to trace through the code to figure out that an error found in production was caused by something 6 layers deep, and would have been found by a test that would only fail very intermittently&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn&amp;rsquo;t break anything. Or at least much.) I don&amp;rsquo;t know that I&amp;rsquo;m at that point. Yet.&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Fun with Icon Fonts</title>
+      <link>https://lfn3.net/2013/03/12/fun-with-icon-fonts/</link>
+      <pubDate>Tue, 12 Mar 2013 18:32:40 +1200</pubDate>
       
-        <item>
-          <title>Fun with Icon Fonts</title>
-          <link>https://lfn3.net/2013/03/12/fun-with-icon-fonts/</link>
-          <pubDate>Tue, 12 Mar 2013 18:32:40 &#43;1200</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2013/03/12/fun-with-icon-fonts/</guid>
-          <description>&lt;p&gt;So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&amp;hellip; interesting. There isn&amp;rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.&lt;/p&gt;
+      <guid>https://lfn3.net/2013/03/12/fun-with-icon-fonts/</guid>
+      <description>&lt;p&gt;So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&amp;hellip; interesting. There isn&amp;rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;First of all, why would you want to do this anyway? Well personally, I like the fact that I stop serving as many images, save on bandwidth, and get all the css and html text attributes for free. Basically the only drawback as far as I can see is the extra work involved in producing vector art and the messing around with turning it into a font. The only other issue is that your icon &lt;em&gt;has&lt;/em&gt; to be mono coloured. You can&amp;rsquo;t have some multicoloured Bob Ross shit. If you want to do something like that, you&amp;rsquo;ll have to use actual images.&lt;/p&gt;
-
-&lt;p&gt;Got some pretty picture in your head you want to make into reality? Read on.&lt;/p&gt;
-
-&lt;p&gt;There&amp;rsquo;s two tools I ended up using: &lt;a href=&#34;http://inkscape.org/&#34;&gt;Inkscape&lt;/a&gt; and &lt;a href=&#34;http://fontforge.org/&#34;&gt;FontForge&lt;/a&gt;, both of which are free and cross platform. Inkscape includes some basic tools that allow you to produce a SVG font, however that isn&amp;rsquo;t amazingly useful in order to actually produce something the people looking at your site can see. I then used FontForge to edit the attributes, make sure I didn&amp;rsquo;t completely mangle everything and export all the formats I wanted.&lt;/p&gt;
-
-&lt;p&gt;If you&amp;rsquo;re new to vector imaging tools, InkScape is probably going to be kinda confusing. I might throw together a quick tutorial on it later, however until then, try taking a look &lt;a href=&#34;http://inkscapetutorials.wordpress.com/&#34;&gt;round here&lt;/a&gt;, and &lt;a href=&#34;http://inkscape.org/doc/&#34;&gt;the official docs&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Ok. So you&amp;rsquo;ve opened up Inkscape, and you&amp;rsquo;re looking at a blank page. Probably the wrong page. Hit File -&amp;gt; New -&amp;gt; fontforge_glyph. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/new-fontforge-glyph.png&#34; alt=&#34;New Glyph&#34; /&gt; The devs of inkscape are ever so thoughtful, aren&amp;rsquo;t they? This will give you the 1000px by 1000px canvas you need. That line blue about &lt;sup&gt;3&lt;/sup&gt;&amp;frasl;&lt;sub&gt;4&lt;/sub&gt; of the way down the canvas is the baseline, or where most fonts put the bottom of their characters. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/blank-canvas.png&#34; alt=&#34;Blank Canvas&#34; /&gt; You&amp;rsquo;ll want to treat that as the bottom of whatever you&amp;rsquo;ve chosen to make.&lt;/p&gt;
-
-&lt;p&gt;At this point you&amp;rsquo;ll probably want to pull open the sidebar, since the &lt;em&gt;Fill and Stroke&lt;/em&gt; pane is really, really useful If you head to Object -&amp;gt; Fill and Stroke, you should get something like this: -&lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/stroke-and-fill-pane.png&#34; alt=&#34;Stroke and Fill Pane&#34; /&gt; Also while we&amp;rsquo;re at it, the &lt;em&gt;SVG Font Editor Pane&lt;/em&gt; will also see some heavy use. That can be found under Text -&amp;gt; SVG Font Editor &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/svg-font-editor-pane.png&#34; alt=&#34;SVG Font Editor Pane&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So now comes the fun part. Draw something pretty! Keep in mind the colour constraint. Also be aware that you&amp;rsquo;re basically going to flatten the image later, so anything you do with layering will also be ignored. I&amp;rsquo;ve chosen to excercise my artistic talent with this beautiful ball&amp;hellip; thing. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/ball-thing.png&#34; alt=&#34;Ball Thing&#34; /&gt; Note that the redness of the outline and the fill will be lost when we turn this into a glyph. You&amp;rsquo;ll see that in a moment.&lt;/p&gt;
-
-&lt;p&gt;The font specific stuff can be found under the &lt;em&gt;Text&lt;/em&gt; menu. You&amp;rsquo;ll want to open up the &lt;em&gt;SVG Font Editor Pane&lt;/em&gt; if you haven&amp;rsquo;t already.&lt;/p&gt;
-
-&lt;p&gt;If you haven&amp;rsquo;t already made one, you&amp;rsquo;ll need to make a new font in the Font Editor pane. You can ignore the name, (we can change it later in fontforge) but not the width. Make sure to set that to 1000. I forgot this time, and it will make fontforge angry at you later. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/new-font.png&#34; alt=&#34;New Font&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Head over to Glyphs, and add a new glyph. Name it something informative by double clicking on the name and changing it to whatever. Do the same for the matching string. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/glyph-define.png&#34; alt=&#34;Defining a glyph&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Again, this can be altered later in FontForge (and will be in the case of the string). Then select your path in the main window, and hit Get curves from selection. This should set the chosen glyph to use your current path. If you type the matching string into the Sample Text field it should show up just above it. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/glyph-got-curves.png&#34; alt=&#34;Getting curves&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Ok. So at this point we can skip out of inkscape and make a font with our one glyph. If you want to do that, skip ahead a bit. There are a few more little things that you should learn with regard to inkscape however: Layers, Squishing and Converting paths.&lt;/p&gt;
-
-&lt;p&gt;If you want to add more glyphs (which you should. One glyph per font will drive you insane with the CSS and be horrifically inefficent.), you&amp;rsquo;ll probably want to use layers to hide the current path. Open up the Layers Pane: &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/layers-pane.png&#34; alt=&#34;Layers Pane&#34; /&gt; You can just hide and lock the current layer, but you&amp;rsquo;ll probably want to name it something vaguely informative first. Usually I use the same name as in the &lt;em&gt;SVG Font Editor&lt;/em&gt; bit. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/layer-hiding.png&#34; alt=&#34;Layer Hiding&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What ever you do, don&amp;rsquo;t delete it. You&amp;rsquo;ll tempt Murphy and his law - if later on you have the wrong glyph selected when you hit &lt;em&gt;Get Curves from Selection&lt;/em&gt;, it&amp;rsquo;ll be overwritten. And no, it doesn&amp;rsquo;t ask for confirmation or anything like that. As far as I know, you can&amp;rsquo;t just use undo on it. Yeah. I made that mistake. Only the once. (Ok, like four times.)&lt;/p&gt;
-
-&lt;p&gt;So anyway, lets go ahead and create a new layer and deal with Path Conversion.&lt;/p&gt;
-
-&lt;p&gt;This time, I&amp;rsquo;ve used the pen tool to make some fancy curve. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/fancy-curve.png&#34; alt=&#34;Fancy curve&#34; /&gt; You can adjust the thickness of the stroke and whatever in the &lt;em&gt;Fill and Stroke Pane&lt;/em&gt;. So let&amp;rsquo;s add another glyph to our font in the &lt;em&gt;SVG Font Pane&lt;/em&gt;, and hit the magic button, &lt;em&gt;Get Curves from Selection&lt;/em&gt;&amp;hellip; &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/mistakes.png&#34; alt=&#34;Mistakes were made&#34; /&gt; and we (ok, I) screwed it up. Not only did I overwrite the beauty of my circle, but also the glyph looks nothing like what I expected it to. Ok.&lt;/p&gt;
-
-&lt;p&gt;Fixing the glyph overwriting is easy thanks to layers, &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/fixed.png&#34; alt=&#34;Fixed overwritten glyph&#34; /&gt; but now there&amp;rsquo;s still the issue of the malformed glyph over there. First a slight detour to the aforementioned &lt;em&gt;Stroke and Fill Pane&lt;/em&gt; to make my curve more curvy, then this is where the whole path conversion thing comes in. If we just hit Path -&amp;gt; Stroke to Path and then &lt;em&gt;Get Curves from Selection&lt;/em&gt; we should get exactly what we&amp;rsquo;re looking for: &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/glyph-curve.png&#34; alt=&#34;Fancy, glyphified curve&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The last thing that might be important if you&amp;rsquo;re making something complex (like the globe logo you&amp;rsquo;ve seen plastered all over this website.) is what I crudely termed Squishing paths. I don&amp;rsquo;t have any images for this, but basically you can use the tools under the Path menu (Union, Difference, Intersection etc.) to combine multiple paths into one for conversion into a glyph.&lt;/p&gt;
-
-&lt;p&gt;Combine and Break Apart look tempting, however as far as I know, they only work on objects, and therefore aren&amp;rsquo;t that useful to us &amp;ldquo;font-artists&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;So, now you can go ahead and save a copy of the SVG, and get cracking in fontforge.&lt;/p&gt;
-
-&lt;p&gt;Presuming you managed to open up the SVG in FontForge, you&amp;rsquo;ll be presented with a grid of your glyphs, hopefully. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/fontforge-glyph-grid.png&#34; alt=&#34;Fontforge Grid&#34; /&gt; So. Now we have to assign all of the glyphs unicode code points. I recommend using the ones from the &lt;a href=&#34;http://en.wikipedia.org/wiki/Private_Use_(Unicode)&#34;&gt;Private Use Areas&lt;/a&gt;, since they won&amp;rsquo;t get picked up by screen readers or anything, and it seems like the logical place to put whatever weird logo you&amp;rsquo;ve come up with. Since we&amp;rsquo;re defining our own font, you could use whatever value you want, however.&lt;/p&gt;
-
-&lt;p&gt;So, right click on one of your glyphs, then hit &lt;em&gt;Glyph Info&lt;/em&gt;. You&amp;rsquo;ll get a window where you can give the glyph a name (Pick something logical. You&amp;rsquo;ll probably want to keep this consistent if you do the whole CSS @font-face and i tag thing.) and set the unicode value for the character. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/fontforge-glyph-info.png&#34; alt=&#34;Glyph Info Window&#34; /&gt; Basically, do that for all your glyphs.&lt;/p&gt;
-
-&lt;p&gt;Once you&amp;rsquo;ve got that sussed, hit Element -&amp;gt; Font Properties. Here you can define all the details for your font. It should all be fairly self explanatory. &lt;img src=&#34;https://lfn3.net/img/posts/fun-with-icon-fonts/fontforge-font-info.png&#34; alt=&#34;Font Properties&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once that&amp;rsquo;s done, save your font again (preferably in the FontForge format, .sfd) and start exporting in all the different formats you want. I&amp;rsquo;d recommend at least doing ttf and woff. You&amp;rsquo;ll probably want to get it into eot, which font-forge unfortunately can&amp;rsquo;t natively produce (It&amp;rsquo;s a format created by Microsoft for IE, so go figure.). &lt;a href=&#34;http://onlinefontconverter.com/&#34;&gt;This&lt;/a&gt; website should allow you to convert it to .eot, along with a bunch of other random formats if you feel like that kind of thing.&lt;/p&gt;
-
-&lt;p&gt;You might run into some errors during export. Most of these can be fixed with the tools in fontforge, right clicking on the appropriate glyphs should give you options to convert to integer variables, correct direction and AutoHint. You can find the option to fix the extrema error in Element -&amp;gt; Add Extrema.&lt;/p&gt;
-
-&lt;p&gt;So now that that&amp;rsquo;s done, we need to make some CSS. Here&amp;rsquo;s what I&amp;rsquo;ve used, it&amp;rsquo;s basically taken directly from &lt;a href=&#34;http://fortawesome.github.com/Font-Awesome/&#34;&gt;FontAwesome&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@font-face {
-  font-family: &#39;byatlas-iconfont&#39;;
-  src: url(&#39;/assets/font/byatlas-iconfont.eot&#39;);
-  src: url(&#39;/assets/font/byatlas-iconfont.eot&#39;) format(&#39;embedded-opentype&#39;),
-    url(&#39;/assets/font/byatlas-iconfont.woff&#39;) format(&#39;woff&#39;),
-    url(&#39;/assets/font/byatlas-iconfont.ttf&#39;) format(&#39;truetype&#39;);
-  font-weight: normal;
-  font-style: normal;
-}
-[class^=&amp;quot;icon-&amp;quot;],
-[class*=&amp;quot; icon-&amp;quot;] {
-  font-family: byatlas-iconfont;
-  font-weight: normal;
-  font-style: normal;
-  text-decoration: inherit;
-  -webkit-font-smoothing: antialiased;
-
-  /* sprites.less reset */
-  display: inline;
-  width: auto;
-  height: auto;
-  line-height: normal;
-  vertical-align: baseline;
-  background-image: none;
-  background-position: 0% 0%;
-  background-repeat: repeat;
-  margin-top: 0;
-}
-.icon-globe:before    { content: &amp;quot;\f0000&amp;quot;;}
-.icon-half-globe:before    { content: &amp;quot;\f0001&amp;quot;;}
-.icon-twitter:before        { content: &amp;quot;\f0002&amp;quot;; }
-.icon-github:before     { content: &amp;quot;\f0003&amp;quot;; }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Hopefully all the parameters there are, again, self explanatory. The bits right down the bottom are used to produce the i tags that everyone loves so much. If you don&amp;rsquo;t want to do that, just so long as you enclose your text with tags that have the correct font-family set, you can use this type of thing:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;amp;#983040;
-&amp;amp;#983041;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And so on. Those are just the hex values converted to decimal, prefixed with &amp;amp;# and ending with ;. Much like how you use &amp;amp;nsbp and the like.&lt;/p&gt;
-
-&lt;p&gt;So hopefully you&amp;rsquo;ve made your shiny new startup or whatever even shinier now with svelte, lightweight icon fonts. You are going to cut me in on a slice of the profits, right?&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>The Making of</title>
+      <link>https://lfn3.net/2013/03/11/the-making-of/</link>
+      <pubDate>Mon, 11 Mar 2013 18:32:40 +1200</pubDate>
       
-        <item>
-          <title>The Making of</title>
-          <link>https://lfn3.net/2013/03/11/the-making-of/</link>
-          <pubDate>Mon, 11 Mar 2013 18:32:40 &#43;1200</pubDate>
-          <author>Liam Falconer</author>
-          <guid>https://lfn3.net/2013/03/11/the-making-of/</guid>
-          <description>&lt;p&gt;&lt;em&gt;This post is hideously out of date. Go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/&#34;&gt;Moving to Hugo and Lanyon&lt;/a&gt; for the lowdown on way this site works now&lt;/em&gt;&lt;/p&gt;
+      <guid>https://lfn3.net/2013/03/11/the-making-of/</guid>
+      <description>&lt;p&gt;&lt;em&gt;This post is hideously out of date. Go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/&#34;&gt;Moving to Hugo and Lanyon&lt;/a&gt; for the lowdown on way this site works now&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So. I&amp;rsquo;d written two posts in anticipation of getting this up and running, however they proved to be glouriously incorrect. I&amp;rsquo;ve been through about three or four changes in terms of how I actually decided to do this, so&amp;hellip; yeah.&lt;/p&gt;
 
 &lt;p&gt;Anyway, at this point, it&amp;rsquo;s a site that&amp;rsquo;s built from &lt;a href=&#34;http://jinja.pocoo.org/&#34;&gt;Jinja2&lt;/a&gt; templates. Mostly. In case you haven&amp;rsquo;t noticed, some bits of it are still not yet entirely working. Mostly the contact page. And all the examples I need to throw on the page that&amp;rsquo;s supposed to convince you to pay me. Which is just a little bit awkward.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So initally I just planned to generate the blog using &lt;a href=&#34;http://blog.getpelican.com/&#34;&gt;Pelican&lt;/a&gt;, but that seemed like a bit of overkill for what I wanted to do. Plus you know, I can&amp;rsquo;t call myself a real hacker if I don&amp;rsquo;t DIY this bad boy.
-So although it works at the moment, it&amp;rsquo;ll probably be something I polish for quite some time to come.&lt;/p&gt;
-
-&lt;p&gt;But at least so far the site is still almost entirely static. I&amp;rsquo;ll have to do something server side for the contact page, since I don&amp;rsquo;t really want to get spammed into the ground, but apart from that&amp;hellip; it should be all slick and fast and stuff. Even more so once I eventually get around to doing some Ajax stuff.&lt;/p&gt;
-
-&lt;p&gt;Oh, so to summarize the two posts I&amp;rsquo;d originally written, my thanks to &lt;a href=&#34;http://danneu.com/bag/darkstrap/darkstrap.html&#34;&gt;danneu&lt;/a&gt; for &lt;a href=&#34;http://danneu.com/bag/darkstrap/darkstrap.html&#34;&gt;darkstrap&lt;/a&gt;, from which I stole quite a bit of css. And to the &lt;a href=&#34;http://twitter.github.com/bootstrap/&#34;&gt;twitter bootstrap&lt;/a&gt; guys, &lt;a href=&#34;http://markdotto.com/&#34;&gt;Mark Otto&lt;/a&gt; and &lt;a href=&#34;http://byfat.xxx/&#34;&gt;fat&lt;/a&gt; for more css, and making darkstrap possible in the first place.&lt;/p&gt;
-
-&lt;p&gt;I also owe &lt;a href=&#34;http://fortawesome.github.com/Font-Awesome/&#34;&gt;fontawesome&lt;/a&gt; and &lt;a href=&#34;http://subtlepatterns.com/&#34;&gt;subtle patterns&lt;/a&gt; for art cribbed from them. Chchur.&lt;/p&gt;
-
-&lt;p&gt;Oh, and &lt;a href=&#34;http://mrdoob.com/&#34;&gt;Mr. doob&lt;/a&gt; for &lt;a href=&#34;http://mrdoob.github.com/three.js/&#34;&gt;Three.js&lt;/a&gt;, even though I haven&amp;rsquo;t quite got it doing what I want it to yet. I&amp;rsquo;m planning on making this place at least 200% more shiny&amp;hellip; soon&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;Well, congratulations on surviving my aimless rambling for this long.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;This reads way too much like one those tracks giving shoutouts&lt;/em&gt;&lt;/p&gt;</description>
-        </item>
-      
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
-
   </channel>
 </rss>

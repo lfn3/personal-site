@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>lfn3 </title>
+    <title>Slides on </title>
     <link>https://lfn3.net/slides/</link>
-    <language>en-us</language>
-    <author>Liam Falconer</author>
-    <rights>(C) 2018</rights>
-    <updated>2018-05-07 20:01:44 &#43;1300 &#43;1300</updated>
-
+    <description>Recent content in Slides on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 07 May 2018 20:01:44 +1300</lastBuildDate>
     
+	<atom:link href="https://lfn3.net/slides/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Property testing made simple</title>
+      <link>https://lfn3.net/slides/property-testing-made-simple/</link>
+      <pubDate>Mon, 07 May 2018 20:01:44 +1300</pubDate>
       
+      <guid>https://lfn3.net/slides/property-testing-made-simple/</guid>
+      <description>Property testing made simple(r)   Property testing?
+Aka generative testing
+  I wrote a property testing library
+Why?
+So I write Java during the day. The options for property testing in Java suck.    I found this thing called Hypothesis, and thought that was really cool, I want one of those.    What&#39;s different about Undertaker?
+What&#39;s different about Undertaker?    (undertaker/defprop property (let [v (undertaker/vec-of undertaker/int) s (sort v)] (is (= (count v) (count s))) (is (ascending?</description>
+    </item>
     
+    <item>
+      <title>Types vs Contracts</title>
+      <link>https://lfn3.net/slides/types-vs-contracts/</link>
+      <pubDate>Wed, 21 Sep 2016 16:21:44 +1200</pubDate>
       
+      <guid>https://lfn3.net/slides/types-vs-contracts/</guid>
+      <description>Contracts  Types Proof with clojure.spec Ok. So tonight I&#39;m talking to about types, type systems, why they aren&#39;t enough, and why should dump them for something else.    Disclaimers Big fan of Clojure
+Intentionally picked a fairly inflammatory topic
+First of all, a couple of warnings. I&#39;m a really big fan of Clojure, so this talks gonna be loaded with bias. I did pick a fairly divisive topic.</description>
+    </item>
     
-
   </channel>
 </rss>
