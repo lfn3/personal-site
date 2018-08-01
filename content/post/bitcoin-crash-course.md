@@ -5,16 +5,16 @@ title = "Bitcoin crash course"
 
 +++
 
-I've just moved to London, and been working on [LMAX Digital](https://www.lmaxdigital.com/) and as a resulted been given 
+I've just moved to London, and been working on [LMAX Digital](https://www.lmaxdigital.com/) and as a result been given 
 a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there's a
 near zero chance I'm going to remember it as I've moved on to another area of work, so I figured I'd better write it 
 all down before I forget it all.
 
 <!--more-->
 
-There's quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and the only 
-thing that actually exists as a concrete object is the transaction. This is what actually goes into any given block
-on a blockchain.
+There's quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and one of 
+the few that exists as a concrete object is the transaction. This is what actually goes into any given block on a 
+blockchain.
 
 So let's talk a little about the structure of the actual payments or transactions. There's some header information, but
 mostly they consist of inputs and outputs. The inputs are the unspent outputs in a previous transaction that you have 

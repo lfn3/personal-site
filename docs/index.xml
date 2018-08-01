@@ -16,16 +16,16 @@
           <pubDate>Wed, 01 Aug 2018 10:40:00 BST</pubDate>
           <author>Liam Falconer</author>
           <guid>https://lfn3.net/2018/08/01/bitcoin-crash-course/</guid>
-          <description>&lt;p&gt;I&amp;rsquo;ve just moved to London, and been working on &lt;a href=&#34;https://www.lmaxdigital.com/&#34;&gt;LMAX Digital&lt;/a&gt; and as a resulted been given
+          <description>&lt;p&gt;I&amp;rsquo;ve just moved to London, and been working on &lt;a href=&#34;https://www.lmaxdigital.com/&#34;&gt;LMAX Digital&lt;/a&gt; and as a result been given
 a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there&amp;rsquo;s a
 near zero chance I&amp;rsquo;m going to remember it as I&amp;rsquo;ve moved on to another area of work, so I figured I&amp;rsquo;d better write it
 all down before I forget it all.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;There&amp;rsquo;s quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and the only
-thing that actually exists as a concrete object is the transaction. This is what actually goes into any given block
-on a blockchain.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s quite a few concepts associated with the bitcoin blockchain, but probably the most important one, and one of
+the few that exists as a concrete object is the transaction. This is what actually goes into any given block on a
+blockchain.&lt;/p&gt;
 
 &lt;p&gt;So let&amp;rsquo;s talk a little about the structure of the actual payments or transactions. There&amp;rsquo;s some header information, but
 mostly they consist of inputs and outputs. The inputs are the unspent outputs in a previous transaction that you have
