@@ -6,7 +6,7 @@ title = "Bitcoin crash course"
 +++
 
 I've just moved to London, and been working on [LMAX Digital](https://www.lmaxdigital.com/) and as a result been given 
-a bit of a crash course on how exactly Bitcoin (and other crytocurrency) transactions actually work. I think there's a
+a bit of a crash course on how exactly Bitcoin (and other cryptocurrency) transactions actually work. I think there's a
 near zero chance I'm going to remember it as I've moved on to another area of work, so I figured I'd better write it 
 all down before I forget it all.
 
