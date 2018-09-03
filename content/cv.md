@@ -11,17 +11,17 @@ I've been writing code professionally for 5 years, and for a decade prior to tha
 time I've worked with many object oriented and functional programming languages, such as Java, Clojure, C# and Python.
 My work on the JVM has been in low latency, high performance environments, with experienced and effective teams.
 As a part of these teams I've been able to leverage my skills and insights to help us deliver better code more quickly
-and with less bugs, and continually improve my own and my teams work.
+and with fewer bugs, and continually improve my own and my team's work.
 
 I'm passionate about developing, understanding and improving code, as well as helping others to do the same.
 This has meant giving talks at local programming meetups, as well as internally at organizations I've been worked with.
-And I've also tried to record as some of my more fully formed thoughts on [my blog](https://lfn3.net/).
-I've dived into numerous other programming languages like Rust, Go and OCaml, and explored many other libraries and 
-programming techniques in the search for ways to better produce better code.
+I've also tried to record some of my more fully formed thoughts on [my blog](https://lfn3.net/).
+Recently, I've become interested in Rust, Go and OCaml, and explored many other libraries and 
+programming techniques in the search for ways to produce better code.
 
-At present I'm not actively looking for new opportunities, but I would be open to anything involving functional programming and 
-performance oriented work. If you think your team is passionate about the craft of programming, can offer challenging 
-problems, and contributes to open source, please to get in touch.
+At present I'm established in a permanent full-time programming role, but I would be open to discussing opportunities 
+involving functional programming and performance-oriented work. If your team is passionate about the craft of programming, 
+can offer challenging problems, and contributes to open source, I would love to hear from you.
 
 ## Community
 - Organized, spoke and prepared materials for the [Auckland Clojure Meetup](https://www.meetup.com/Auckland-Clojure/)
@@ -42,7 +42,7 @@ problems, and contributes to open source, please to get in touch.
 - Wrote high performance, consistently low latency Java code.
 - Contributed to open source projects like [Aeron](https://github.com/real-logic/aeron).
 - Maintained and improved a low time to recovery HA solution.
-- Produced tools like [Undertaker](https://github.com/lfn3/undertaker) and 
+- Produced tools such as [Undertaker](https://github.com/lfn3/undertaker) and 
   [IntellijLint](https://github.com/lmax-exchange/intellijlint) that helped our team deliver more quickly and effectively.
 - Maintained and used data science pipeline with Python, Jupyter, and Kafka
 - Worked with crypto-currency technologies for [LMAX Digital](https://www.lmaxdigital.com/)
@@ -73,14 +73,6 @@ problems, and contributes to open source, please to get in touch.
 - Troubleshooting of issues with ASDL, Fibre, Linux and Windows servers, VMware hosts, email, DNS and security appliances.
 - Created tool to aggregate service emails from Telecom regarding service outages for easy searching
 - Produced documentation on MS Dynamics CRM implementation
-
-### Die Maker at [Fine Formes](http://www.fineformes.co.nz/)
-<div class="years">2007 - 2009</div>
-
-- Seasonal worker, during school holidays.
-- Learned to work accurately and precisely to client and company specifications.
-- Made dies and press knives.
-- Assisted with general IT issues.
 
 ## Education
 ### Auckland University
