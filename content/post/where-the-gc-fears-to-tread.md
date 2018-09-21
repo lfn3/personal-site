@@ -45,8 +45,8 @@ in the JVM, which you can find on [Github](https://github.com/Palmr/java-off-hea
 
 The demo app is subject to the same leak we have had in production, as well as showing off a few other ways you can
 leak memory. It's also a lot smaller than the services we were dealing with, so you won't have as much "fun" searching 
-through the codebase for the culprit. I'd encourage you not to look through the code, however, and instead work through
-it.
+through the codebase for the culprit. I'd encourage you not to look through the code in the demo app, and instead follow 
+the investigation in this post.
 
 If you're not particularly interested in that, and just want to hear a good story about memory usage gone wild, feel
 free to [skip ahead](#the-real-leak)
@@ -124,6 +124,9 @@ allocation is flat - nothing to see here. The other bit we should have a look in
 [Metaspace](https://dzone.com/articles/java-8-permgen-metaspace), the size of which we can see in the VisualGC tab:
 
 ![Visual GC tab in jVisualVM](/img/posts/where-the-gc-fears-to-tread/jvisualvm-visual-gc.png)
+
+(Note that this is an optional plugin to jVisualVM, and might not be included with your distribution. 
+If that's the case you can download it inside jVisualVM under `Tools | Plugins | Available Plugins`)
 
 That's the orange bit right down the bottom there: we can see it's not really changing. Strike off another one.
 We've pretty much exhausted what jVisualVM is able to tell us, but while we're here I should mention the way you'd 
