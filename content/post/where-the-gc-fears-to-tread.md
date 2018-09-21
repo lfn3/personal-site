@@ -51,11 +51,16 @@ it.
 If you're not particularly interested in that, and just want to hear a good story about memory usage gone wild, feel
 free to [skip ahead](#the-real-leak)
 
-# TODO: how to run the demo app
+If you do feel like following along, clone the source from the repo using `git clone https://github.com/Palmr/java-off-heap-leak-example.git` and use `gradle assemble` twice to build it. (Apparently there's something wrong with the subproject dependency ordering or something...
+
+Once that's done you can extract the built artifacts: `cd build/distributions && unzip OffHeapLeakExample-1.0-SNAPSHOT.zip`
+Then head in and run the app: `cd OffHeapLeakExample-1.0-SNAPSHOT && ./bin/OffHeapLeakExample`.
+
+If that gives you any issues, have a look at the [Readme](https://github.com/Palmr/java-off-heap-leak-example), or raise an [issue](https://github.com/Palmr/java-off-heap-leak-example/issues/new). I'm sure Nick will be happy to help.
 
 ### Sifting through the heap
 
-So first order of business - is the JVM just straight up ignoring those? How much memory does it reckon it's got in the heap?
+So first order of business how much memory does it reckon it's got in the heap?
 
 That's fairly easy to figure out using `jmap -heap $PID`: 
 ```text
@@ -226,13 +231,16 @@ so it emits information during the run: `export MALLOC_CONF=prof:true,lg_prof_in
 that'll cause it to memory profile dump every 30 mB, allocation sample every 128 kB. (The configuration options are in
 log base 2)
 
-# TODO: check on these commands
+Since Nick's a real good guy, `jemalloc` is used [by default](https://github.com/Palmr/java-off-heap-leak-example/blob/01d2ade1bcea58ee69c124266a0fd3aa5a4f9346/build.gradle#L43), 
+and there's a script that'll automagically produce a pretty chart in the bin directory.
 
-You should end up with some files kicking around - something like `jeprof.19678.0.f.heap`. That can be fed into `jeprof`
+If you're doing it the hard way, you should end up with some files kicking around - something like `jeprof.19678.0.f.heap`. That can be fed into `jeprof`
 to get some pretty pictures using `jeprof --show_bytes --pdf jeprof.19678.0.f.heap > w.pdf`, which should emit something 
 like: 
 
 ![jemalloc graph output](/img/posts/where-the-gc-fears-to-tread/jemalloc-output.png)
+
+You can also go via `dot`, there's an example of that in [Nick's script](https://github.com/Palmr/java-off-heap-leak-example/blob/master/src/main/scripts/jeprof_diagrams.sh)
 
 Which does seem to contain something rather like a smoking gun... and indeed, if we look for that we find:
 
@@ -308,4 +316,8 @@ than once a second, and giving them more than just one 25mb buffer to fill.
 
 We have since fixed the issue (we don't need the lower level NAKs when we already have application level ones,
 so we've smashed that buffer) and now quite happily spend much less time resurrecting dead services on our staging 
-hosts!  
+hosts!
+
+### Summary
+
+That was quite a lot of words, so good work if you read the whole thing. Hopefully you've learned a thing or two! If you're looking for more resources, there's quite a few links in [Nick's slides](https://docs.google.com/presentation/d/1TsjfLCuIKoE_Q3kDFtwoCkuLZ3mr2KpyPO-t-qeYDyU) or I'm happy to try and answer any questions you've got on [twitter](https://twitter.com/lfln3).
