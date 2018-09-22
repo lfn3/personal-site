@@ -5,10 +5,31 @@
     <link>https://lfn3.net/post/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 01 Aug 2018 10:40:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 22 Sep 2018 12:30:00 +0100</lastBuildDate>
     
 	<atom:link href="https://lfn3.net/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Where the GC Fears to Tread</title>
+      <link>https://lfn3.net/2018/09/22/where-the-gc-fears-to-tread/</link>
+      <pubDate>Sat, 22 Sep 2018 12:30:00 +0100</pubDate>
+      
+      <guid>https://lfn3.net/2018/09/22/where-the-gc-fears-to-tread/</guid>
+      <description>&lt;p&gt;A while ago at &lt;a href=&#34;https://lmax.com&#34;&gt;LMAX Exchange&lt;/a&gt; our staging environment was having services killed frequently by the OOM killer.
+This wasn&amp;rsquo;t &lt;em&gt;that&lt;/em&gt; unusual, since our staging vms are relatively under-provisioned compared to our production environments&lt;/p&gt;
+
+&lt;p&gt;(We have separate performance testing environments, with much beefier hardware for making sure we go fast, whereas the staging environments
+exist more for testing our deployment and configuration.)&lt;/p&gt;
+
+&lt;p&gt;But it was irritating, since it led to a reasonable amount of toil on the part of both the dev and systems teams.
+We eventually ended up figuring it out, but it was a bit of a journey.
+All of the dev team was interested in it, so we begged, bothered and cajoled the whole story out of &lt;a href=&#34;https://github.com/Palmr&#34;&gt;Nick&lt;/a&gt;,
+who did most of the digging. I thought it was good enough to share with the world at large,
+so I&amp;rsquo;ve reproduced his presentation in blog form here.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Bitcoin crash course</title>

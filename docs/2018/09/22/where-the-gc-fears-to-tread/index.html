@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Where the GC Fears to Tread &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Where the GC Fears to Tread</h1>
+  <span class="post-date">Sep 22 2018</span>
+  <p>A while ago at <a href="https://lmax.com">LMAX Exchange</a> our staging environment was having services killed frequently by the OOM killer.
+This wasn&rsquo;t <em>that</em> unusual, since our staging vms are relatively under-provisioned compared to our production environments</p>
+
+<p>(We have separate performance testing environments, with much beefier hardware for making sure we go fast, whereas the staging environments
+exist more for testing our deployment and configuration.)</p>
+
+<p>But it was irritating, since it led to a reasonable amount of toil on the part of both the dev and systems teams.
+We eventually ended up figuring it out, but it was a bit of a journey.
+All of the dev team was interested in it, so we begged, bothered and cajoled the whole story out of <a href="https://github.com/Palmr">Nick</a>,
+who did most of the digging. I thought it was good enough to share with the world at large,
+so I&rsquo;ve reproduced his presentation in blog form here.</p>
+
+<p></p>
+
+<p>So one of our systems team was having a bit of a poke around for services that were using more memory than they perhaps should have been:</p>
+
+<pre><code class="language-bash">#Search for java services...
+ps -eo pid,comm,rss,cmd | grep java | grep -v grep |
+#...pull the Xmx and display name paramters out of the command line...
+awk '{ match($0,/Xmx[^ ]+/,a) ; match($0,/display.name=[^ ]+/,b) ; 
+       printf &quot;%s PID=%s RSS=%s %s %s\n&quot;, $2, $1, $3 , a[0], b[0] }'
+#... then print them
+
+#...
+#java PID=18168 RSS=627804 Xmx128m display.name=payment-svc
+#java PID=18169 RSS=1147628 Xmx256m display.name=account-svc
+#...
+</code></pre>
+
+<p>I&rsquo;ve elided most of the output above to highlight the two interesting services.
+These have their maximum heap set fairly low, much lower than the ~600m and ~1.1g they&rsquo;re using.</p>
+
+<p>So what&rsquo;s going on, and how can we figure that out?
+At this point I&rsquo;m going to pull a bit of a bait and switch on you, so you can follow along at home if you want.
+<a href="https://github.com/Palmr">Nick</a>, also made a little demo app that showcases a lot of the ways you can use up memory
+in the JVM, which you can find on <a href="https://github.com/Palmr/java-off-heap-leak-example">Github</a>.</p>
+
+<p>The demo app is subject to the same leak we have had in production, as well as showing off a few other ways you can
+leak memory. It&rsquo;s also a lot smaller than the services we were dealing with, so you won&rsquo;t have as much &ldquo;fun&rdquo; searching
+through the codebase for the culprit. I&rsquo;d encourage you not to look through the code in the demo app, and instead follow
+the investigation in this post.</p>
+
+<p>If you&rsquo;re not particularly interested in that, and just want to hear a good story about memory usage gone wild, feel
+free to <a href="#the-real-leak">skip ahead</a></p>
+
+<p>If you do feel like following along, clone the source from the repo using <code>git clone https://github.com/Palmr/java-off-heap-leak-example.git</code> and use <code>gradle assemble</code> twice to build it. (Apparently there&rsquo;s something wrong with the subproject dependency ordering or something&hellip;</p>
+
+<p>Once that&rsquo;s done you can extract the built artifacts: <code>cd build/distributions &amp;&amp; unzip OffHeapLeakExample-1.0-SNAPSHOT.zip</code>
+Then head in and run the app: <code>cd OffHeapLeakExample-1.0-SNAPSHOT &amp;&amp; ./bin/OffHeapLeakExample</code>.</p>
+
+<p>If that gives you any issues, have a look at the <a href="https://github.com/Palmr/java-off-heap-leak-example">Readme</a>, or raise an <a href="https://github.com/Palmr/java-off-heap-leak-example/issues/new">issue</a>. I&rsquo;m sure Nick will be happy to help.</p>
+
+<h3 id="sifting-through-the-heap">Sifting through the heap</h3>
+
+<p>So first order of business how much memory does it reckon it&rsquo;s got in the heap?</p>
+
+<p>That&rsquo;s fairly easy to figure out using <code>jmap -heap $PID</code>:</p>
+
+<pre><code class="language-text">$ jmap -heap 22974
+Attaching to process ID 22974, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.172-b11
+
+using thread-local object allocation.
+Parallel GC with 20 thread(s)
+
+Heap Configuration:
+   ...Elided, for being uninteresting...
+   
+Heap Usage:
+PS Young Generation
+Eden Space:
+   capacity = 183500800 (175.0MB)
+   used     = 123278096 (117.56715393066406MB)
+   free     = 60222704 (57.43284606933594MB)
+   67.18123081752232% used
+From Space:
+   capacity = 30408704 (29.0MB)
+   used     = 0 (0.0MB)
+   free     = 30408704 (29.0MB)
+   0.0% used
+To Space:
+   capacity = 30408704 (29.0MB)
+   used     = 0 (0.0MB)
+   free     = 30408704 (29.0MB)
+   0.0% used
+PS Old Generation
+   capacity = 489684992 (467.0MB)
+   used     = 0 (0.0MB)
+   free     = 489684992 (467.0MB)
+   0.0% used
+</code></pre>
+
+<p>In our case we got numbers nowhere near the size of the resident set.
+So what else does a JVM allocate? Well, we&rsquo;re about to enter the strange and terrifying world of Off heap memory.
+It&rsquo;s a dark and twisted place where the normal rules of garbage collection are suspended in favour of the freewheeling
+rules of user managed allocation. Thankfully, most of the users in this case are still under the control of the JVM itself:
+Metaspace and Direct Buffers.</p>
+
+<p>Both of these we can inspect the using jVisualVM, which is bundled with the Oracle JDK.
+If <code>$JAVA_HOME</code> is set to point to an Oracle JDK you can just do <code>$JAVA_HOME/bin/jvisualvm</code> and it should start up,
+and if we go have a look at the monitor page we should see something like:</p>
+
+<p><img src="https://lfn3.net/img/posts/where-the-gc-fears-to-tread/jvisualvm-monitors.png" alt="jVisualVM default page" /></p>
+
+<p>Nothing here seems particularly amiss, right? The heap usage is fairly low, there&rsquo;s a few threads running, but nothing
+too crazy going on here. So at this point we&rsquo;re pretty sure that heap allocation isn&rsquo;t the cause of our problems.
+What else can we dig into using jVisualVM? Well I&rsquo;ve already given that away a bit - we can examine the
+<a href="https://dzone.com/articles/understanding-java-buffer-pool">Buffer Pools</a> tab:</p>
+
+<p><img src="https://lfn3.net/img/posts/where-the-gc-fears-to-tread/jvisualvm-buffer-pools.png" alt="Buffer pools tab in jVisualVM" /></p>
+
+<p>As you can see, this shows the memory committed to Direct and Mapped buffers. In the case of this demo app the
+allocation is flat - nothing to see here. The other bit we should have a look into is the
+<a href="https://dzone.com/articles/java-8-permgen-metaspace">Metaspace</a>, the size of which we can see in the VisualGC tab:</p>
+
+<p><img src="https://lfn3.net/img/posts/where-the-gc-fears-to-tread/jvisualvm-visual-gc.png" alt="Visual GC tab in jVisualVM" /></p>
+
+<p>(Note that this is an optional plugin to jVisualVM, and might not be included with your distribution.
+If that&rsquo;s the case you can download it inside jVisualVM under <code>Tools | Plugins | Available Plugins</code>)</p>
+
+<p>That&rsquo;s the orange bit right down the bottom there: we can see it&rsquo;s not really changing. Strike off another one.
+We&rsquo;ve pretty much exhausted what jVisualVM is able to tell us, but while we&rsquo;re here I should mention the way you&rsquo;d
+normally find a leak in Java - with a Heap Dump. If you go back to the monitor page (or just scroll up a bit), you&rsquo;ll
+see a <code>Heap Dump</code> button on the top right. Whacking that should take you to a page something like this:</p>
+
+<p><img src="https://lfn3.net/img/posts/where-the-gc-fears-to-tread/jvisualvm-heap-dump.png" alt="Heap dump in jVisualVM" /></p>
+
+<p>Given the heap size looked as we expected it according to jmap and the other tabs, there’s not much to see here.
+There&rsquo;s 1000 objects the example makes which you can trace GC roots and generally have a bit of a poke about, but they
+aren&rsquo;t the smoking gun we&rsquo;re looking for. There&rsquo;s also one other leak that you&rsquo;ll be able to find from here. That&rsquo;s
+left as an exercise for the reader, if you want the answer it&rsquo;s in the slides that are linked to in the example app&rsquo;s
+readme. There&rsquo;s another war story behind why we know about that particular leak being a thing, but that&rsquo;s for
+another time.</p>
+
+<p>So. Now we have to get a bit deeper into the weeds. What about the memory allocated and used JVM itself?
+Fortunately, there&rsquo;s a tool for investigating that:
+<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr007.html">Native Memory Tracking (NMT)</a>.
+This is accessed via a command line flag: <code>-XX:NativeMemoryTracking</code>, with two useful values:
+<code>-XX:NativeMemoryTracking=summary</code> and <code>-XX:NativeMemoryTracking=detail</code>. This does of course come with a hit in terms
+of performance, between 5 and 10 percent. In order to actually make use of it, you should use
+<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr006.html">jcmd</a> to get snapshots:
+<code>jcmd ${PID} VM.native_memory baseline</code> and then diff them against baselines: <code>jcmd ${PID} VM.native_memory summary.diff</code>.
+For example when I run them against the example app:</p>
+
+<pre><code class="language-text">#This is included in the baseline_NMT_and_log_memory.sh
+#script Nick created.
+
+$ jcmd 24055 VM.native_memory baseline
+
+#... some time later
+
+$ jcmd 24055 VM.native_memory summary.diff
+24055:
+
+Native Memory Tracking:
+
+Total: reserved=1473463KB +41KB, committed=181895KB +105KB
+
+             Java Heap (reserved=32768KB, committed=32768KB)
+                       (mmap: reserved=32768KB, committed=32768KB)
+ 
+                 Class (reserved=1080633KB, committed=33465KB)
+                       (classes #1947)
+                       (malloc=21817KB #1580 +15)
+                       (mmap: reserved=1058816KB, committed=11648KB)
+ 
+                Thread (reserved=52514KB, committed=52514KB)
+                       (thread #52)
+                       (stack: reserved=52288KB, committed=52288KB)
+                       (malloc=166KB #277)
+                       (arena=60KB #90)
+ 
+                  Code (reserved=250105KB +11KB, committed=5705KB +75KB)
+                       (malloc=505KB +11KB #1414 +43)
+                       (mmap: reserved=249600KB, committed=5200KB +64KB)
+ 
+                    GC (reserved=25423KB, committed=25423KB)
+                       (malloc=24219KB #172)
+                       (mmap: reserved=1204KB, committed=1204KB)
+ 
+              Compiler (reserved=137KB, committed=137KB)
+                       (malloc=6KB #75)
+                       (arena=131KB #15)
+ 
+              Internal (reserved=27748KB, committed=27748KB)
+                       (malloc=27716KB #3628)
+                       (mmap: reserved=32KB, committed=32KB)
+                       
+                Symbol (reserved=3469KB, committed=3469KB)
+                       (malloc=2215KB #9816)
+                       (arena=1255KB #1)
+ 
+Native Memory Tracking (reserved=459KB +30KB, committed=459KB +30KB)
+                       (malloc=157KB +24KB #2210 +329)
+                       (tracking overhead=302KB +6KB)
+ 
+           Arena Chunk (reserved=206KB, committed=206KB)
+                       (malloc=206KB)
+</code></pre>
+
+<p>Basically, there&rsquo;s not a lot going on here - looks like the JVM isn&rsquo;t responsible for allocating the memory we&rsquo;re
+looking for. What next?</p>
+
+<h3 id="outside-the-jvm">Outside the JVM</h3>
+
+<p>We&rsquo;ve still got one more place to look: in memory that&rsquo;s allocated from native code which we invoke via
+<a href="https://en.wikipedia.org/wiki/Java_Native_Access">Java Native Access (JNA)</a> or
+<a href="https://en.wikipedia.org/wiki/Java_Native_Interface">Java Native Interface (JNI)</a>. The memory that&rsquo;s allocated by
+native code is still tied to the JVM process - since it&rsquo;s still responsible for invoking the code in question, but the
+JVM doesn&rsquo;t have any ability to see or control what the native code <code>malloc</code>s.</p>
+
+<p>There&rsquo;s plenty of tools for examining memory allocation, for instance <a href="http://valgrind.org/">Valgrind</a>,
+ but we&rsquo;re just humble Java programmers and <a href="http://valgrind.org/docs/manual/faq.html#faq.java">Valgrind</a>
+<a href="https://stackoverflow.com/questions/33334126/how-to-find-memory-leaks-in-java-jni-c-process">seems</a>
+<a href="https://stackoverflow.com/questions/9216815/valgrind-and-java">hard</a>. Looking around a bit we found simpler tools,
+specifically <a href="http://jemalloc.net/">jemalloc</a>.</p>
+
+<p>Jemalloc is a malloc implementation that includes the ability to profile all of the allocations that are requested,
+and will very helpfully show you the full stack trace leading to that allocation. It can be fairly easily added when
+running a process via an environment variable: <code>LD_PRELOAD=${JEMALLOC_PATH}/lib/libjemalloc.so.2 &lt;COMMAND_TO_RUN&gt;</code>
+In our case since the application we&rsquo;re profiling doesn&rsquo;t exit, you probably want to also add some environment variables
+so it emits information during the run: <code>export MALLOC_CONF=prof:true,lg_prof_interval:25,lg_prof_sample:17</code> -
+that&rsquo;ll cause it to memory profile dump every 30 mB, allocation sample every 128 kB. (The configuration options are in
+log base 2)</p>
+
+<p>Since Nick&rsquo;s a real good guy, <code>jemalloc</code> is used <a href="https://github.com/Palmr/java-off-heap-leak-example/blob/01d2ade1bcea58ee69c124266a0fd3aa5a4f9346/build.gradle#L43">by default</a>,
+and there&rsquo;s a script that&rsquo;ll automagically produce a pretty chart in the bin directory.</p>
+
+<p>If you&rsquo;re doing it the hard way, you should end up with some files kicking around - something like <code>jeprof.19678.0.f.heap</code>. That can be fed into <code>jeprof</code>
+to get some pretty pictures using <code>jeprof --show_bytes --pdf jeprof.19678.0.f.heap &gt; w.pdf</code>, which should emit something
+like:</p>
+
+<p><img src="https://lfn3.net/img/posts/where-the-gc-fears-to-tread/jemalloc-output.png" alt="jemalloc graph output" /></p>
+
+<p>You can also go via <code>dot</code>, there&rsquo;s an example of that in <a href="https://github.com/Palmr/java-off-heap-leak-example/blob/master/src/main/scripts/jeprof_diagrams.sh">Nick&rsquo;s script</a></p>
+
+<p>Which does seem to contain something rather like a smoking gun&hellip; and indeed, if we look for that we find:</p>
+
+<pre><code class="language-C">void do_stuff_leaky(char* string)
+{
+    char* str = (char*) malloc(allocation_amount);
+    memset(str, 0xff, allocation_amount);
+    strcpy(str, string);
+    printf(&quot;String = %s, Address = %p\n&quot;, str, (void *) str);
+    fflush(stdout);
+
+    //Whoops!
+    //free(str);
+}
+</code></pre>
+
+<p>If you followed all that along, good work, you solved the mystery, and definitely not with my help!
+Hopefully next time you Java program OOM&rsquo;s, you can just stop at like step two though.
+That said, the actual issue was a touch more interesting, so let&rsquo;s have a quick run-through of what was happening there.</p>
+
+<h3 id="the-real-leak">The real leak</h3>
+
+<p>So the services we were dealing with (account service and payment service) weren&rsquo;t particularly heavily loaded - they&rsquo;re
+definitely off the hot path for our trading flows. Also our staging environments are fairly under-utilized, they
+probably burn 90% of their cpu cycles during deployment and startup. One would expect that an environment that didn&rsquo;t
+get much traffic wouldn&rsquo;t have much in the way of performance or memory issues, but in this case it was exactly
+because the environment was under utilized that we got into trouble. But first, a quick detour to talk about reliable
+messaging over UDP.</p>
+
+<p>So much like developers of <a href="http://ithare.com/64-network-dos-and-donts-for-game-engines-part-iv-great-tcp-vs-udp-debate/">video</a>
+<a href="https://www.gamasutra.com/view/feature/131503/1500_archers_on_a_288_network_.php">games</a>,
+those of us writing high performance financial software prefer UDP to TCP for it&rsquo;s performance.</p>
+
+<p>However, we have strict requirements around reliability, that is we can&rsquo;t afford for our services to miss messages.
+Because of this, we have a scheme of
+<a href="https://en.wikipedia.org/wiki/Acknowledgement_(data_networks)">Negative Acknowledgement</a> or NAKing for short.
+The reason we choose to use NAKs rather than the ACKs traditionally seen in TCP is because in the normal, no packet loss
+environment, we don&rsquo;t have to wait for the receiver of a message to acknowledge it before we can send them more data.
+When using this kind of scheme, every message gets a sequence number, again, similar to TCP.</p>
+
+<p>When we do lose a message somehow, a service will NAK to the sender of message when it sees a gap in the sequence
+numbers, and the service will (hopefully) resend a copy of that message by reading it back out of it&rsquo;s memory.
+This does introduce a significant &ldquo;hiccup&rdquo; in the sender, since it has to scan back through memory, but in the normal
+case we expect to be operating in it&rsquo;s significantly more efficent than the alternative.</p>
+
+<p>Why is this important? Well back in the mists of time, many of our services upon starting up would send a NAK to other
+services that they listened to, in order to ensure they were up to date with what had been sent. We alert on NAKs in
+our monitoring system (since normally they&rsquo;re indicative of something going wrong) so on startup our monitoring would
+light up like an angry christmas tree, typically spooking whoever was doing work on the system.</p>
+
+<p>In order to prevent this, we added a heartbeat mechanism, that would send a message with the latest sequence number,
+once a second if there was no other traffic between services. We could use this to determine the starting point for a
+freshly booted service, without firing off NAKs. This also helped us reduce the potential impact of some cases of message
+loss. Obviously this message was fairly small, since it only had a single 64 bit value and some headers on it.</p>
+
+<p>The other thing that&rsquo;s worth mentioning, is that our application level NAKs aren&rsquo;t the only NAKs in town. We&rsquo;ve built on
+top of a lower level library we buy which provides a fairly fast UDP networking layer. This also maintains it&rsquo;s own
+store in memory that it is able to service NAKs from, at it&rsquo;s layer.</p>
+
+<p>This storage is set to a fairly small amount - 25mb by default. However, this library also maintains a header alongside
+the message body (this header isn&rsquo;t send across the wire - we&rsquo;re not really sure what it&rsquo;s for.). These headers are
+about 200 bytes in size, and <em>are not</em> counted towards the 25mb limit. In our case with the heartbeat messages, these
+were only about 12 bytes in size, so in order to fill the 25mb buffer, we&rsquo;d need around 2 million messages to be sent,
+each allocating a 200 byte header, meaning we&rsquo;d end up using around 400mb for the headers. That&rsquo;s quite a bit more
+memory usage than we expect, especially given these services were running with heaps around half that size.</p>
+
+<p>At this point you might be asking me about the numbers we came up with right at the beginning of this, since they were
+bigger than that 400mb, and surely we didn&rsquo;t leave our staging environment alone for the 24 days or so these buffers
+would take to fill up in any case? You&rsquo;re right on both counts, however the underlying messaging library, and our
+heartbeating scheme above it both work on a <em>per topic</em> basis - so we were sending these messages significantly more
+than once a second, and giving them more than just one 25mb buffer to fill.</p>
+
+<p>We have since fixed the issue (we don&rsquo;t need the lower level NAKs when we already have application level ones,
+so we&rsquo;ve smashed that buffer) and now quite happily spend much less time resurrecting dead services on our staging
+hosts!</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>That was quite a lot of words, so good work if you read the whole thing. Hopefully you&rsquo;ve learned a thing or two! If you&rsquo;re looking for more resources, there&rsquo;s quite a few links in <a href="https://docs.google.com/presentation/d/1TsjfLCuIKoE_Q3kDFtwoCkuLZ3mr2KpyPO-t-qeYDyU">Nick&rsquo;s slides</a> or I&rsquo;m happy to try and answer any questions you&rsquo;ve got on <a href="https://twitter.com/lfln3">twitter</a>.</p>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+
