@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Dependency Injection - A necessary evil? &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Dependency Injection - A necessary evil?</h1>
+  <span class="post-date">Sep 18 2014</span>
+  <p><em>Basically my position on DI has since changed - go take a look at <a href="https://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/">Fresh Thoughts on Dependency Injection</a></em></p>
+
+<p>So first of all, to preface this and so you get a little bit of insight from where I&rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&rsquo;d like. Anyway.</p>
+
+<p>So the shop where I currently get paid is a little behind the times. Legacy code base
+(in the <a href="http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0131177052&amp;linkCode=as2&amp;tag=byatlascom-20&amp;linkId=A3OM5UCAGXASTXG3">Micheal Feathers</a>
+&ldquo;Legacy code is code without tests&rdquo; sense) and an enterprise-y monolithic feel. There&rsquo;s some seemingly arbitrary layering and attempts to divide responsibility, but (to me at least) they seem to all follow their own internal logic rather than any cohesive structure.
+<img src="http://ir-na.amazon-adsystem.com/e/ir?t=byatlascom-20&l=as2&o=1&a=0131177052" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></p>
+
+<p>Luckily, I&rsquo;ve managed to largely dodge that particular bullet, and mostly work on stuff external to the mothership.</p>
+
+<p>One of the things I&rsquo;ve been trying to adopt is unit testing (or just testing in general). It&rsquo;s proven to be far more difficult to implement in ASP.net MVC than I was expecting (hoping?). One of the tools you are essentially required to lean on (which is not entirely a bad thing, admittedly.) is dependency injection (hereafter referred to as DI), which, as the title implies, I view as almost as much of a pain as it is useful.</p>
+
+<p>It does, very usefully, impose a need to split apart unrelated functionality. There seems to be a very real love of gigantic libaries, sprouting tendrils to handle every possible eventuality, in the C# world. I&rsquo;ve seen my co-workers build them, repeatedly, fuelled by some sort of steriodially inflamed Not Invented Here syndrome. By using DI you stand a far better chance of producing something that&rsquo;s at least slightly reusable.</p>
+
+<p>I can sympathize with their distrust of DI a little, at least. DHH has recently spoken of &ldquo;test induced design damage&rdquo; and I think it&rsquo;s certainly possible (ok, I know it&rsquo;s possible, I&rsquo;ve done it.) to contort your code into strange and impossible shapes as a result of desire to test everything that&rsquo;s not nailed down.</p>
+
+<p>The primary thing that spooks me about DI is the explosion of complexity necessary in its usage. Layer upon layer of factories, facades and interfaces (Seriously. So many interfaces.) follow in it&rsquo;s wake, each seemingly necessary, but all clouding the actual purpose of your software in arcane scribblings. And for what? Sure, you might be able to test it, but if it takes you half an hour to trace through the code to figure out that an error found in production was caused by something 6 layers deep, and would have been found by a test that would only fail very intermittently&hellip;</p>
+
+<p>I guess that you have to believe that the safety net given to you by the tests is worth the time it takes to write them and maintain them and the additional complexity that DI causes. Not to mention the cost of refactoring an existing system (presumably without the benefit of tests to make sure you didn&rsquo;t break anything. Or at least much.) I don&rsquo;t know that I&rsquo;m at that point. Yet.</p>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

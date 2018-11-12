@@ -58,8 +58,6 @@
   <span class="post-date">Feb 15 2015</span>
   <p>This is essentially a follow up to an earlier post <a href="https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/">Dependency Injection - A necessary evil?</a>,  from back when I had more reservations about using DI, and the benefits it gave me. I&rsquo;ve since been fully converted to a &lsquo;believer&rsquo;. This post is bascially about why and how I think that happened.</p>
 
-<p></p>
-
 <p>I&rsquo;m still toiling in the C# mines, but I&rsquo;ve moved from using <a href="http://www.ninject.org/">Ninject</a> to a more&hellip; static library, <a href="http://autofac.org/">Autofac</a>. Ninject suffers from a little bit of <a href="http://blog.codinghorror.com/new-programming-jargon/">stringly typing</a>, while Autofac uses stuff like lambdas and generics to make errors happen at compile time rather than run time, which I&rsquo;m a huge fan of. There&rsquo;s heaps of other neat stuff too, so if you&rsquo;re using C#, it&rsquo;s almost certainly worth checking out if you haven&rsquo;t already used it.</p>
 
 <p>So the reason I was initally led to DI was due to the need to get tests across a fragile part of a long running project. This was basically a calendar you could making bookings on (the process of making a booking was fairly time consuming - the booking form has something like 30 fields on it or something.), and depending on what options you picked, it would block out more or less time around the date you chose. There were a whole bunch of other rules that could also apply, just to make it more fun.</p>
