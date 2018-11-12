@@ -58,8 +58,6 @@
   <span class="post-date">Oct 3 2016</span>
   <p>In the last 6 months, I&rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at <a href="http://www.liveopscloud.com/">LiveOps Cloud</a>. We converted one of our core backend services from Clojure&rsquo;s <a href="https://github.com/clojure/core.async">core.async</a> to <a href="http://docs.paralleluniverse.co/pulsar/">Pulsar</a>. Having been a part of that transformation, I now, of course, have <em>opinions</em> that I&rsquo;m going to subject you to. Those opinions boil down to CSP (<a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">Communicating Sequential Processes</a>) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.</p>
 
-<p></p>
-
 <h2 id="a-crash-course-on-connascence">A crash course on Connascence</h2>
 
 <p>First of all, a little description about what connascence is, since as far as I know it&rsquo;s a relatively uncommon term. It&rsquo;s used to describe the degree of dependency between components in a OO (object oriented) system. Two components are connascent if a change to one would require a change to another. We can also talk about the strength of a connascence, where stronger connascences imply the change is more difficult to apply. There is more detail on <a href="https://en.wikipedia.org/wiki/Connascence">wikipedia</a>, which I recommend you read if you want to follow along.</p>

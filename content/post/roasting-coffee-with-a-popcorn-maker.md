@@ -33,7 +33,7 @@ Alright so step zero, crack it open. There's screws in the spots marked with arr
 with little rubber feet you can just pull off. The other two are deep inside the casing, you'll need a screwdriver with
 a reasonably long shaft to get at them.
 
-!["unopened" popcorn maker](/img/posts/roasting-coffee-with-a-popcorn-maker/"unopened".jpg)
+!["unopened" popcorn maker](/img/posts/roasting-coffee-with-a-popcorn-maker/unopened.jpg)
 
 After doing that, you should be able to yank the base off your soon to be coffee maker, and you should be greeted by 
 something like this:

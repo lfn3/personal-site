@@ -26,9 +26,7 @@ exist more for testing our deployment and configuration.)&lt;/p&gt;
 We eventually ended up figuring it out, but it was a bit of a journey.
 All of the dev team was interested in it, so we begged, bothered and cajoled the whole story out of &lt;a href=&#34;https://github.com/Palmr&#34;&gt;Nick&lt;/a&gt;,
 who did most of the digging. I thought it was good enough to share with the world at large,
-so I&amp;rsquo;ve reproduced his presentation in blog form here.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+so I&amp;rsquo;ve reproduced his presentation in blog form here.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -40,9 +38,7 @@ so I&amp;rsquo;ve reproduced his presentation in blog form here.&lt;/p&gt;
       <description>&lt;p&gt;I&amp;rsquo;ve just moved to London, and been working on &lt;a href=&#34;https://www.lmaxdigital.com/&#34;&gt;LMAX Digital&lt;/a&gt; and as a result been given
 a bit of a crash course on how exactly Bitcoin (and other cryptocurrency) transactions actually work. I think there&amp;rsquo;s a
 near zero chance I&amp;rsquo;m going to remember it as I&amp;rsquo;ve moved on to another area of work, so I figured I&amp;rsquo;d better write it
-all down before I forget it all.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+all down before I forget it all.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -56,9 +52,7 @@ I&amp;rsquo;m beginning to think maybe I like the process of roasting coffee mor
 point is that I can&amp;rsquo;t iterate quickly enough on the roasts because I don&amp;rsquo;t drink coffee quickly enough.
 I only want to roast enough coffee for about a 5 days worth of drinking, i.e. ~5 batches in my wee popcorn machine,
 since apparently the &amp;ldquo;freshness&amp;rdquo; really starts to fall off after 5 or so days. I&amp;rsquo;m tempted to try and foist it on my
-friends, but I think I need to try and dial it in a bit first.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+friends, but I think I need to try and dial it in a bit first.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -75,9 +69,7 @@ later, I&amp;rsquo;ve roasted my 5th artisanal microbatch of coffee.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/greasy-beans.jpg&#34; alt=&#34;roasted coffee&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you might be able to tell, I haven&amp;rsquo;t dialed in the actual roasting part of it just yet, but I can definitely tell
-you how to pull apart a popcorn maker.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+you how to pull apart a popcorn maker.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -89,9 +81,7 @@ you how to pull apart a popcorn maker.&lt;/p&gt;
       <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
 The checklist is basically just a big list of features that already exist in our codebase, and some notable gotchas
 that have caught us out before. All we do is go through it and ask ourselves if what we&amp;rsquo;ve just written interacts with
-that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -102,9 +92,7 @@ that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;
       <guid>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
       <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
 thinking about why we&amp;rsquo;re actually doing this. Obviously I think it&amp;rsquo;s a good idea, but what actual benefits do we get
-from these, apart from slightly more arcane tests?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+from these, apart from slightly more arcane tests?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -119,9 +107,7 @@ about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bi
 the why and the how of getting benchmarks to produce
 &lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -135,9 +121,7 @@ This led me to a bit of a surprise when I used
 &lt;a href=&#34;https://clojure.org/guides/spec#_higher_order_functions&#34;&gt;&lt;code&gt;fspec&lt;/code&gt;&lt;/a&gt;.
 It evaluates the fspec&amp;rsquo;d function when it&amp;rsquo;s passed to a fdef&amp;rsquo;d function,
 not when you invoke the function. That&amp;rsquo;s probably super unclear, so look below
-the fold for an example.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+the fold for an example.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -154,9 +138,7 @@ with things until they worked, and I thought I&amp;rsquo;d record some of that.&
 model and it&amp;rsquo;s API. If you want to learn about that, you should probably start
 with &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html&#34;&gt;this&lt;/a&gt;
 or &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html&#34;&gt;this&lt;/a&gt;.
-Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -178,9 +160,7 @@ the options we had, and this post is the result of that.&lt;/p&gt;
 
 &lt;p&gt;This post assumes you have some knowledge of what property based testing is,
 and how it works. I&amp;rsquo;m just going to compare and contrast Java libraries that
-enable it.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+enable it.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -197,9 +177,7 @@ this:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/performance-checks-on-metrics/perf-dashboard.png&#34; alt=&#34;perf-dashboard&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;But we also collect a bunch of other metrics from our servers and services that,
-until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -208,9 +186,7 @@ until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
       <pubDate>Mon, 03 Oct 2016 23:10:00 +1300</pubDate>
       
       <guid>https://lfn3.net/2016/10/03/coupling-connascence-csp-and-actors/</guid>
-      <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;In the last 6 months, I&amp;rsquo;ve been lucky enough to be exposed to two very different ways of dealing with asynchrony in one of our production systems at &lt;a href=&#34;http://www.liveopscloud.com/&#34;&gt;LiveOps Cloud&lt;/a&gt;. We converted one of our core backend services from Clojure&amp;rsquo;s &lt;a href=&#34;https://github.com/clojure/core.async&#34;&gt;core.async&lt;/a&gt; to &lt;a href=&#34;http://docs.paralleluniverse.co/pulsar/&#34;&gt;Pulsar&lt;/a&gt;. Having been a part of that transformation, I now, of course, have &lt;em&gt;opinions&lt;/em&gt; that I&amp;rsquo;m going to subject you to. Those opinions boil down to CSP (&lt;a href=&#34;https://en.wikipedia.org/wiki/Communicating_sequential_processes&#34;&gt;Communicating Sequential Processes&lt;/a&gt;) as implemented in core.async is better than the actor model, at least as implemented in Pulsar.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -220,9 +196,7 @@ until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;
       
       <guid>https://lfn3.net/2016/09/19/dependency-injection-in-clojure/</guid>
       <description>&lt;p&gt;So this is the follow up to a follow up. I&amp;rsquo;ve been writing Clojure more or less professionally for about a year now, and I just re-read &lt;a href=&#34;https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/&#34;&gt;my old thoughts on Dependency Injection&lt;/a&gt;. Once again, it having been more than 6 months, my opinions have changed.
-The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+The reasons I used dependency injection in C# don&amp;rsquo;t affect me nearly as badly in Clojure, so the amount I use it has vastly decreased, and the way and reasons I use it have changed.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -243,9 +217,7 @@ There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure bu
       <guid>https://lfn3.net/2015/03/08/error-handling-in-asp.net-mvc/</guid>
       <description>&lt;p&gt;So today we&amp;rsquo;re gonna talk about how to make sure you don&amp;rsquo;t show your users something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png&#34; alt=&#34;The yellow screen of death&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/error-handling-in-asp-net-mvc/ysod.png&#34; alt=&#34;The yellow screen of death&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -254,9 +226,7 @@ There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure bu
       <pubDate>Sun, 15 Feb 2015 12:10:22 +1300</pubDate>
       
       <guid>https://lfn3.net/2015/02/15/fresh-thoughts-on-dependency-injection/</guid>
-      <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;This is essentially a follow up to an earlier post &lt;a href=&#34;https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/&#34;&gt;Dependency Injection - A necessary evil?&lt;/a&gt;,  from back when I had more reservations about using DI, and the benefits it gave me. I&amp;rsquo;ve since been fully converted to a &amp;lsquo;believer&amp;rsquo;. This post is bascially about why and how I think that happened.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -265,22 +235,18 @@ There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure bu
       <pubDate>Sat, 14 Feb 2015 18:52:49 +1300</pubDate>
       
       <guid>https://lfn3.net/2015/02/14/moving-to-hugo-and-lanyon/</guid>
-      <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;So if you&amp;rsquo;ve been here before (highly unlikely, I know), you might have noticed this place might have previously looked almost entirely different. There&amp;rsquo;s reasons for that. I got somewhat frustrated with my existing cobbled together solution of python scripts, so I had a bit of a look around and found this nice new-ish project (in Go, which is an important factor for me, I like to be able to stare into the guts of the things I use.) called &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. It seems to support pretty much everything I want it to, which is super. And it&amp;rsquo;s also relatively simple in terms of what it expects from the user, which is also great.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Dependency Injection - A necessary evil?</title>
-      <link>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</link>
+      <link>https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/</link>
       <pubDate>Thu, 18 Sep 2014 07:27:25 +1200</pubDate>
       
-      <guid>https://lfn3.net/2014/09/18/dependency-injection---a-necessary-evil/</guid>
+      <guid>https://lfn3.net/2014/09/18/dependency-injection-a-necessary-evil/</guid>
       <description>&lt;p&gt;&lt;em&gt;Basically my position on DI has since changed - go take a look at &lt;a href=&#34;https://lfn3.net/2015/02/14/fresh-thoughts-on-dependency-injection/&#34;&gt;Fresh Thoughts on Dependency Injection&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;So first of all, to preface this and so you get a little bit of insight from where I&amp;rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&amp;rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&amp;rsquo;d like. Anyway.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;So first of all, to preface this and so you get a little bit of insight from where I&amp;rsquo;m coming from, I spend most of my days toiling in the great C# mine, so lovingly provided by Microsoft. I used to be a python guy, and I&amp;rsquo;ve gotten dangerous with Go, and am trying to do so with Clojure. The clojure thing is recent, so this might be a bit more cargo culty than I&amp;rsquo;d like. Anyway.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -289,9 +255,7 @@ There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure bu
       <pubDate>Tue, 12 Mar 2013 18:32:40 +1200</pubDate>
       
       <guid>https://lfn3.net/2013/03/12/fun-with-icon-fonts/</guid>
-      <description>&lt;p&gt;So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&amp;hellip; interesting. There isn&amp;rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;So I spent a good chunk of today messing around with making a few icons for use on this site. Which was&amp;hellip; interesting. There isn&amp;rsquo;t really a heck of a lot of information out there about how to do this, or at least nothing that google turned up. I managed to cobble something together though. And now hopefully reading this will save you all that effort.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -304,9 +268,7 @@ There&amp;rsquo;s a lot of posts about why and how companies moved to Clojure bu
 
 &lt;p&gt;So. I&amp;rsquo;d written two posts in anticipation of getting this up and running, however they proved to be glouriously incorrect. I&amp;rsquo;ve been through about three or four changes in terms of how I actually decided to do this, so&amp;hellip; yeah.&lt;/p&gt;
 
-&lt;p&gt;Anyway, at this point, it&amp;rsquo;s a site that&amp;rsquo;s built from &lt;a href=&#34;http://jinja.pocoo.org/&#34;&gt;Jinja2&lt;/a&gt; templates. Mostly. In case you haven&amp;rsquo;t noticed, some bits of it are still not yet entirely working. Mostly the contact page. And all the examples I need to throw on the page that&amp;rsquo;s supposed to convince you to pay me. Which is just a little bit awkward.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Anyway, at this point, it&amp;rsquo;s a site that&amp;rsquo;s built from &lt;a href=&#34;http://jinja.pocoo.org/&#34;&gt;Jinja2&lt;/a&gt; templates. Mostly. In case you haven&amp;rsquo;t noticed, some bits of it are still not yet entirely working. Mostly the contact page. And all the examples I need to throw on the page that&amp;rsquo;s supposed to convince you to pay me. Which is just a little bit awkward.&lt;/p&gt;</description>
     </item>
     
   </channel>
