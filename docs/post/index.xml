@@ -5,10 +5,28 @@
     <link>https://lfn3.net/post/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 22 Sep 2018 12:30:00 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 07 Jan 2019 20:31:00 +0000</lastBuildDate>
     
 	<atom:link href="https://lfn3.net/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>re-frame and the Back Button</title>
+      <link>https://lfn3.net/2019/01/07/re-frame-and-the-back-button/</link>
+      <pubDate>Mon, 07 Jan 2019 20:31:00 +0000</pubDate>
+      
+      <guid>https://lfn3.net/2019/01/07/re-frame-and-the-back-button/</guid>
+      <description>&lt;p&gt;A few things I&amp;rsquo;ve been working on over the christmas break have involved a fair bit of front end work.
+I&amp;rsquo;ve been using &lt;a href=&#34;https://github.com/Day8/re-frame&#34;&gt;re-frame&lt;/a&gt; to do most of it,
+which has been a very satisfying experience. It&amp;rsquo;s made me quite a bit happier than the month or so I spent working with
+&lt;a href=&#34;https://vuejs.org/&#34;&gt;Vue.js&lt;/a&gt; for a project at &lt;a href=&#34;https://www.lmax.com&#34;&gt;LMAX&lt;/a&gt;.
+But all of that&amp;rsquo;s probably a topic for another post.&lt;/p&gt;
+
+&lt;p&gt;One of the things that I (along with a good chunk of the internet, &lt;a href=&#34;https://www.google.com/search?q=don%27t+break+the+back+button&#34;&gt;apparently&lt;/a&gt;)
+loathe is when a web site or app renders the back button non-functional, or otherwise stops it from doing what I expect.
+So of course as soon as I added a second panel to my application (I managed to hack away on a single page for a while.)
+I had to fix the back button.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Where the GC Fears to Tread</title>

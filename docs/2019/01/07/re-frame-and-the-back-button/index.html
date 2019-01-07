@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      re-frame and the Back Button &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">re-frame and the Back Button</h1>
+  <span class="post-date">Jan 7 2019</span>
+  <p>A few things I&rsquo;ve been working on over the christmas break have involved a fair bit of front end work.
+I&rsquo;ve been using <a href="https://github.com/Day8/re-frame">re-frame</a> to do most of it,
+which has been a very satisfying experience. It&rsquo;s made me quite a bit happier than the month or so I spent working with
+<a href="https://vuejs.org/">Vue.js</a> for a project at <a href="https://www.lmax.com">LMAX</a>.
+But all of that&rsquo;s probably a topic for another post.</p>
+
+<p>One of the things that I (along with a good chunk of the internet, <a href="https://www.google.com/search?q=don%27t+break+the+back+button">apparently</a>)
+loathe is when a web site or app renders the back button non-functional, or otherwise stops it from doing what I expect.
+So of course as soon as I added a second panel to my application (I managed to hack away on a single page for a while.)
+I had to fix the back button.</p>
+
+<p>Re-frame&rsquo;s (extensive, witty, and generally awesome) <a href="https://github.com/Day8/re-frame/tree/master/docs">documentation</a>
+already has <a href="https://github.com/Day8/re-frame/blob/master/docs/Navigation.md">a page</a> on how to handle navigation.
+The approach it takes is totally reasonable in terms of the web-app itself, and if you&rsquo;re using re-frame outside of a
+web page, it&rsquo;s probably just fine.</p>
+
+<p>It will not, result in the browser knowing a transition has happened, so the url will not change, and the back button
+ will drag you back to the last site you were on, rather than undoing the last thing you clicked on (as I would expect
+ in this case).</p>
+
+<p>Fortunately there&rsquo;s a <a href="https://caniuse.com/#feat=history">widely supported</a> browser
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API">history api</a> that&rsquo;ll let us sort this out.</p>
+
+<p>There&rsquo;s three things we need to do:</p>
+
+<ol>
+<li><code>pushState</code> when a link is clicked</li>
+<li>Handle the <code>popstate</code> event (triggered when someone hits the forward or back button)</li>
+<li>Make sure our initial state is correct</li>
+</ol>
+
+<p>Let&rsquo;s get started.</p>
+
+<h2 id="using-pushstate">Using <code>pushState</code></h2>
+
+<p>As of the time of writing, the <a href="https://github.com/Day8/re-frame/blob/d9cdb53/docs/Navigation.md">re-frame docs</a> have
+suggested the following snippet for navigating between panels in an app:</p>
+
+<pre><code class="language-clojure">(re-frame/reg-event-db
+  :set-active-panel
+  (fn [db [_ value]]
+    (assoc db :active-panel value)))
+
+(re-frame/dispatch 
+  [:set-active-panel :panel1])
+
+
+(re-frame/reg-sub
+  :active-panel
+  (fn [db _]
+    (:active-panel db)))
+
+(defn panel1
+ []
+ [:div  {:on-click #(re-frame/dispatch [:set-active-panel :panel2])}
+        &quot;Here&quot; ])
+
+(defn panel2
+ []
+ [:div &quot;There&quot;])
+
+(defn high-level-view 
+  []
+  (let [active  (re-frame/subscribe [:active-panel])]
+    (fn []
+      [:div
+       [:div.title   &quot;Heading&quot;]
+       (condp = @active                ;; or you could look up in a map
+         :panel1   [panel1]
+         :panel2   [panel2])])))
+</code></pre>
+
+<p>There&rsquo;s a couple of different ways we can handle this, but what seems to be the most correct method (at least to me)
+is using re-frame&rsquo;s <a href="https://github.com/Day8/re-frame/blob/master/docs/Effects.md">effects</a> api.</p>
+
+<p>So what do we need to get this working? We&rsquo;ll need to use <code>reg-event-fx</code> to create something very similar to the
+existing <code>:set-active-panel</code> event handler, have that emit a new effect, and finally <code>reg-fx</code> to handle that effect.
+I suggest you leave the existing <code>:set-active-panel</code> event handler in place, we&rsquo;ll need it again in a minute.
+But let&rsquo;s get started with the new event handler:</p>
+
+<pre><code class="language-clojure">(re-frame/reg-event-fx :navigate-to-panel
+  (fn [{:keys [db]} [_ url panel]]
+    ;Same as :set-active-panel
+    {:db         (assoc db :active-panel panel)
+    ;New push state effect
+     :push-state [url panel]}))
+     
+</code></pre>
+
+<p>Let&rsquo;s add a effect handler using <code>reg-fx</code> to deal with our newly added <code>:push-state</code> effect:</p>
+
+<pre><code class="language-clojure">(re-frame/reg-fx :push-state
+  (fn [[url state :as value]]
+  ;Grab the history object off the top level window
+    (-&gt; (.-history js/window)
+        ;Invoke the `pushState` function with...
+        (.pushState                     
+          ;state object this is stored by the browser
+          ;&quot;serialize&quot; some edn by `pr-str`ing it
+          (pr-str state)
+          ;&quot;title&quot; - currently ignored.
+          &quot;&quot;        
+          ;the new url we want displayed
+          url))))
+</code></pre>
+
+<p>We&rsquo;ll also have to update the existing <code>on-click</code> handler:</p>
+
+<pre><code class="language-clojure">(defn panel1
+  []
+                                       ;change the key and add the url
+  [:div {:on-click #(re-frame/dispatch [:navigate-to-panel &quot;/panel2&quot; :panel2])}
+   &quot;Here&quot;])
+</code></pre>
+
+<p>This is only a part of the wiring we need to do, but it should trigger some of the changes we&rsquo;re looking for.
+For starters, you should see the url change to &ldquo;/panel2&rdquo; when you click on &ldquo;Here&rdquo;.
+If you open up the browser console and type in <code>window.history.state</code> you should see an object with the
+value you just passed as the first argument to <code>pushState</code> - in this case <code>&quot;:panel2&quot;</code>
+Clicking the back button won&rsquo;t work yet, we still have to update the application state on <code>popstate</code>.</p>
+
+<h2 id="handling-the-popstate-event">Handling the <code>popstate</code> event</h2>
+
+<p>This bit&rsquo;s pretty simple, we just need to make a function that&rsquo;ll consume the event object we&rsquo;re sent by the browser
+when the back button is hit.</p>
+
+<p>In this case we can do something like:</p>
+
+<pre><code class="language-clojure">(defn handle-pop-state [evt]
+  ;`.-state` has what we passed as the first arg to `pushState`
+  (let [state (edn/read-string (.-state evt))]      
+    (re-frame.core/dispatch [:set-active-panel state])))
+</code></pre>
+
+<p>Hopefully that&rsquo;s understandable. We&rsquo;re just trying to update the application state back to
+what it was before the link was clicked. In this case that just means setting the <code>:active-panel</code> key
+back to <code>:panel1</code>, which we can use the existing <code>:set-active-panel</code> event for.</p>
+
+<p>Obviously if your application is more complicated you might need to add more logic than what&rsquo;s in the
+sample <code>:set-active-panel</code> handler. In fact you could send the whole <code>db</code> state. There&rsquo;s a limitation
+on the size of the serialized state value (640k characters in Firefox, at least), but you can probably
+get quite a bit in there before running into trouble.</p>
+
+<p>In any case, we then need to bind that pop-state handler in the right place:</p>
+
+<pre><code class="language-clojure">(set! (.-onpopstate js/window) handle-pop-state)
+</code></pre>
+
+<p>I&rsquo;ve got this inside my <code>main</code> method in my <code>core.cljs</code> file. There shouldn&rsquo;t be any issues with rebinding it
+if it gets reloaded by figwheel or anything.</p>
+
+<p>So what happens now? If you try to go back from <code>:panel2</code> you should see nothing, and if you look in the console you&rsquo;ll
+probably see an error pointing towards the <code>edn/read-string</code> expression in <code>handle-pop-state</code>.</p>
+
+<p>The problem here is the fact that we didn&rsquo;t push any state for the initial page we were on, so when we go back
+(triggering a <code>popstate</code>) we get nil for <code>.-state</code> which <code>read-string</code> rightly barfs on.</p>
+
+<p>Thankfully, the fix is simple.</p>
+
+<h2 id="making-sure-our-initial-state-is-correct">Making sure our initial state is correct</h2>
+
+<p>Open up a new tab and navigate to the page again, then open the console and enter <code>window.history.state</code> again.
+You&rsquo;ll get back <code>null</code>. This is the cause of the problem we&rsquo;re having.</p>
+
+<p>So what we want to do is add a snippet like so:</p>
+
+<pre><code class="language-clojure">(.replaceState (.-history js/window)
+                   (pr-str :panel1)     ; state, will replace the initial null state
+                   &quot;&quot;)                  ; title
+</code></pre>
+
+<p>This will replace the initial null state with the provided state. You can put this at the top level, or inside your
+main function. This should make the back button work perfectly. Only problem you might run into is if you&rsquo;re using
+something like figwheel to hot reload the page. On this case this chunk of code will execute every time the page
+reloads, smashing the actual current state. To fix this we can simply wrap it with a conditional statement:</p>
+
+<pre><code class="language-clojure">(when (nil? (-&gt; js/window (.-history) (.-state)))
+    (.replaceState (.-history js/window)
+                   (pr-str {:handler :home})
+                   &quot;&quot;))
+</code></pre>
+
+<h2 id="wrapping-up">Wrapping up</h2>
+
+<p>So that should be enough to get you started at least. When used as part of a larger application, there&rsquo;s going to be
+some more wrinkles of course. You&rsquo;ll probably have more state that needs to be rolled back as part of heading back -
+this should just mean that the <code>panel</code> argument becomes a map that&rsquo;s merged with the re-frame db.
+There&rsquo;s also concerns around urls, parsing values out of them, and what to do when the user first lands on a page
+that <em>isn&rsquo;t</em> the root page. I haven&rsquo;t got all the answers for those just yet, but I&rsquo;ve started grappling with them
+and I&rsquo;m hopeful I&rsquo;ll be able to write another post with some of the answers soon.</p>
+
+<p>If you liked this, or if you&rsquo;ve just got any questions, please let me know. The best way to reach me is probably on
+<a href="https://twitter.com/lfln3">Twitter</a> - DMs are open.</p>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

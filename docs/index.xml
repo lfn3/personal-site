@@ -5,9 +5,212 @@
     <link>https://lfn3.net/</link>
     <language>en-us</language>
     <author>Liam Falconer</author>
-    <rights>(C) 2018</rights>
-    <updated>2018-09-22 12:30:00 &#43;0100 BST</updated>
+    <rights>(C) 2019</rights>
+    <updated>2019-01-07 20:31:00 &#43;0000 GMT</updated>
 
+    
+      
+        <item>
+          <title>re-frame and the Back Button</title>
+          <link>https://lfn3.net/2019/01/07/re-frame-and-the-back-button/</link>
+          <pubDate>Mon, 07 Jan 2019 20:31:00 GMT</pubDate>
+          <author>Liam Falconer</author>
+          <guid>https://lfn3.net/2019/01/07/re-frame-and-the-back-button/</guid>
+          <description>&lt;p&gt;A few things I&amp;rsquo;ve been working on over the christmas break have involved a fair bit of front end work.
+I&amp;rsquo;ve been using &lt;a href=&#34;https://github.com/Day8/re-frame&#34;&gt;re-frame&lt;/a&gt; to do most of it,
+which has been a very satisfying experience. It&amp;rsquo;s made me quite a bit happier than the month or so I spent working with
+&lt;a href=&#34;https://vuejs.org/&#34;&gt;Vue.js&lt;/a&gt; for a project at &lt;a href=&#34;https://www.lmax.com&#34;&gt;LMAX&lt;/a&gt;.
+But all of that&amp;rsquo;s probably a topic for another post.&lt;/p&gt;
+
+&lt;p&gt;One of the things that I (along with a good chunk of the internet, &lt;a href=&#34;https://www.google.com/search?q=don%27t+break+the+back+button&#34;&gt;apparently&lt;/a&gt;)
+loathe is when a web site or app renders the back button non-functional, or otherwise stops it from doing what I expect.
+So of course as soon as I added a second panel to my application (I managed to hack away on a single page for a while.)
+I had to fix the back button.&lt;/p&gt;
+
+&lt;p&gt;Re-frame&amp;rsquo;s (extensive, witty, and generally awesome) &lt;a href=&#34;https://github.com/Day8/re-frame/tree/master/docs&#34;&gt;documentation&lt;/a&gt;
+already has &lt;a href=&#34;https://github.com/Day8/re-frame/blob/master/docs/Navigation.md&#34;&gt;a page&lt;/a&gt; on how to handle navigation.
+The approach it takes is totally reasonable in terms of the web-app itself, and if you&amp;rsquo;re using re-frame outside of a
+web page, it&amp;rsquo;s probably just fine.&lt;/p&gt;
+
+&lt;p&gt;It will not, result in the browser knowing a transition has happened, so the url will not change, and the back button
+ will drag you back to the last site you were on, rather than undoing the last thing you clicked on (as I would expect
+ in this case).&lt;/p&gt;
+
+&lt;p&gt;Fortunately there&amp;rsquo;s a &lt;a href=&#34;https://caniuse.com/#feat=history&#34;&gt;widely supported&lt;/a&gt; browser
+&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/API/History_API&#34;&gt;history api&lt;/a&gt; that&amp;rsquo;ll let us sort this out.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s three things we need to do:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;pushState&lt;/code&gt; when a link is clicked&lt;/li&gt;
+&lt;li&gt;Handle the &lt;code&gt;popstate&lt;/code&gt; event (triggered when someone hits the forward or back button)&lt;/li&gt;
+&lt;li&gt;Make sure our initial state is correct&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let&amp;rsquo;s get started.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-pushstate&#34;&gt;Using &lt;code&gt;pushState&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;As of the time of writing, the &lt;a href=&#34;https://github.com/Day8/re-frame/blob/d9cdb53/docs/Navigation.md&#34;&gt;re-frame docs&lt;/a&gt; have
+suggested the following snippet for navigating between panels in an app:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(re-frame/reg-event-db
+  :set-active-panel
+  (fn [db [_ value]]
+    (assoc db :active-panel value)))
+
+(re-frame/dispatch 
+  [:set-active-panel :panel1])
+
+
+(re-frame/reg-sub
+  :active-panel
+  (fn [db _]
+    (:active-panel db)))
+
+(defn panel1
+ []
+ [:div  {:on-click #(re-frame/dispatch [:set-active-panel :panel2])}
+        &amp;quot;Here&amp;quot; ])
+
+(defn panel2
+ []
+ [:div &amp;quot;There&amp;quot;])
+
+(defn high-level-view 
+  []
+  (let [active  (re-frame/subscribe [:active-panel])]
+    (fn []
+      [:div
+       [:div.title   &amp;quot;Heading&amp;quot;]
+       (condp = @active                ;; or you could look up in a map
+         :panel1   [panel1]
+         :panel2   [panel2])])))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There&amp;rsquo;s a couple of different ways we can handle this, but what seems to be the most correct method (at least to me)
+is using re-frame&amp;rsquo;s &lt;a href=&#34;https://github.com/Day8/re-frame/blob/master/docs/Effects.md&#34;&gt;effects&lt;/a&gt; api.&lt;/p&gt;
+
+&lt;p&gt;So what do we need to get this working? We&amp;rsquo;ll need to use &lt;code&gt;reg-event-fx&lt;/code&gt; to create something very similar to the
+existing &lt;code&gt;:set-active-panel&lt;/code&gt; event handler, have that emit a new effect, and finally &lt;code&gt;reg-fx&lt;/code&gt; to handle that effect.
+I suggest you leave the existing &lt;code&gt;:set-active-panel&lt;/code&gt; event handler in place, we&amp;rsquo;ll need it again in a minute.
+But let&amp;rsquo;s get started with the new event handler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(re-frame/reg-event-fx :navigate-to-panel
+  (fn [{:keys [db]} [_ url panel]]
+    ;Same as :set-active-panel
+    {:db         (assoc db :active-panel panel)
+    ;New push state effect
+     :push-state [url panel]}))
+     
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s add a effect handler using &lt;code&gt;reg-fx&lt;/code&gt; to deal with our newly added &lt;code&gt;:push-state&lt;/code&gt; effect:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(re-frame/reg-fx :push-state
+  (fn [[url state :as value]]
+  ;Grab the history object off the top level window
+    (-&amp;gt; (.-history js/window)
+        ;Invoke the `pushState` function with...
+        (.pushState                     
+          ;state object this is stored by the browser
+          ;&amp;quot;serialize&amp;quot; some edn by `pr-str`ing it
+          (pr-str state)
+          ;&amp;quot;title&amp;quot; - currently ignored.
+          &amp;quot;&amp;quot;        
+          ;the new url we want displayed
+          url))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We&amp;rsquo;ll also have to update the existing &lt;code&gt;on-click&lt;/code&gt; handler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn panel1
+  []
+                                       ;change the key and add the url
+  [:div {:on-click #(re-frame/dispatch [:navigate-to-panel &amp;quot;/panel2&amp;quot; :panel2])}
+   &amp;quot;Here&amp;quot;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is only a part of the wiring we need to do, but it should trigger some of the changes we&amp;rsquo;re looking for.
+For starters, you should see the url change to &amp;ldquo;/panel2&amp;rdquo; when you click on &amp;ldquo;Here&amp;rdquo;.
+If you open up the browser console and type in &lt;code&gt;window.history.state&lt;/code&gt; you should see an object with the
+value you just passed as the first argument to &lt;code&gt;pushState&lt;/code&gt; - in this case &lt;code&gt;&amp;quot;:panel2&amp;quot;&lt;/code&gt;
+Clicking the back button won&amp;rsquo;t work yet, we still have to update the application state on &lt;code&gt;popstate&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;handling-the-popstate-event&#34;&gt;Handling the &lt;code&gt;popstate&lt;/code&gt; event&lt;/h2&gt;
+
+&lt;p&gt;This bit&amp;rsquo;s pretty simple, we just need to make a function that&amp;rsquo;ll consume the event object we&amp;rsquo;re sent by the browser
+when the back button is hit.&lt;/p&gt;
+
+&lt;p&gt;In this case we can do something like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn handle-pop-state [evt]
+  ;`.-state` has what we passed as the first arg to `pushState`
+  (let [state (edn/read-string (.-state evt))]      
+    (re-frame.core/dispatch [:set-active-panel state])))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hopefully that&amp;rsquo;s understandable. We&amp;rsquo;re just trying to update the application state back to
+what it was before the link was clicked. In this case that just means setting the &lt;code&gt;:active-panel&lt;/code&gt; key
+back to &lt;code&gt;:panel1&lt;/code&gt;, which we can use the existing &lt;code&gt;:set-active-panel&lt;/code&gt; event for.&lt;/p&gt;
+
+&lt;p&gt;Obviously if your application is more complicated you might need to add more logic than what&amp;rsquo;s in the
+sample &lt;code&gt;:set-active-panel&lt;/code&gt; handler. In fact you could send the whole &lt;code&gt;db&lt;/code&gt; state. There&amp;rsquo;s a limitation
+on the size of the serialized state value (640k characters in Firefox, at least), but you can probably
+get quite a bit in there before running into trouble.&lt;/p&gt;
+
+&lt;p&gt;In any case, we then need to bind that pop-state handler in the right place:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(set! (.-onpopstate js/window) handle-pop-state)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;rsquo;ve got this inside my &lt;code&gt;main&lt;/code&gt; method in my &lt;code&gt;core.cljs&lt;/code&gt; file. There shouldn&amp;rsquo;t be any issues with rebinding it
+if it gets reloaded by figwheel or anything.&lt;/p&gt;
+
+&lt;p&gt;So what happens now? If you try to go back from &lt;code&gt;:panel2&lt;/code&gt; you should see nothing, and if you look in the console you&amp;rsquo;ll
+probably see an error pointing towards the &lt;code&gt;edn/read-string&lt;/code&gt; expression in &lt;code&gt;handle-pop-state&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The problem here is the fact that we didn&amp;rsquo;t push any state for the initial page we were on, so when we go back
+(triggering a &lt;code&gt;popstate&lt;/code&gt;) we get nil for &lt;code&gt;.-state&lt;/code&gt; which &lt;code&gt;read-string&lt;/code&gt; rightly barfs on.&lt;/p&gt;
+
+&lt;p&gt;Thankfully, the fix is simple.&lt;/p&gt;
+
+&lt;h2 id=&#34;making-sure-our-initial-state-is-correct&#34;&gt;Making sure our initial state is correct&lt;/h2&gt;
+
+&lt;p&gt;Open up a new tab and navigate to the page again, then open the console and enter &lt;code&gt;window.history.state&lt;/code&gt; again.
+You&amp;rsquo;ll get back &lt;code&gt;null&lt;/code&gt;. This is the cause of the problem we&amp;rsquo;re having.&lt;/p&gt;
+
+&lt;p&gt;So what we want to do is add a snippet like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(.replaceState (.-history js/window)
+                   (pr-str :panel1)     ; state, will replace the initial null state
+                   &amp;quot;&amp;quot;)                  ; title
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will replace the initial null state with the provided state. You can put this at the top level, or inside your
+main function. This should make the back button work perfectly. Only problem you might run into is if you&amp;rsquo;re using
+something like figwheel to hot reload the page. On this case this chunk of code will execute every time the page
+reloads, smashing the actual current state. To fix this we can simply wrap it with a conditional statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(when (nil? (-&amp;gt; js/window (.-history) (.-state)))
+    (.replaceState (.-history js/window)
+                   (pr-str {:handler :home})
+                   &amp;quot;&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
+
+&lt;p&gt;So that should be enough to get you started at least. When used as part of a larger application, there&amp;rsquo;s going to be
+some more wrinkles of course. You&amp;rsquo;ll probably have more state that needs to be rolled back as part of heading back -
+this should just mean that the &lt;code&gt;panel&lt;/code&gt; argument becomes a map that&amp;rsquo;s merged with the re-frame db.
+There&amp;rsquo;s also concerns around urls, parsing values out of them, and what to do when the user first lands on a page
+that &lt;em&gt;isn&amp;rsquo;t&lt;/em&gt; the root page. I haven&amp;rsquo;t got all the answers for those just yet, but I&amp;rsquo;ve started grappling with them
+and I&amp;rsquo;m hopeful I&amp;rsquo;ll be able to write another post with some of the answers soon.&lt;/p&gt;
+
+&lt;p&gt;If you liked this, or if you&amp;rsquo;ve just got any questions, please let me know. The best way to reach me is probably on
+&lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;Twitter&lt;/a&gt; - DMs are open.&lt;/p&gt;</description>
+        </item>
+      
     
       
         <item>
@@ -556,7 +759,7 @@ unattended, and keep an eye on the machine while it&amp;rsquo;s operating.  Mayb
 with little rubber feet you can just pull off. The other two are deep inside the casing, you&amp;rsquo;ll need a screwdriver with
 a reasonably long shaft to get at them.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/&amp;quot;unopened&amp;quot;.jpg&#34; alt=&#34;&amp;quot;unopened&amp;quot; popcorn maker&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/roasting-coffee-with-a-popcorn-maker/unopened.jpg&#34; alt=&#34;&amp;quot;unopened&amp;quot; popcorn maker&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After doing that, you should be able to yank the base off your soon to be coffee maker, and you should be greeted by
 something like this:&lt;/p&gt;
