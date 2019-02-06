@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Reducible Systems &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Reducible Systems</h1>
+  <span class="post-date">Feb 6 2019</span>
+  <p>A while ago I had a minor revelation about why I&rsquo;m ok with working in the
+<a href="https://www.lmax.com">LMAX</a>
+codebase. I&rsquo;ve got a pretty strong interest in functional programming by way of
+Clojure, so you&rsquo;d think working in a system where pervasive mutation is the rule
+rather than the exception would slowly drive me nuts.</p>
+
+<p>I think there&rsquo;s a few reasons I&rsquo;ve retained my sanity, but the most important
+one is the way the system is designed it&rsquo;s easy to keep a mental model of, and
+that model isn&rsquo;t often broken. Why is that the case, though?</p>
+
+<h3 id="lmax-s-production-system">LMAX&rsquo;s production system</h3>
+
+<p>In order to explain I&rsquo;m first going to have to give you a bit of background.
+The production exchanges at LMAX have around 70 services at last count.
+There&rsquo;s a few major categories however, and we&rsquo;re only going to concern
+ourselves with what we call the &ldquo;core&rdquo; services: the Execution Venue (EV), also
+known in industry parlance as a <a href="https://en.wikipedia.org/wiki/Multilateral_trading_facility">Multilateral Trading Facility</a>
+or MTF. And it gets called &ldquo;the exchange&rdquo; relatively often as well. The other
+service that&rsquo;s similarly designed is the Execution Management Service (EMS),
+also known as &ldquo;The Broker&rdquo;. Again, the wider industry would probably refer to it
+as an <a href="https://en.wikipedia.org/wiki/Order_management_system#Financial_Securities">Order Management System</a></p>
+
+<p>What is it that makes these services different? Our core services do most of the
+heavy lifting in our system. They&rsquo;re where most of the &ldquo;business logic&rdquo; actually
+resides so we have high speed and resiliency requirements for them. These are
+largely met by running the core services in hot-hot pairs, which in turn means
+we need the services to be deterministic.</p>
+
+<p>So our requirements have led us down a path that results in a design something
+like this:</p>
+
+<p><img src="https://lfn3.net/img/posts/reducible-systems/ev-diagram.png" alt="Layout of a core service and it's connections" /></p>
+
+<p>What&rsquo;s important to note about this is that the ordered, replicable journal that
+is the disruptor in front of the service is what enables so many of the
+desirable characteristics of the system.</p>
+
+<p>As I mentioned, mutability is fairly pervasive in these systems. Especially in
+the EMS, there&rsquo;s a lot of account level state that can change over the lifecycle
+of an order. You&rsquo;d think this would be a cause for concern for me, and it was
+initially, but I don&rsquo;t really worry about it now.</p>
+
+<p>Why? Well, let me redraw that diagram above.</p>
+
+<p><img src="https://lfn3.net/img/posts/reducible-systems/reducer-diagram.png" alt="A core service in a more functional style" /></p>
+
+<p>Basically, I think our core services are modellable as big <code>reduce</code> style
+operations:</p>
+
+<pre><code class="language-java">class Ev {
+    public Pair&lt;State, Collection&lt;Message&gt;&gt; processEvMessage(
+        State s, 
+        Message m) {
+        //... do some actual work, produce messages etc ...
+    }
+}
+</code></pre>
+
+<p>This isn&rsquo;t strictly speaking a reduce operation since the accumulator (<code>state</code>)
+isn&rsquo;t the only result of the function, but we could just as easily stuff the
+output messages in there.</p>
+
+<p>Anyway, that was the revelation that I had. Our system can be viewed as a giant
+<code>reduce</code> operation over a stream of messages. Not only that, but I think this
+idea generalizes a bit.</p>
+
+<h3 id="the-duality-of-message-passing">The Duality of Message Passing</h3>
+
+<p>I think this idea of a system based around message passing being &ldquo;trivially&rdquo;
+convertible to a reducer can tell us a lot about the gaps in the message passing
+toolkit.</p>
+
+<p>We have a wide variety of primitives for composing functions that operate on
+values together, but far fewer corresponding way of composing objects or actors
+in systems that operate on messages.</p>
+
+<p>For instance the problem of fan-out is trivially handled in Clojure:</p>
+
+<pre><code class="language-clojure">(-&gt;&gt; messages 
+     (map (juxt do-thing-one do-thing-two))
+     (reduce combine-thing-results))
+</code></pre>
+
+<p>(Juxt creates a function that calls the provided functions, returning their
+results in a collection)</p>
+
+<p>When we have to do this in the LMAX codebase it invariably involves a new class
+called <code>SomethingFanOut</code>. Admittedly this may be due to our choice of Java,
+which is somewhat notorious for the amount of boilerplate you&rsquo;re required to lay
+at it&rsquo;s altar.</p>
+
+<p>Looking at the advantages that message passing has, I think the primary one is
+to allow us to encapsulate things we&rsquo;d regard as distasteful or downright wrong
+and still present a clean interface to the outside world.</p>
+
+<p>This allows us to take up more complexity into our code than a reducer function
+does, especially since within any given method we can spread our state out
+still further across more sub-components, while a reduce function needs to hold
+all of it&rsquo;s state inside the accumulator value.</p>
+
+<p>Again, flipping it over to the message passing side, I think this tells us that
+we need to tightly control any possible changes to our state. Anything that
+isn&rsquo;t fed through a serialized message stream is a cause for concern, since we
+could find ourselves with state that isn&rsquo;t reproducible.</p>
+
+<p>This rules out querying a database directly from any service that we want to
+maintain this reducibility around, and indeed this is a constraint we enforce in
+the LMAX code base - all database interactions have to be routed via a &ldquo;general&rdquo;
+service that pushes the response back to us over the message bus.
+<a href="https://github.com/Day8/re-frame/blob/eeac55f002a351586fa8bf692b2fada4d207e8fa/docs/Talking-To-Servers.md#problems-in-paradise">The re-frame docs</a>
+also strongly advise us to to avoid any impurity in our application and to
+instead push that to the edges of the system.</p>
+
+<p>I think there&rsquo;s also lots of benefits to be gained from this duality, along
+with quite a few we&rsquo;ve already realised. Let&rsquo;s have a look at what this effort
+has yielded at LMAX.</p>
+
+<h3 id="the-usefulness-of-reducefulness">The usefulness of reducefulness</h3>
+
+<p>There&rsquo;s many occasions where we&rsquo;ve wired up a core service to a journal
+from production and replayed all the messages from it, so we can examine the
+state of the application as a particular message or series of messages pass
+through it.</p>
+
+<p>It&rsquo;s also useful to replay production traffic through a system for performance
+testing, allowing us to run production traffic with assertions enabled, etc.
+The reason we have these journals in the first instance is for our recovery
+and failover strategy. We want to ensure we can bring our system back up to the
+same state it was in if <em>anything</em> goes wrong. That we can ship them around and
+use them for many other purposes is a great side effect of this choice.</p>
+
+<p>If there&rsquo;s one thing you take away from this post, if you can record an
+executable journal of your system&rsquo;s state, I would try to do so. Being able to
+replay a bug repeatedly until you&rsquo;re sure what&rsquo;s happened, fix it, and then
+watch it <em>not</em> happen is one of the best workflows I&rsquo;ve experienced.</p>
+
+<p>The accumulative approach also suggests another way to design our system,
+one that I&rsquo;ve seen before, in fact. For a while the &ldquo;one big atom&rdquo; model has
+been relatively popular in the Clojurescript ecosystem - several popular
+libraries such as <a href="https://github.com/Day8/re-frame">re-frame</a> and
+<a href="https://github.com/omcljs/om">om</a> both use this pattern for state management.</p>
+
+<p>I think there could be several benefits to this pattern for LMAX&rsquo;s core
+services. It could allow us to shed a lot of the persistence services we&rsquo;ve
+written, by using our secondary and tertiary instances as read only slaves.
+That would also eliminate a ton of the boilerplate we write to persist
+configuration changes to a database and generally ensure the database and
+core services remain in a consistent state.</p>
+
+<p>It would also allow us to roll back a failed transaction, mark a message as
+dead and continue operating - something we cannot presently do without manual
+intervention and the risk of state corruption in the core services. We probably
+won&rsquo;t be able to do this - the performance impact would probably be too high.
+This should not dissuade you from considering it, many environments do not have
+our performance constraints.</p>
+
+<p>Finally it would allow us to more easily snapshot the state of the core
+services, since we&rsquo;d already have a handle on the root of the state tree.
+Having easily snapshottable event streams is an advantage in other situations
+as well. For many of our analytics workload we work of a stream of orders, and
+want to coalesce these into a image of the state of the order book at a given
+moment. Having systems where this is baked into the design would make our
+lives a lot easier in this case.</p>
+
+<h3 id="other-reducible-systems">Other reducible systems</h3>
+
+<p>I don&rsquo;t think LMAX is the only place where these kinds of systems are in use.
+In fact, I&rsquo;ve got a much stronger claim: I think almost every system relies on
+something like our core applications in order to actually make their system
+understandable.</p>
+
+<p>Most
+<a href="https://en.wikipedia.org/wiki/Multitier_architecture">multitier-architecture</a>
+web applications involve some sort of concurrency, either involving threads or
+some other sort of way of getting more work out of the multiple cores available
+in your server.</p>
+
+<p>The problem comes when you&rsquo;re trying to get something involving state done. The
+interaction between concurrency and state is an area where a lot of things can
+go very wrong. Having to deal with it in your application is something we
+generally try to avoid, and instead make them stateless if possible. This means
+we push all of that mess down to the workhorses of web applications: databases.</p>
+
+<p>The key thing is that every relational database uses a query log in order to
+ensure queries are executed in a well known order. There&rsquo;s a lot of
+optimizations in most databases to get them to actually execute concurrently,
+but as application programmers, we can assume that
+<a href="ttps://en.wikipedia.org/wiki/Serializability">serializability</a> holds.</p>
+
+<p>Databases also, of course, serve as big repositories of application state.
+Here&rsquo;s a (rough!) sketch of the design - contrast it to the &ldquo;EV&rdquo; diagram
+above.</p>
+
+<p><img src="https://lfn3.net/img/posts/reducible-systems/database-diagram.png" alt="Database internals diagram" /></p>
+
+<p>Databases offer us the same constraints as LMAX&rsquo;s core applications. There&rsquo;s a
+very clear sequence of events. We can get a very good idea of the application&rsquo;s
+state (which we&rsquo;ve outsourced to the database) and what allowed transitions and
+mutations could, should and did actually occur. Without this I think it gets
+much, much harder for us to reason about the way our programs really operate,
+especially when something goes wrong. It becomes much easier to become trapped
+in quagmires of <a href="https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt">FUD</a>
+when trying to add new features to your codebase.</p>
+
+<p>There are other examples in other domains: <a href="https://reactjs.org/">React</a>
+and the tools built on top of it (
+<a href="https://facebook.github.io/flux/docs/in-depth-overview.html#content">flux</a>
+and the aforementioned <a href="https://github.com/Day8/re-frame">re-frame</a> and
+<a href="https://github.com/omcljs/om">om</a>) have dramatically
+reduced the cognitive burden of working on large front end applications, by
+using the same idea of serialized messages altering state. (and then deriving
+data from it)</p>
+
+<p>The thing that these systems make more clear is the usefulness of having your
+state in one place and being able to easily query it. I think that&rsquo;s a thing
+that many systems built around message passing get wrong. You don&rsquo;t need to
+protect your application state from your other the outside world if you
+control the ways they&rsquo;re allowed to update it.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>While maintaining the invariants needed to build a reducible system does involve
+quite a bit of hard work, in our case we&rsquo;ve found the payoff to be worth it.
+Both in terms of performance and productivity it&rsquo;s a terrific aid once your
+system has grown to a reasonable size. Anecdotally, the productivity boost I
+felt when moving to Clojure is roughly the same amount as I found when I started
+working with and in LMAX&rsquo;s codebase.</p>
+
+<p>Unfortunately I&rsquo;m not sure how broadly applicable this is. I know it works at
+LMAX, but I think generalizing &ldquo;reducible messaging&rdquo; to other environments
+(without doing all the heavy lifting we do at LMAX! Our process might be
+overkill for many other lines of business) needs something along the lines of
+&ldquo;re-frame for the backend&rdquo; which I don&rsquo;t think is a small amount of work!</p>
+
+<p>All that aside, I think there&rsquo;s some interesting ideas we can gather from
+studying the differences between these kinds of systems that <em>should</em> be the
+same, but aren&rsquo;t quite.</p>
+
+<p>If you&rsquo;ve got any thoughts or feedback, I&rsquo;d love to hear from you. The best
+way to reach me is on <a href="https://twitter.com/lfln3">twitter</a> - dm&rsquo;s are open.</p>
+
+<p>Big thanks to my colleague <a href="https://twitter.com/grumpyjames">James Byatt</a>,
+for seeding and  helping me to refine this post, and also to to
+<a href="https://twitter.com/Palmer">Nick Palmer</a> for reviewing it.</p>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

@@ -5,10 +5,27 @@
     <link>https://lfn3.net/post/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 07 Jan 2019 20:31:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Feb 2019 21:22:46 +0000</lastBuildDate>
     
 	<atom:link href="https://lfn3.net/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reducible Systems</title>
+      <link>https://lfn3.net/2019/02/06/reducible-systems/</link>
+      <pubDate>Wed, 06 Feb 2019 21:22:46 +0000</pubDate>
+      
+      <guid>https://lfn3.net/2019/02/06/reducible-systems/</guid>
+      <description>&lt;p&gt;A while ago I had a minor revelation about why I&amp;rsquo;m ok with working in the
+&lt;a href=&#34;https://www.lmax.com&#34;&gt;LMAX&lt;/a&gt;
+codebase. I&amp;rsquo;ve got a pretty strong interest in functional programming by way of
+Clojure, so you&amp;rsquo;d think working in a system where pervasive mutation is the rule
+rather than the exception would slowly drive me nuts.&lt;/p&gt;
+
+&lt;p&gt;I think there&amp;rsquo;s a few reasons I&amp;rsquo;ve retained my sanity, but the most important
+one is the way the system is designed it&amp;rsquo;s easy to keep a mental model of, and
+that model isn&amp;rsquo;t often broken. Why is that the case, though?&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>re-frame and the Back Button</title>

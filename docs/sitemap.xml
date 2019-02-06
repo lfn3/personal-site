@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lfn3.net/2019/02/06/reducible-systems/</loc>
+    <lastmod>2019-02-06T21:22:46+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lfn3.net/2019/01/07/re-frame-and-the-back-button/</loc>
     <lastmod>2019-01-07T20:31:00+00:00</lastmod>
   </url>
@@ -129,7 +134,7 @@
   
   <url>
     <loc>https://lfn3.net/</loc>
-    <lastmod>2019-01-07T20:31:00+00:00</lastmod>
+    <lastmod>2019-02-06T21:22:46+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -140,13 +145,13 @@
   
   <url>
     <loc>https://lfn3.net/tags/lmax/</loc>
-    <lastmod>2018-09-22T12:30:00+01:00</lastmod>
+    <lastmod>2019-02-06T21:22:46+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lfn3.net/post/</loc>
-    <lastmod>2019-01-07T20:31:00+00:00</lastmod>
+    <lastmod>2019-02-06T21:22:46+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -158,7 +163,7 @@
   
   <url>
     <loc>https://lfn3.net/tags/</loc>
-    <lastmod>2018-09-22T12:30:00+01:00</lastmod>
+    <lastmod>2019-02-06T21:22:46+00:00</lastmod>
     <priority>0</priority>
   </url>
   
