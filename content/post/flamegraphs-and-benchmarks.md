@@ -2,6 +2,7 @@
 date = "2017-12-14T08:08:12+13:00"
 draft = false
 title = "Flamegraphs and benchmarks"
+tags = ["LMAX"]
 
 +++
 

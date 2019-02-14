@@ -2,6 +2,7 @@
 date = "2017-12-22T17:00:00+13:00"
 draft = true
 title = "Property testing for performance"
+tags = ["LMAX"]
 
 +++
 

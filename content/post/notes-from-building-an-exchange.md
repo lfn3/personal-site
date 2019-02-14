@@ -2,6 +2,8 @@
 date = "2018-02-13T12:35:40+13:00"
 draft = true
 title = "Notes from Brian Nigito's Building an Exchange talk"
+tags = ["LMAX"]
+
 +++
 
 Jane Street: Building an Exchange

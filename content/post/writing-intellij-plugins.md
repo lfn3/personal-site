@@ -2,6 +2,7 @@
 date = "2017-05-27T10:21:00+12:00"
 draft = false
 title = "Writing IntelliJ plugins"
+tags = ["LMAX"]
 
 +++
 

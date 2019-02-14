@@ -2,6 +2,7 @@
 date = "2018-01-08T09:00:00+13:00"
 draft = false
 title = "Why bother with property tests"
+tags = ["LMAX"]
 
 +++
 

@@ -2,6 +2,8 @@
 date = "2018-11-19T18:32:40+00:00"
 draft = true
 title = "The Classic Java Performance Mistake"
+tags = ["LMAX"]
+
 +++
 
 Late last year we built and shipped a new feature: allowing orders with Minimum Trade Quantity

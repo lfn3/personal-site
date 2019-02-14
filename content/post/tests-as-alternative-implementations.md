@@ -2,6 +2,7 @@
 date = "2018-01-08T08:45:00+13:00"
 draft = true
 title = "Tests are alternative implementations"
+tags = ["LMAX"]
 
 +++
 

@@ -58,5 +58,99 @@ near zero chance I&amp;rsquo;m going to remember it as I&amp;rsquo;ve moved on t
 all down before I forget it all.&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>The unreasonable effectiveness of checklists</title>
+      <link>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</link>
+      <pubDate>Tue, 09 Jan 2018 08:23:00 +1300</pubDate>
+      
+      <guid>https://lfn3.net/2018/01/09/the-unreasonable-effectiveness-of-checklists/</guid>
+      <description>&lt;p&gt;One of the things we did recently was start using a checklist once we think we&amp;rsquo;ve &amp;lsquo;completed&amp;rsquo; a story.
+The checklist is basically just a big list of features that already exist in our codebase, and some notable gotchas
+that have caught us out before. All we do is go through it and ask ourselves if what we&amp;rsquo;ve just written interacts with
+that feature or gotcha, and if so, have we written a test for it?&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Why bother with property tests</title>
+      <link>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</link>
+      <pubDate>Mon, 08 Jan 2018 09:00:00 +1300</pubDate>
+      
+      <guid>https://lfn3.net/2018/01/08/why-bother-with-property-tests/</guid>
+      <description>&lt;p&gt;So something I&amp;rsquo;ve been trying to do lately is write more property or generative tests. I&amp;rsquo;ve been spending a bit of time
+thinking about why we&amp;rsquo;re actually doing this. Obviously I think it&amp;rsquo;s a good idea, but what actual benefits do we get
+from these, apart from slightly more arcane tests?&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flamegraphs and benchmarks</title>
+      <link>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</link>
+      <pubDate>Thu, 14 Dec 2017 08:08:12 +1300</pubDate>
+      
+      <guid>https://lfn3.net/2017/12/14/flamegraphs-and-benchmarks/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jgpc42/lein-jmh&#34;&gt;lein jmh&lt;/a&gt; recently turned up on the Clojure
+scene. I&amp;rsquo;ve been using it to debug some performance issues with a library I&amp;rsquo;m
+about to open source called undertaker. I&amp;rsquo;m gonna tell you a little bit about
+the why and the how of getting benchmarks to produce
+&lt;a href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flamegraphs&lt;/a&gt; like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/flamegraphs-and-benchmarks/flamegraph.png&#34; alt=&#34;flamegraph&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Writing IntelliJ plugins</title>
+      <link>https://lfn3.net/2017/05/27/writing-intellij-plugins/</link>
+      <pubDate>Sat, 27 May 2017 10:21:00 +1200</pubDate>
+      
+      <guid>https://lfn3.net/2017/05/27/writing-intellij-plugins/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve spent some time working on an IntelliJ plugin during our free time at work.
+There&amp;rsquo;s quite a bit of stuff I&amp;rsquo;ve learned from either reading source or messing
+with things until they worked, and I thought I&amp;rsquo;d record some of that.&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need some knowledge of how IntelliJ plugins work, mostly about the Psi
+model and it&amp;rsquo;s API. If you want to learn about that, you should probably start
+with &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html&#34;&gt;this&lt;/a&gt;
+or &lt;a href=&#34;http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html&#34;&gt;this&lt;/a&gt;.
+Anyway, tip #1 - PsiTrees are sensitive about what elements you put where.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Property testing tooling in Java</title>
+      <link>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</link>
+      <pubDate>Sun, 07 May 2017 11:43:00 +1200</pubDate>
+      
+      <guid>https://lfn3.net/2017/05/07/property-testing-tooling-in-java/</guid>
+      <description>&lt;p&gt;The NZ contingent of LMAX went to &lt;a href=&#34;http://codemania.io/&#34;&gt;Codemania&lt;/a&gt; at the end
+of last week. And it was awesome, I always come out of there excited to make
+things. Then usually I give myself a hangover which puts an end to that.
+Anyway, the two themes we picked out from the conference were automate more,
+and property test all the things.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m already a huge fan of &lt;a href=&#34;https://github.com/clojure/test.check&#34;&gt;test.check&lt;/a&gt;
+for my Clojure code, and have been feeling some friction working with the
+tooling we had for property testing in Java. So I spent some time digging into
+the options we had, and this post is the result of that.&lt;/p&gt;
+
+&lt;p&gt;This post assumes you have some knowledge of what property based testing is,
+and how it works. I&amp;rsquo;m just going to compare and contrast Java libraries that
+enable it.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Performance checks on metrics</title>
+      <link>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</link>
+      <pubDate>Mon, 24 Apr 2017 21:31:22 +1200</pubDate>
+      
+      <guid>https://lfn3.net/2017/04/24/performance-checks-on-metrics/</guid>
+      <description>&lt;p&gt;At &lt;a href=&#34;https://www.lmax.com/&#34;&gt;LMAX&lt;/a&gt; we do &lt;a href=&#34;https://www.symphonious.net/testing-at-lmax/&#34;&gt;a lot of automated testing&lt;/a&gt;, including running several
+dedicated environments for performance testing. We&amp;rsquo;ve got a lot of specific
+numbers that come out of these environments that we surface on dashboards like
+this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/performance-checks-on-metrics/perf-dashboard.png&#34; alt=&#34;perf-dashboard&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But we also collect a bunch of other metrics from our servers and services that,
+until recently, we didn&amp;rsquo;t have much visibility over.&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>

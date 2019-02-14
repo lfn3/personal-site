@@ -2,7 +2,8 @@
 date = "2017-04-24T21:31:22+12:00"
 draft = false
 title = "Performance checks on metrics"
-tag = "lmax"
+tags = ["LMAX"]
+
 +++
 
 At [LMAX](https://www.lmax.com/) we do [a lot of automated testing]

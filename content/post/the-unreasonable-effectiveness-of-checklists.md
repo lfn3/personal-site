@@ -2,6 +2,7 @@
 date = "2018-01-09T08:23:00+13:00"
 draft = false
 title = "The unreasonable effectiveness of checklists"
+tags = ["LMAX"]
 
 +++
 

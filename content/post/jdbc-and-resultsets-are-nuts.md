@@ -2,6 +2,8 @@
 date = "2018-02-13T12:35:40+13:00"
 draft = true
 title = "JDBC & ResultSets are nuts"
+tags = ["LMAX"]
+
 +++
 
 So today I was kicking around our codebase, changing some sql so it points at a replicated version of our data.

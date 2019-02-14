@@ -2,6 +2,8 @@
 date = "2017-05-07T11:43:00+12:00"
 draft = false
 title = "Property testing tooling in Java"
+tags = ["LMAX"]
+
 +++
 
 The NZ contingent of LMAX went to [Codemania](http://codemania.io/) at the end

@@ -2,6 +2,8 @@
 date = "2018-11-19T18:32:40+00:00"
 draft = true
 title = "Writing benchmarks systematically"
+tags = ["LMAX"]
+
 +++
 
 I've spent some time lately writing benchmarks, and as part of that I've been reflecting on and
@@ -13,9 +15,11 @@ sharing. Fortunately, it's not that complicated:
 3) What are we trying to measure?
 4) How are we going to measure it?
 5) What do we expect the results to look like?
-6) Write the benchmark.
+6) Actually write the benchmark.
 7) Do the results conform to our expectations?
 
+This is heavily inspired by the "systematic debugging" process I picked up from 
+[Why Programs Fail](http://www.whyprogramsfail.com/book.php)
 Obviously there's a bit more buried in these one liners, so lets dig in.
 
 <!--more-->
@@ -96,9 +100,9 @@ performance traps can lie in wait for your production workloads.
 
 This is mostly important so as you can use them to do a quick sanity check on the benchmark once it's run.
 
-
 If this sanity check confirms your guess, it doesn't necessarily mean that the benchmark is measuring
-what you think it is, however.
+what you think it is, however. This is one of those problems that's just hard. You basically have 
+to look at all the code inside a benchmark. 
 
 ### Write the benchmark
 
