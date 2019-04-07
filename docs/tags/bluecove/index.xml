@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bluecove on </title>
+    <link>https://lfn3.net/tags/bluecove/</link>
+    <description>Recent content in Bluecove on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 07 Apr 2019 10:45:40 +0100</lastBuildDate>
+    
+	<atom:link href="https://lfn3.net/tags/bluecove/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Power of Names</title>
+      <link>https://lfn3.net/2019/04/07/the-power-of-names/</link>
+      <pubDate>Sun, 07 Apr 2019 10:45:40 +0100</pubDate>
+      
+      <guid>https://lfn3.net/2019/04/07/the-power-of-names/</guid>
+      <description>&lt;p&gt;So I&amp;rsquo;ve just started working with a new team at &lt;a href=&#34;https://bluecove.com&#34;&gt;BlueCove&lt;/a&gt;.
+I&amp;rsquo;m really enjoying it, especially since we have a lot of decision making space
+to work with. The company has just turned one (there was cake, it was delicious)
+and the process of building up the code we need is still in full swing.&lt;/p&gt;
+
+&lt;p&gt;Something interesting happened to me the other day. I was talking with one of my
+co-workers about a problem we were trying to solve, and was about to reach for
+one of the terms from the
+&lt;a href=&#34;https://amzn.to/2TtXnGz&#34;&gt;Domain Driven Design (DDD)&lt;/a&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+book, namely &lt;a href=&#34;https://martinfowler.com/bliki/BoundedContext.html&#34;&gt;Bounded Context&lt;/a&gt;
+I asked him if he&amp;rsquo;d read the book, and he hadn&amp;rsquo;t. I didn&amp;rsquo;t think much about it
+until I was on the tube home, and I was going over my day.&lt;/p&gt;
+
+&lt;p&gt;Before we go any further, I should give you a hefty disclaimer - I&amp;rsquo;m not any
+sort of expert in what I&amp;rsquo;m about to write about. When I was explaining why I was
+excited about writing this to my wife, she told me it sounded like I was writing
+about &lt;a href=&#34;https://en.wikipedia.org/wiki/Semantics&#34;&gt;Semantics&lt;/a&gt;, which prompted an
+educational excursion through wikipedia. I am, however very willing to be wrong
+on the internet, so let&amp;rsquo;s dig in.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

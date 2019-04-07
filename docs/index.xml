@@ -6,8 +6,175 @@
     <language>en-us</language>
     <author>Liam Falconer</author>
     <rights>(C) 2019</rights>
-    <updated>2019-02-06 21:22:46 &#43;0000 GMT</updated>
+    <updated>2019-04-07 10:45:40 &#43;0100 BST</updated>
 
+    
+      
+        <item>
+          <title>The Power of Names</title>
+          <link>https://lfn3.net/2019/04/07/the-power-of-names/</link>
+          <pubDate>Sun, 07 Apr 2019 10:45:40 BST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>https://lfn3.net/2019/04/07/the-power-of-names/</guid>
+          <description>&lt;p&gt;So I&amp;rsquo;ve just started working with a new team at &lt;a href=&#34;https://bluecove.com&#34;&gt;BlueCove&lt;/a&gt;.
+I&amp;rsquo;m really enjoying it, especially since we have a lot of decision making space
+to work with. The company has just turned one (there was cake, it was delicious)
+and the process of building up the code we need is still in full swing.&lt;/p&gt;
+
+&lt;p&gt;Something interesting happened to me the other day. I was talking with one of my
+co-workers about a problem we were trying to solve, and was about to reach for
+one of the terms from the
+&lt;a href=&#34;https://amzn.to/2TtXnGz&#34;&gt;Domain Driven Design (DDD)&lt;/a&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+book, namely &lt;a href=&#34;https://martinfowler.com/bliki/BoundedContext.html&#34;&gt;Bounded Context&lt;/a&gt;
+I asked him if he&amp;rsquo;d read the book, and he hadn&amp;rsquo;t. I didn&amp;rsquo;t think much about it
+until I was on the tube home, and I was going over my day.&lt;/p&gt;
+
+&lt;p&gt;Before we go any further, I should give you a hefty disclaimer - I&amp;rsquo;m not any
+sort of expert in what I&amp;rsquo;m about to write about. When I was explaining why I was
+excited about writing this to my wife, she told me it sounded like I was writing
+about &lt;a href=&#34;https://en.wikipedia.org/wiki/Semantics&#34;&gt;Semantics&lt;/a&gt;, which prompted an
+educational excursion through wikipedia. I am, however very willing to be wrong
+on the internet, so let&amp;rsquo;s dig in.&lt;/p&gt;
+
+&lt;p&gt;So while I was commuting home, I realised that a chunk of the language I use
+when talking about design with other programmers comes from the DDD book. More
+broadly, I&amp;rsquo;ve picked up quite a few bits of language from various places that
+I think help drag conversations up the &amp;ldquo;ladder of abstraction&amp;rdquo; - even that&amp;rsquo;s a
+term behind which there&amp;rsquo;s a bunch of related ideas. I think this is the obvious
+superpower&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; that humans have. Once we know something, name it, and share it we
+gain a form of limited telepathy that lets use one or a few words to describe
+something, and often much more evocatively than using a whole sentence or more.&lt;/p&gt;
+
+&lt;p&gt;Since I called it a superpower I obviously reckon it&amp;rsquo;s pretty neat,
+but it has some limitations. The obvious part is that it requires both parties
+to a conversation to have an understanding of whatever terms you&amp;rsquo;re using. And
+you probably want it to be the same understanding. For instance
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Test-driven_development&#34;&gt;TDD&lt;/a&gt; is overloaded -
+while it might be safe to assume programmers don&amp;rsquo;t think it stands for
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Telecommunications_device_for_the_deaf&#34;&gt;Telecommunications device for the deaf&lt;/a&gt;,
+it&amp;rsquo;s not like we know what paths our fellow coders have taken through life.
+They may have just not run into a term before. Or it can be coloured by their
+experiences with it. Something you view as unambigously excellent like
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Dependency_injection&#34;&gt;Dependency Injection&lt;/a&gt;
+might be a jungle someone else had to cut through. And I&amp;rsquo;m sure there
+are plenty of us that have been scoffed at for not knowing a term.&lt;/p&gt;
+
+&lt;p&gt;But of course, we all start out that way. Writing this has made me realise how
+much I like learning new bits of language that I can use - not only with my
+peers but also to help my clarify my own thoughts. Some of my favourite
+conference talks have introduced me to new words:
+&lt;a href=&#34;https://twitter.com/petegoo&#34;&gt;Peter Goodman&lt;/a&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=b572NbuLDUI&#34;&gt;told me&lt;/a&gt; what
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Connascence&#34;&gt;Connasence&lt;/a&gt; is.
+&lt;a href=&#34;https://twitter.com/richhickey&#34;&gt;Rich Hickey&lt;/a&gt; has given me
+&lt;a href=&#34;https://www.infoq.com/presentations/Simple-Made-Easy&#34;&gt;Complect&lt;/a&gt;
+and &lt;a href=&#34;https://www.youtube.com/watch?v=f84n5oFoZBc&#34;&gt;Hammocking&lt;/a&gt;.
+I&amp;rsquo;m pretty sure a big part of the reason why I love Clojure is because almost
+every talk expands my vocabulary or even just sharpens my knowledge on some bit
+of language, like for instance the distinction between
+&lt;a href=&#34;https://www.youtube.com/watch?v=FihU5JxmnBg&#34;&gt;bugs and errors&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;What&amp;rsquo;s interesting to me is that a lot of these terms haven&amp;rsquo;t really escaped the
+Clojure community. While I can be relatively sure that at a Clojure meetup I can
+throw Complect around with reckless abandon, I&amp;rsquo;m less sure of that during my day
+job. To bring it back to where this started - there&amp;rsquo;s a bounded context within
+which a name is valid, or at least has a given meaning. DDD also offers us a
+related term: &lt;a href=&#34;https://martinfowler.com/bliki/UbiquitousLanguage.html&#34;&gt;Ubiquitous Language&lt;/a&gt;
+I think this describes one of the smallest contexts within which language is
+valid&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; - DDD&amp;rsquo;s author, Eric Evans, talks about it
+within the scope of a project, and being formed and used between the authors
+and expert users of a system. Hauling it up to a more general level I think
+yields &lt;a href=&#34;https://en.wikipedia.org/wiki/Jargon&#34;&gt;jargon&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Jargon is specialized terminology used to define specific words and phrases
+used in a particular profession, trade, or group.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It&amp;rsquo;s tempting to think of this like an onion - with layers of more general
+language expanding outwards from some core of highly specialized language. If we
+drew on the examples above:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/the-power-of-names/language-onion.png&#34; alt=&#34;An onion-like image of the layers of language&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You might notice the little question marked section there. There&amp;rsquo;s obviously a
+unit of language knoweledge smaller than a team - you!&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a problem here though, your command of language covers more than one
+domain, so I think if we try and capture that we end up with something a bit
+messier:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/the-power-of-names/language-starfish-take-2.png&#34; alt=&#34;A blob of my personal language knowledge, highlighting areas like programming 
+and coffee&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t think this tell us much in isolation. Almost anything  you measure needs
+a point of comparison to make sense of. So let&amp;rsquo;s zoom in a bit on the
+programming chunk, and add another person&amp;rsquo;s language blob:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://lfn3.net/img/posts/the-power-of-names/language-map.png&#34; alt=&#34;Overlaying two people&#39;s blobs of language, highlighting the areas where our
+language differs&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note this is just an illustrative example. I don&amp;rsquo;t think you could or should
+actually produce something like this. But it does put into pictures what started
+this whole thing off - there&amp;rsquo;s a difference in the language my colleagues and I
+know and use to talk about programming.&lt;/p&gt;
+
+&lt;p&gt;Some of the gaps here look scary. And even more scarily, it&amp;rsquo;s not just about
+language, since words are a mechanism for encoding concepts and ideas, there&amp;rsquo;s
+a gap in knowledge in those shaded chunks.&lt;/p&gt;
+
+&lt;p&gt;Is this actually a problem? Absolutely not. In fact I&amp;rsquo;d say having a team where
+everyone knows exactly the same things is a terrific waste. You&amp;rsquo;re far better
+off having a wide range of experiences and the resulting different ways to talk
+about those experiences. And if you&amp;rsquo;re in a healthy organisation, saying
+&amp;ldquo;I don&amp;rsquo;t know this&amp;rdquo; will be seen as a chance to show you something neat, rather
+something to make fun of.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m sure there&amp;rsquo;s more I could say about the relationship between progammers and
+language&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;, but this post is closing in on 1000 words and at risk of losing
+coherence. So what point was I trying to make with all of this? I think the
+shared language teams, communities, and programmers use and have built up over
+time has made us more effective. Personally I find learning new bits of
+specialized language very interesting&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;, and I think we should try and spread
+the knowledge of these words more widely. Finally, different knowledge helps us
+be more effective as teams, as long as we trust each other and feel safe not
+knowing something.&lt;/p&gt;
+
+&lt;p&gt;I hope you got something good out of this. If you reckon I&amp;rsquo;ve got something
+wrong here, or just want to have a bit of a yarn, the best way to reach
+me is on &lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;twitter&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;&lt;p&gt;This is an Amazon affiliate link. If you object to that sort of thing, 
+  use &lt;a href=&#34;https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215&#34;&gt;this link&lt;/a&gt; 
+  instead.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:3&#34;&gt;&lt;p&gt;Many ancient cultures and religions held that knowing the 
+  &lt;a href=&#34;https://en.wikipedia.org/wiki/True_name&#34;&gt;&amp;ldquo;True Name&amp;rdquo;&lt;/a&gt; of something or 
+  someone was to have absolute power over them.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:2&#34;&gt;&lt;p&gt;There are tighter scopes - &lt;a href=&#34;https://en.wikipedia.org/wiki/Cryptophasia&#34;&gt;Cryptophasia&lt;/a&gt;
+  is the language shared by twins, and generally unintelligble by anyone 
+  apart from them.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:4&#34;&gt;&lt;p&gt;I&amp;rsquo;m so sure I&amp;rsquo;ve already pulled the kernel of another blog post out of 
+  this one.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:5&#34;&gt;&lt;p&gt;If you&amp;rsquo;re a massive nerd like me and you&amp;rsquo;ve got a favourite bit a jargon,
+  please &lt;a href=&#34;https://twitter.com/lfln3&#34;&gt;tweet&lt;/a&gt; me a mini-explaination, I&amp;rsquo;d love
+  to hear about it.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        </item>
+      
     
       
         <item>
