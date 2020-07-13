@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  huge-feedback:
+    - created: 2020-07-13T18:36:20.499814565+01:00
+      description: Deploy the huge-feedback gitlab dashboard
+      digest: a173207bb8473cf1c2099826f0ea140ee875e8fb6be33b55bdb337cb9ddf893a
+      home: https://github.com/lfn3/huge-feedback
+      name: huge-feedback
+      sources:
+      - https://github.com/lfn3/huge-feedback
+      urls:
+      - https://github.com/lfn3/huge-feedback/releases/download/0.1.0/huge-feedback-helm-chart-0.1.0.tgz
+      version: 0.1.0
+generated: 2020-07-13T18:36:20.499814565+01:00
