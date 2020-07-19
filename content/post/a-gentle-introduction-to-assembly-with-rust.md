@@ -6,22 +6,24 @@ tags = []
 
 +++
 
-One of the things I quite enjoy is getting into the weeds on perf
-related stuff. Previously I've mostly done this on the JVM, so I
-stopped at JVM bytecode. The work I've been doing at [BlueCove](https://www.bluecove.com)
-has mostly been with in Python, which seems like it can be well
-complemented with Rust when we need to go fast.
+One of the things I've wanted to do for a while is really dig into
+assembly and get into the weeds of how programs actually run.
+A rework of the `asm` macro has [recently landed](https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html) in nightly rust
+so it seemed like a good time. 
 
-A rework of the `asm!` macro has [recently landed](https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html) in nightly rust
-so it seemed like the perfect opportunity to dig in and see if 
-I can make some headway with assembly. I'm going to walk you through
-what I did, and what I figured out during the process.
+And compared to some other ways I've tried to approach this there's a lot less 
+setup we need to do if we just use the [rust playground](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018) to
+do all the heavy lifting.
+
+My process for figuring things out has been pretty simple.
+I write some simple rust code, look at the assembly output
+and try to figure out what's going on (with lots of googling). 
+I'm going to walk you through that, but explaining enough
+that you won't need to do the googling. Hopefully.
 
 <!--more-->
 
-We're going to start out by writing some _very_ simple Rust code in the playground, 
-looking at the assembly it produces, and trying to figure out what it's doing,
-and why. Let's start with the simplest possible thing I can think of:
+Let's start with the simplest possible thing I can think of:
 
 ```rust
 fn main() {
@@ -32,7 +34,7 @@ fn main() {
 
 You can get the assembly output for this by clicking the three dots next to
 `run` and selecting `asm` from the dropdown. You will probably also want
-to change the flavour (often referred to as syntax elsewhere) of assembly to intel (rather than at&t) 
+to change the flavour (often referred to as syntax elsewhere) of assembly to intel (rather than at&t) [^1]
 if it isn't already, by clicking the toggle under the `config` menu.
 
 The assembly output from this in debug mode is far more massive than you'd expect - 
@@ -49,7 +51,8 @@ playground::main: # @playground::main
                                         # -- End function
 ```
 
-So even though this is a debug build, evidently there's still some optimization going on.
+So even though this is a debug build, evidently there's still some optimization going on,
+since there's no numbers or anything that looks like it's adding them together.
 All that's happening here is we're returning (`ret`) back to the function that called `playground::main`.
 Everything prefixed with `#` is a comment, and therefore ignored when we run this code.
 
@@ -160,7 +163,7 @@ must be the return value.
 
 Now, looking into `playground::add` we first see `sub rsp, 24`. `rsp` is 
 the register that holds the stack pointer, so this is growing the stack
-(since the stack grows downwards in x86[^1]). Further down we can see
+(since the stack grows downwards in x86[^2]). Further down we can see
 we shrink the stack by the corresponding amount with `add rsp, 24`.
 
 Then we have `mov qword ptr [rsp + 16], rdi`. This is copying the 
@@ -175,16 +178,27 @@ we may set some of the [flags](https://en.wikibooks.org/wiki/X86_Assembly/X86_Ar
 
 Then it gets complicated again - we've got `setb al`. All of the `set*` 
 [instructions](https://github.com/HJLebbink/asm-dude/wiki/SETcc)
-deal with the flag register, and are used to extract values from flags to registers.
+deal with the flag register. The flag register is possibly the most magical
+of registers, since it's manipulated by a bunch of instructions as a side effect.
+
+The last instruction we ran was `add`, which sets 6 of the the flags:
+[carry](https://en.wikipedia.org/wiki/Carry_flag), [parity](https://en.wikipedia.org/wiki/Parity_flag),
+[adjust (aka auxiliary carry)](https://en.wikipedia.org/wiki/Adjust_flag), [zero](https://en.wikipedia.org/wiki/Zero_flag),
+[sign](https://en.wikipedia.org/wiki/Sign_flag) and [overflow](https://en.wikipedia.org/wiki/Overflow_flag)
+
 In this case we're checking if the carry bit is set, and then setting the `al`
-register to 1 if that's the case. 
+register to 1 if that's the case. What is this actually doing though?
+The carry bit gets set to 1 if there is a `carry` from the two numbers we add,
+meaning the resulting number is too big to be stored in the register. 
+What should we do in that case? Let's read on to find out.
 
 Then in the next line (`test al, 1`) we're checking if the value in `al` is equal to one.
-This sets some more flags, which are then read by the following `jne` instruction.
+(`test` does a a bitwise and operation on the two arguments - like `&` in rust.)
+This sets some more flags, notably the `zero` flag, which is then read by the following `jne` instruction.
 
 `jne` stands for jump if not equal (and again there's a series of 
 [other](https://en.wikibooks.org/wiki/X86_Assembly/Control_Flow#Jump_Instructions) 
-`j*` instructions)
+`j*` instructions). Since it uses flags, it just takes a single argument: where to jump to.
 
 Looking at where that jumps to gives us a big hint about the intent of the 
 logic above: `core::panicking::panic@GOTPCREL` really gives it away.
@@ -211,9 +225,25 @@ has a very approachable explaination of these, so I'd recommend reading that.
 There's a skeleton you can start with [here](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=d511cf5e95ba5cdfbcffaebaf5f72300),
 if you want to have a go yourself.
 
-The version I've cooked up looks like [this](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=669b4155a1d818cc5c73b117b9454d48)
-I'm going to park it here at this point - we've covered a reasonable chunk of the instruction set in x64 assembly,
-and seen examples of most of the classes of instructions. Hopefully the resources I've linked to from here
-are sufficent for you to continue digging in if you want.
+The version I've cooked up looks like [this](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=669b4155a1d818cc5c73b117b9454d48).
+This is probably the "fanciest" possible version of this, since we're using as many features of the asm macro as possible:
 
-[^1]: https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses
+  * we're letting the rust compiler pick the register we use, and then writing it in using the
+    [`format` string behaviour](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#inputs-and-outputs) of the `asm` macro.
+  * we're also using [`inlateout`](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#late-output-operands) to
+    hint that we can just use a single register.
+ 
+This seems like a reasonable point at which to break. We've covered a reasonable chunk of the instruction set in x64 assembly,
+and seen examples of most of the classes of instructions. There's tons more we can explore:
+stuff like how do loops work, and what happens when we use values that don't just fit in registers.
+Hopefully the resources I've linked to from here are sufficent for you to continue digging in if you want,
+and maybe I'll manage to follow this up. 
+
+[^1]: This is one of the things that I find most confusing about assembly. There's (at least) two different major kinds of
+	  syntax, and the are _only_ different in syntax. So the instructions are the same (`add`, `mov` etc), but they
+	  take their arguments in different order. And the AT&T style assembly also has a pile of random symbols in it.
+	  Since rusts `asm` defaults to taking intel style assembly, we're going to stick to that. If you do start googling stuff,
+	  it's a roll of the dice as to which kind of assembly you'll get. AT&T has a lot of `%` symbols in it, so that's usually 
+	  a giveaway.
+
+[^2]: https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses
