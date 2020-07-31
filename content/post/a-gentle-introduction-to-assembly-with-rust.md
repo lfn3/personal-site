@@ -16,10 +16,10 @@ setup we need to do if we just use the [rust playground](https://play.rust-lang.
 do all the heavy lifting.
 
 My process for figuring things out has been pretty simple.
-I write some simple rust code, look at the assembly output
+I write a tiny bit of rust code, look at the assembly output
 and try to figure out what's going on (with lots of googling). 
-I'm going to walk you through that, but explaining enough
-that you won't need to do the googling. Hopefully.
+I'm going to walk you through what I did, and what I figured
+out. 
 
 <!--more-->
 
@@ -59,6 +59,8 @@ Everything prefixed with `#` is a comment, and therefore ignored when we run thi
 The only other point of interest is the label `playground::main:` - anything suffixed with `:` 
 is a label we can jump to with various commands, and indeed if we continue searching for `playground::main` 
 we can find a rather indirected call to it in `main`. Hopefully by the end of this we'll be understand that!
+
+### Avoiding optimizations
 
 For now, let's try and evade whatever's doing the optimization:
 ```rust
@@ -100,6 +102,8 @@ call to our `add` function, then we `pop rax` off the stack. The `push call pop`
 whatever values are in the registers used in `add`. It also just throws away the value we saved in `eax` in `add`,
 because `eax` and `rax` are the same register. The table [here](https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions)
 shows how 'skinnier' registers overlap with their 'wider' counterparts.
+
+### Avoiding optimizations, take 2
 
 So how can we make this actually do some math? Let's try again:
 
@@ -160,6 +164,8 @@ First we can see `2` is stored in the `edi` register
 before we call `playground::add`, so we know our argument must be in 
 the `edi` register. Again, we can see the `push`, `pop` on `rax`, so that
 must be the return value.
+
+### Looking inside the function
 
 Now, looking into `playground::add` we first see `sub rsp, 24`. `rsp` is 
 the register that holds the stack pointer, so this is growing the stack
@@ -228,19 +234,23 @@ if you want to have a go yourself.
 The version I've cooked up looks like [this](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=669b4155a1d818cc5c73b117b9454d48).
 This is probably the "fanciest" possible version of this, since we're using as many features of the asm macro as possible:
 
-  * we're letting the rust compiler pick the register we use, and then writing it in using the
-    [`format` string behaviour](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#inputs-and-outputs) of the `asm` macro.
-  * we're also using [`inlateout`](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#late-output-operands) to
-    hint that we can just use a single register.
+ - we're letting the rust compiler pick the register we use, and then writing it in using the
+   [`format` string behaviour](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#inputs-and-outputs) of the `asm` macro.
+ - we're also using [`inlateout`](https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#late-output-operands) to
+   hint that we can just use a single register.
  
 This seems like a reasonable point at which to break. We've covered a reasonable chunk of the instruction set in x64 assembly,
-and seen examples of most of the classes of instructions. There's tons more we can explore:
-stuff like how do loops work, and what happens when we use values that don't just fit in registers.
+and seen examples of most of the classes of instructions. There's tons more we can explore, like:
+ 
+ - How do loops work?
+ - What happens when we use values that don't just fit in registers?
+ - How do we make a syscall?
+
 Hopefully the resources I've linked to from here are sufficent for you to continue digging in if you want,
 and maybe I'll manage to follow this up. 
 
 [^1]: This is one of the things that I find most confusing about assembly. There's (at least) two different major kinds of
-	  syntax, and the are _only_ different in syntax. So the instructions are the same (`add`, `mov` etc), but they
+	  syntax, and they are _only_ different in syntax. So the instructions are the same (`add`, `mov` etc), but they
 	  take their arguments in different order. And the AT&T style assembly also has a pile of random symbols in it.
 	  Since rusts `asm` defaults to taking intel style assembly, we're going to stick to that. If you do start googling stuff,
 	  it's a roll of the dice as to which kind of assembly you'll get. AT&T has a lot of `%` symbols in it, so that's usually 
