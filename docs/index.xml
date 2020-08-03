@@ -5,9 +5,277 @@
     <link>https://lfn3.net/</link>
     <language>en-us</language>
     <author>Liam Falconer</author>
-    <rights>(C) 2019</rights>
-    <updated>2019-04-07 10:45:40 &#43;0100 BST</updated>
+    <rights>(C) 2020</rights>
+    <updated>2020-08-03 15:00:00 &#43;0100 BST</updated>
 
+    
+      
+        <item>
+          <title>A gentle intro to assembly with Rust</title>
+          <link>https://lfn3.net/2020/08/03/a-gentle-intro-to-assembly-with-rust/</link>
+          <pubDate>Mon, 03 Aug 2020 15:00:00 BST</pubDate>
+          <author>Liam Falconer</author>
+          <guid>https://lfn3.net/2020/08/03/a-gentle-intro-to-assembly-with-rust/</guid>
+          <description>&lt;p&gt;One of the things I&amp;rsquo;ve wanted to do for a while is really dig into
+assembly and get into the weeds of how programs actually run.
+A rework of the &lt;code&gt;asm&lt;/code&gt; macro has &lt;a href=&#34;https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html&#34;&gt;recently landed&lt;/a&gt; in nightly rust
+so it seemed like a good time.&lt;/p&gt;
+
+&lt;p&gt;And compared to some other ways I&amp;rsquo;ve tried to approach this there&amp;rsquo;s a lot less
+setup we need to do if we just use the &lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&#34;&gt;rust playground&lt;/a&gt; to
+do all the heavy lifting.&lt;/p&gt;
+
+&lt;p&gt;My process for figuring things out has been pretty simple.
+I write a tiny bit of rust code, look at the assembly output
+and try to figure out what&amp;rsquo;s going on (with lots of googling).
+I&amp;rsquo;m going to walk you through what I did, and what I figured
+out.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start with the simplest possible thing I can think of:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-rust&#34;&gt;fn main() {
+    1 + 2;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=9500bb2bc3f638a4dd89e81fecafac0e&#34;&gt;playground link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can get the assembly output for this by clicking the three dots next to
+&lt;code&gt;run&lt;/code&gt; and selecting &lt;code&gt;asm&lt;/code&gt; from the dropdown. You will probably also want
+to change the flavour (often referred to as syntax elsewhere) of assembly to intel (rather than at&amp;amp;t) &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+if it isn&amp;rsquo;t already, by clicking the toggle under the &lt;code&gt;config&lt;/code&gt; menu.&lt;/p&gt;
+
+&lt;p&gt;The assembly output from this in debug mode is far more massive than you&amp;rsquo;d expect -
+I get 157 lines. And most of it isn&amp;rsquo;t our program. The code we&amp;rsquo;ve written should
+be fairly easy to find though, as the compiler helpfully labels all of the functions
+with their crate and function names. In this case since we&amp;rsquo;re in the playground,
+the create is implicitly &lt;code&gt;playground&lt;/code&gt;, so we can find our code by searching with
+&lt;code&gt;ctrl-f&lt;/code&gt; for &lt;code&gt;playground::main&lt;/code&gt;. Doing this gets me to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-x86asm&#34;&gt;playground::main: # @playground::main
+# %bb.0:
+    ret
+                                        # -- End function
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So even though this is a debug build, evidently there&amp;rsquo;s still some optimization going on,
+since there&amp;rsquo;s no numbers or anything that looks like it&amp;rsquo;s adding them together.
+All that&amp;rsquo;s happening here is we&amp;rsquo;re returning (&lt;code&gt;ret&lt;/code&gt;) back to the function that called &lt;code&gt;playground::main&lt;/code&gt;.
+Everything prefixed with &lt;code&gt;#&lt;/code&gt; is a comment, and therefore ignored when we run this code.&lt;/p&gt;
+
+&lt;p&gt;The only other point of interest is the label &lt;code&gt;playground::main:&lt;/code&gt; - anything suffixed with &lt;code&gt;:&lt;/code&gt;
+is a label we can jump to with various commands, and indeed if we continue searching for &lt;code&gt;playground::main&lt;/code&gt;
+we can find a rather indirected call to it in &lt;code&gt;main&lt;/code&gt;. Hopefully by the end of this we&amp;rsquo;ll be understand that!&lt;/p&gt;
+
+&lt;h3 id=&#34;avoiding-optimizations&#34;&gt;Avoiding optimizations&lt;/h3&gt;
+
+&lt;p&gt;For now, let&amp;rsquo;s try and evade whatever&amp;rsquo;s doing the optimization:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-rust&#34;&gt;fn add() -&amp;gt; usize {
+    1 + 2
+}
+
+fn main() {
+    add();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=e06e9c1a6771d850be5e06abc6f70243&#34;&gt;playground link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Again, searching for &lt;code&gt;playground::main&lt;/code&gt; get us to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-x86asm&#34;&gt;playground::add: # @playground::add
+# %bb.0:
+    mov eax, 3
+    ret
+                                        # -- End function
+
+playground::main: # @playground::main
+# %bb.0:
+    push    rax
+    call    playground::add
+# %bb.1:
+    pop rax
+    ret
+                                        # -- End function
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we&amp;rsquo;ve got a bit more progress here. Still some optimization going on, since we don&amp;rsquo;t see 1 or 2 in the code,
+just 3. We can see that being moved (&lt;code&gt;mov&lt;/code&gt;) into the &lt;code&gt;eax&lt;/code&gt; register in &lt;code&gt;playground::add&lt;/code&gt;.
+This must be how we&amp;rsquo;re returning the value back up to &lt;code&gt;main&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And indeed, inside &lt;code&gt;main&lt;/code&gt; we can see &lt;code&gt;push rax&lt;/code&gt; - saving the value in the register &lt;code&gt;rax&lt;/code&gt; to the stack, then a
+call to our &lt;code&gt;add&lt;/code&gt; function, then we &lt;code&gt;pop rax&lt;/code&gt; off the stack. The &lt;code&gt;push call pop&lt;/code&gt; sequence is to preserve
+whatever values are in the registers used in &lt;code&gt;add&lt;/code&gt;. It also just throws away the value we saved in &lt;code&gt;eax&lt;/code&gt; in &lt;code&gt;add&lt;/code&gt;,
+because &lt;code&gt;eax&lt;/code&gt; and &lt;code&gt;rax&lt;/code&gt; are the same register. The table &lt;a href=&#34;https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions&#34;&gt;here&lt;/a&gt;
+shows how &amp;lsquo;skinnier&amp;rsquo; registers overlap with their &amp;lsquo;wider&amp;rsquo; counterparts.&lt;/p&gt;
+
+&lt;h3 id=&#34;avoiding-optimizations-take-2&#34;&gt;Avoiding optimizations, take 2&lt;/h3&gt;
+
+&lt;p&gt;So how can we make this actually do some math? Let&amp;rsquo;s try again:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-rust&#34;&gt;fn add(i: usize) -&amp;gt; usize {
+    1 + i
+}
+
+fn main() {
+    add(2);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=0d821a33f2375ecaf3671c825a415c83&#34;&gt;playground link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So we&amp;rsquo;ve got a lot more going on this time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-x86asm&#34;&gt;playground::add: # @playground::add
+# %bb.0:
+    sub rsp, 24
+    mov qword ptr [rsp + 16], rdi
+    add rdi, 1
+    setb al
+    test al, 1
+    mov qword ptr [rsp + 8], rdi # 8-byte Spill
+    jne .LBB8_2
+# %bb.1:
+    mov rax, qword ptr [rsp + 8] # 8-byte Reload
+    add rsp, 24
+    ret
+
+.LBB8_2:
+    lea rdi, [rip + str.0]
+    lea rdx, [rip + .L__unnamed_2]
+    mov rax, qword ptr [rip + core::panicking::panic@GOTPCREL]
+    mov esi, 28
+    call rax
+    ud2
+                                        # -- End function
+
+playground::main: # @playground::main
+# %bb.0:
+    push rax
+    mov edi, 2
+    call playground::add
+# %bb.1:
+    pop rax
+    ret
+                                        # -- End function
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The thing we were actually trying to produce is finally in there!
+We can see &lt;code&gt;add rdi, 1&lt;/code&gt; in the output, surrounded by a pile of other
+stuff. So what is all this other code?&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start from the top of the call stack in &lt;code&gt;main&lt;/code&gt;.
+First we can see &lt;code&gt;2&lt;/code&gt; is stored in the &lt;code&gt;edi&lt;/code&gt; register
+before we call &lt;code&gt;playground::add&lt;/code&gt;, so we know our argument must be in
+the &lt;code&gt;edi&lt;/code&gt; register. Again, we can see the &lt;code&gt;push&lt;/code&gt;, &lt;code&gt;pop&lt;/code&gt; on &lt;code&gt;rax&lt;/code&gt;, so that
+must be the return value.&lt;/p&gt;
+
+&lt;h3 id=&#34;looking-inside-the-function&#34;&gt;Looking inside the function&lt;/h3&gt;
+
+&lt;p&gt;Now, looking into &lt;code&gt;playground::add&lt;/code&gt; we first see &lt;code&gt;sub rsp, 24&lt;/code&gt;. &lt;code&gt;rsp&lt;/code&gt; is
+the register that holds the stack pointer, so this is growing the stack
+(since the stack grows downwards in x86&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;). Further down we can see
+we shrink the stack by the corresponding amount with &lt;code&gt;add rsp, 24&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then we have &lt;code&gt;mov qword ptr [rsp + 16], rdi&lt;/code&gt;. This is copying the
+value from &lt;code&gt;rdi&lt;/code&gt; onto the stack at &lt;code&gt;rsp + 16&lt;/code&gt; - the top of the region we just grew the stack by.
+The &lt;code&gt;qword ptr&lt;/code&gt; (quadword (i.e. 64bit) pointer) bit is a hint to disambiguate the argument.
+Why is that pushed that onto the stack? I &lt;em&gt;think&lt;/em&gt; this is just to make it easier to debug,
+since we don&amp;rsquo;t ever access that value again.&lt;/p&gt;
+
+&lt;p&gt;In any case, we then proceed on to actually adding 1 to &lt;code&gt;rdi&lt;/code&gt;.
+The value is stored back in &lt;code&gt;rdi&lt;/code&gt;, and importantly for what comes next,
+we may set some of the &lt;a href=&#34;https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#EFLAGS_Register&#34;&gt;flags&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then it gets complicated again - we&amp;rsquo;ve got &lt;code&gt;setb al&lt;/code&gt;. All of the &lt;code&gt;set*&lt;/code&gt;
+&lt;a href=&#34;https://github.com/HJLebbink/asm-dude/wiki/SETcc&#34;&gt;instructions&lt;/a&gt;
+deal with the flag register. The flag register is possibly the most magical
+of registers, since it&amp;rsquo;s manipulated by a bunch of instructions as a side effect.&lt;/p&gt;
+
+&lt;p&gt;The last instruction we ran was &lt;code&gt;add&lt;/code&gt;, which sets 6 of the the flags:
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Carry_flag&#34;&gt;carry&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Parity_flag&#34;&gt;parity&lt;/a&gt;,
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Adjust_flag&#34;&gt;adjust (aka auxiliary carry)&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Zero_flag&#34;&gt;zero&lt;/a&gt;,
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Sign_flag&#34;&gt;sign&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Overflow_flag&#34;&gt;overflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this case we&amp;rsquo;re checking if the carry bit is set, and then setting the &lt;code&gt;al&lt;/code&gt;
+register to 1 if that&amp;rsquo;s the case. What is this actually doing though?
+The carry bit gets set to 1 if there is a &lt;code&gt;carry&lt;/code&gt; from the two numbers we add,
+meaning the resulting number is too big to be stored in the register.
+What should we do in that case? Let&amp;rsquo;s read on to find out.&lt;/p&gt;
+
+&lt;p&gt;Then in the next line (&lt;code&gt;test al, 1&lt;/code&gt;) we&amp;rsquo;re checking if the value in &lt;code&gt;al&lt;/code&gt; is equal to one.
+(&lt;code&gt;test&lt;/code&gt; does a a bitwise and operation on the two arguments - like &lt;code&gt;&amp;amp;&lt;/code&gt; in rust.)
+This sets some more flags, notably the &lt;code&gt;zero&lt;/code&gt; flag, which is then read by the following &lt;code&gt;jne&lt;/code&gt; instruction.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;jne&lt;/code&gt; stands for jump if not equal (and again there&amp;rsquo;s a series of
+&lt;a href=&#34;https://en.wikibooks.org/wiki/X86_Assembly/Control_Flow#Jump_Instructions&#34;&gt;other&lt;/a&gt;
+&lt;code&gt;j*&lt;/code&gt; instructions). Since it uses flags, it just takes a single argument: where to jump to.&lt;/p&gt;
+
+&lt;p&gt;Looking at where that jumps to gives us a big hint about the intent of the
+logic above: &lt;code&gt;core::panicking::panic@GOTPCREL&lt;/code&gt; really gives it away.
+Basically all of this chunk of assembly from &lt;code&gt;setb&lt;/code&gt; to &lt;code&gt;jne&lt;/code&gt; is checking if we&amp;rsquo;ve overflowed
+the register and panicking if we have.&lt;/p&gt;
+
+&lt;p&gt;The one bit we didn&amp;rsquo;t discuss is &lt;code&gt;mov qword ptr [rsp + 8], rdi # 8-byte Spill&lt;/code&gt;.
+As the comment implies this is &amp;ldquo;spilling&amp;rdquo; the value from the &lt;code&gt;rdi&lt;/code&gt; register
+onto the stack, since the code we&amp;rsquo;re possibly about to jump to might
+overwrite that register - immediately after the &lt;code&gt;jne&lt;/code&gt; we load the value back off
+the stack.&lt;/p&gt;
+
+&lt;p&gt;Finally we shuffle the stack pointer back to it&amp;rsquo;s starting point, and &lt;code&gt;ret&lt;/code&gt;
+back to the caller. &lt;code&gt;ret&lt;/code&gt; uses the last value on the stack (which is pushed by &lt;code&gt;call&lt;/code&gt;)
+to figure out where to jump back to, so moving the stack pointer back is &lt;em&gt;very&lt;/em&gt; important.&lt;/p&gt;
+
+&lt;p&gt;So maybe at this point we&amp;rsquo;ve seen enough to take a stab at replacing the guts of the &lt;code&gt;add&lt;/code&gt;
+function with the &lt;code&gt;asm!&lt;/code&gt; macro. Since we&amp;rsquo;re interested in performance,
+we&amp;rsquo;ll ignore those pesky overflow checks, and just assume that we&amp;rsquo;re within the bounds of &lt;code&gt;u64&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The biggest new thing we&amp;rsquo;ll have to deal with here is specifying the &lt;code&gt;in&lt;/code&gt; and &lt;code&gt;out&lt;/code&gt; registers.
+The &lt;a href=&#34;https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#guide-level-explanation&#34;&gt;rfc&lt;/a&gt;
+has a very approachable explaination of these, so I&amp;rsquo;d recommend reading that.
+There&amp;rsquo;s a skeleton you can start with &lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=d511cf5e95ba5cdfbcffaebaf5f72300&#34;&gt;here&lt;/a&gt;,
+if you want to have a go yourself.&lt;/p&gt;
+
+&lt;p&gt;The version I&amp;rsquo;ve cooked up looks like &lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=669b4155a1d818cc5c73b117b9454d48&#34;&gt;this&lt;/a&gt;.
+This is probably the &amp;ldquo;fanciest&amp;rdquo; possible version of this, since we&amp;rsquo;re using as many features of the asm macro as possible:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;we&amp;rsquo;re letting the rust compiler pick the register we use, and then writing it in using the
+&lt;a href=&#34;https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#inputs-and-outputs&#34;&gt;&lt;code&gt;format&lt;/code&gt; string behaviour&lt;/a&gt; of the &lt;code&gt;asm&lt;/code&gt; macro.&lt;/li&gt;
+&lt;li&gt;we&amp;rsquo;re also using &lt;a href=&#34;https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#late-output-operands&#34;&gt;&lt;code&gt;inlateout&lt;/code&gt;&lt;/a&gt; to
+hint that we can just use a single register.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This seems like a reasonable point at which to break. We&amp;rsquo;ve covered a reasonable chunk of the instruction set in x64 assembly,
+and seen examples of most of the classes of instructions. There&amp;rsquo;s tons more we can explore, like:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;How do loops work?&lt;/li&gt;
+&lt;li&gt;What happens when we use values that don&amp;rsquo;t just fit in registers?&lt;/li&gt;
+&lt;li&gt;How do we make a syscall?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Hopefully the resources I&amp;rsquo;ve linked to from here are sufficent for you to continue digging in if you want,
+and maybe I&amp;rsquo;ll manage to follow this up.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;&lt;p&gt;This is one of the things that I find most confusing about assembly. There&amp;rsquo;s (at least) two different major kinds of
+  syntax, and they are &lt;em&gt;only&lt;/em&gt; different in syntax. So the instructions are the same (&lt;code&gt;add&lt;/code&gt;, &lt;code&gt;mov&lt;/code&gt; etc), but they
+  take their arguments in different order. And the AT&amp;amp;T style assembly also has a pile of random symbols in it.
+  Since rusts &lt;code&gt;asm&lt;/code&gt; defaults to taking intel style assembly, we&amp;rsquo;re going to stick to that. If you do start googling stuff,
+  it&amp;rsquo;s a roll of the dice as to which kind of assembly you&amp;rsquo;ll get. AT&amp;amp;T has a lot of &lt;code&gt;%&lt;/code&gt; symbols in it, so that&amp;rsquo;s usually 
+  a giveaway.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;&lt;a href=&#34;https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses&#34;&gt;https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        </item>
+      
     
       
         <item>

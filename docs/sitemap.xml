@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lfn3.net/2020/08/03/a-gentle-intro-to-assembly-with-rust/</loc>
+    <lastmod>2020-08-03T15:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lfn3.net/2019/04/07/the-power-of-names/</loc>
     <lastmod>2019-04-07T10:45:40+01:00</lastmod>
   </url>
@@ -139,7 +144,7 @@
   
   <url>
     <loc>https://lfn3.net/</loc>
-    <lastmod>2019-04-07T10:45:40+01:00</lastmod>
+    <lastmod>2020-08-03T15:00:00+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -162,7 +167,7 @@
   
   <url>
     <loc>https://lfn3.net/post/</loc>
-    <lastmod>2019-04-07T10:45:40+01:00</lastmod>
+    <lastmod>2020-08-03T15:00:00+01:00</lastmod>
     <priority>0</priority>
   </url>
   

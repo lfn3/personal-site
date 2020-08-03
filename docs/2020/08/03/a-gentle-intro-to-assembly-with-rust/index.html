@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      A gentle intro to assembly with Rust &middot; lfn3
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://lfn3.net/css/poole.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/syntax.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/lanyon.css">
+  <link rel="stylesheet" href="https://lfn3.net/css/site.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized_dark.min.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://lfn3.net/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://lfn3.net/assets/favicon.ico">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://lfn3.net/atom.xml">
+</head>
+
+
+  <body>
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://lfn3.net/" title="Home">lfn3</a>
+            <small></small>
+          </h3>
+        </div>
+        <div class="container">
+          <a class="nav-item" href="http://github.com/lfn3"> <i class="fa fa-github"></i> GitHub</a>
+          <a class="nav-item" href="https://twitter.com/lfln3"> <i class="fa fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">A gentle intro to assembly with Rust</h1>
+  <span class="post-date">Aug 3 2020</span>
+  <p>One of the things I&rsquo;ve wanted to do for a while is really dig into
+assembly and get into the weeds of how programs actually run.
+A rework of the <code>asm</code> macro has <a href="https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html">recently landed</a> in nightly rust
+so it seemed like a good time.</p>
+
+<p>And compared to some other ways I&rsquo;ve tried to approach this there&rsquo;s a lot less
+setup we need to do if we just use the <a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018">rust playground</a> to
+do all the heavy lifting.</p>
+
+<p>My process for figuring things out has been pretty simple.
+I write a tiny bit of rust code, look at the assembly output
+and try to figure out what&rsquo;s going on (with lots of googling).
+I&rsquo;m going to walk you through what I did, and what I figured
+out.</p>
+
+<p>Let&rsquo;s start with the simplest possible thing I can think of:</p>
+
+<pre><code class="language-rust">fn main() {
+    1 + 2;
+}
+</code></pre>
+
+<p><a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=9500bb2bc3f638a4dd89e81fecafac0e">playground link</a></p>
+
+<p>You can get the assembly output for this by clicking the three dots next to
+<code>run</code> and selecting <code>asm</code> from the dropdown. You will probably also want
+to change the flavour (often referred to as syntax elsewhere) of assembly to intel (rather than at&amp;t) <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>
+if it isn&rsquo;t already, by clicking the toggle under the <code>config</code> menu.</p>
+
+<p>The assembly output from this in debug mode is far more massive than you&rsquo;d expect -
+I get 157 lines. And most of it isn&rsquo;t our program. The code we&rsquo;ve written should
+be fairly easy to find though, as the compiler helpfully labels all of the functions
+with their crate and function names. In this case since we&rsquo;re in the playground,
+the create is implicitly <code>playground</code>, so we can find our code by searching with
+<code>ctrl-f</code> for <code>playground::main</code>. Doing this gets me to:</p>
+
+<pre><code class="language-x86asm">playground::main: # @playground::main
+# %bb.0:
+    ret
+                                        # -- End function
+</code></pre>
+
+<p>So even though this is a debug build, evidently there&rsquo;s still some optimization going on,
+since there&rsquo;s no numbers or anything that looks like it&rsquo;s adding them together.
+All that&rsquo;s happening here is we&rsquo;re returning (<code>ret</code>) back to the function that called <code>playground::main</code>.
+Everything prefixed with <code>#</code> is a comment, and therefore ignored when we run this code.</p>
+
+<p>The only other point of interest is the label <code>playground::main:</code> - anything suffixed with <code>:</code>
+is a label we can jump to with various commands, and indeed if we continue searching for <code>playground::main</code>
+we can find a rather indirected call to it in <code>main</code>. Hopefully by the end of this we&rsquo;ll be understand that!</p>
+
+<h3 id="avoiding-optimizations">Avoiding optimizations</h3>
+
+<p>For now, let&rsquo;s try and evade whatever&rsquo;s doing the optimization:</p>
+
+<pre><code class="language-rust">fn add() -&gt; usize {
+    1 + 2
+}
+
+fn main() {
+    add();
+}
+</code></pre>
+
+<p><a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=e06e9c1a6771d850be5e06abc6f70243">playground link</a></p>
+
+<p>Again, searching for <code>playground::main</code> get us to:</p>
+
+<pre><code class="language-x86asm">playground::add: # @playground::add
+# %bb.0:
+    mov eax, 3
+    ret
+                                        # -- End function
+
+playground::main: # @playground::main
+# %bb.0:
+    push    rax
+    call    playground::add
+# %bb.1:
+    pop rax
+    ret
+                                        # -- End function
+</code></pre>
+
+<p>So we&rsquo;ve got a bit more progress here. Still some optimization going on, since we don&rsquo;t see 1 or 2 in the code,
+just 3. We can see that being moved (<code>mov</code>) into the <code>eax</code> register in <code>playground::add</code>.
+This must be how we&rsquo;re returning the value back up to <code>main</code>.</p>
+
+<p>And indeed, inside <code>main</code> we can see <code>push rax</code> - saving the value in the register <code>rax</code> to the stack, then a
+call to our <code>add</code> function, then we <code>pop rax</code> off the stack. The <code>push call pop</code> sequence is to preserve
+whatever values are in the registers used in <code>add</code>. It also just throws away the value we saved in <code>eax</code> in <code>add</code>,
+because <code>eax</code> and <code>rax</code> are the same register. The table <a href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions">here</a>
+shows how &lsquo;skinnier&rsquo; registers overlap with their &lsquo;wider&rsquo; counterparts.</p>
+
+<h3 id="avoiding-optimizations-take-2">Avoiding optimizations, take 2</h3>
+
+<p>So how can we make this actually do some math? Let&rsquo;s try again:</p>
+
+<pre><code class="language-rust">fn add(i: usize) -&gt; usize {
+    1 + i
+}
+
+fn main() {
+    add(2);
+}
+</code></pre>
+
+<p><a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=0d821a33f2375ecaf3671c825a415c83">playground link</a></p>
+
+<p>So we&rsquo;ve got a lot more going on this time:</p>
+
+<pre><code class="language-x86asm">playground::add: # @playground::add
+# %bb.0:
+    sub rsp, 24
+    mov qword ptr [rsp + 16], rdi
+    add rdi, 1
+    setb al
+    test al, 1
+    mov qword ptr [rsp + 8], rdi # 8-byte Spill
+    jne .LBB8_2
+# %bb.1:
+    mov rax, qword ptr [rsp + 8] # 8-byte Reload
+    add rsp, 24
+    ret
+
+.LBB8_2:
+    lea rdi, [rip + str.0]
+    lea rdx, [rip + .L__unnamed_2]
+    mov rax, qword ptr [rip + core::panicking::panic@GOTPCREL]
+    mov esi, 28
+    call rax
+    ud2
+                                        # -- End function
+
+playground::main: # @playground::main
+# %bb.0:
+    push rax
+    mov edi, 2
+    call playground::add
+# %bb.1:
+    pop rax
+    ret
+                                        # -- End function
+</code></pre>
+
+<p>The thing we were actually trying to produce is finally in there!
+We can see <code>add rdi, 1</code> in the output, surrounded by a pile of other
+stuff. So what is all this other code?</p>
+
+<p>Let&rsquo;s start from the top of the call stack in <code>main</code>.
+First we can see <code>2</code> is stored in the <code>edi</code> register
+before we call <code>playground::add</code>, so we know our argument must be in
+the <code>edi</code> register. Again, we can see the <code>push</code>, <code>pop</code> on <code>rax</code>, so that
+must be the return value.</p>
+
+<h3 id="looking-inside-the-function">Looking inside the function</h3>
+
+<p>Now, looking into <code>playground::add</code> we first see <code>sub rsp, 24</code>. <code>rsp</code> is
+the register that holds the stack pointer, so this is growing the stack
+(since the stack grows downwards in x86<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup>). Further down we can see
+we shrink the stack by the corresponding amount with <code>add rsp, 24</code>.</p>
+
+<p>Then we have <code>mov qword ptr [rsp + 16], rdi</code>. This is copying the
+value from <code>rdi</code> onto the stack at <code>rsp + 16</code> - the top of the region we just grew the stack by.
+The <code>qword ptr</code> (quadword (i.e. 64bit) pointer) bit is a hint to disambiguate the argument.
+Why is that pushed that onto the stack? I <em>think</em> this is just to make it easier to debug,
+since we don&rsquo;t ever access that value again.</p>
+
+<p>In any case, we then proceed on to actually adding 1 to <code>rdi</code>.
+The value is stored back in <code>rdi</code>, and importantly for what comes next,
+we may set some of the <a href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#EFLAGS_Register">flags</a>.</p>
+
+<p>Then it gets complicated again - we&rsquo;ve got <code>setb al</code>. All of the <code>set*</code>
+<a href="https://github.com/HJLebbink/asm-dude/wiki/SETcc">instructions</a>
+deal with the flag register. The flag register is possibly the most magical
+of registers, since it&rsquo;s manipulated by a bunch of instructions as a side effect.</p>
+
+<p>The last instruction we ran was <code>add</code>, which sets 6 of the the flags:
+<a href="https://en.wikipedia.org/wiki/Carry_flag">carry</a>, <a href="https://en.wikipedia.org/wiki/Parity_flag">parity</a>,
+<a href="https://en.wikipedia.org/wiki/Adjust_flag">adjust (aka auxiliary carry)</a>, <a href="https://en.wikipedia.org/wiki/Zero_flag">zero</a>,
+<a href="https://en.wikipedia.org/wiki/Sign_flag">sign</a> and <a href="https://en.wikipedia.org/wiki/Overflow_flag">overflow</a></p>
+
+<p>In this case we&rsquo;re checking if the carry bit is set, and then setting the <code>al</code>
+register to 1 if that&rsquo;s the case. What is this actually doing though?
+The carry bit gets set to 1 if there is a <code>carry</code> from the two numbers we add,
+meaning the resulting number is too big to be stored in the register.
+What should we do in that case? Let&rsquo;s read on to find out.</p>
+
+<p>Then in the next line (<code>test al, 1</code>) we&rsquo;re checking if the value in <code>al</code> is equal to one.
+(<code>test</code> does a a bitwise and operation on the two arguments - like <code>&amp;</code> in rust.)
+This sets some more flags, notably the <code>zero</code> flag, which is then read by the following <code>jne</code> instruction.</p>
+
+<p><code>jne</code> stands for jump if not equal (and again there&rsquo;s a series of
+<a href="https://en.wikibooks.org/wiki/X86_Assembly/Control_Flow#Jump_Instructions">other</a>
+<code>j*</code> instructions). Since it uses flags, it just takes a single argument: where to jump to.</p>
+
+<p>Looking at where that jumps to gives us a big hint about the intent of the
+logic above: <code>core::panicking::panic@GOTPCREL</code> really gives it away.
+Basically all of this chunk of assembly from <code>setb</code> to <code>jne</code> is checking if we&rsquo;ve overflowed
+the register and panicking if we have.</p>
+
+<p>The one bit we didn&rsquo;t discuss is <code>mov qword ptr [rsp + 8], rdi # 8-byte Spill</code>.
+As the comment implies this is &ldquo;spilling&rdquo; the value from the <code>rdi</code> register
+onto the stack, since the code we&rsquo;re possibly about to jump to might
+overwrite that register - immediately after the <code>jne</code> we load the value back off
+the stack.</p>
+
+<p>Finally we shuffle the stack pointer back to it&rsquo;s starting point, and <code>ret</code>
+back to the caller. <code>ret</code> uses the last value on the stack (which is pushed by <code>call</code>)
+to figure out where to jump back to, so moving the stack pointer back is <em>very</em> important.</p>
+
+<p>So maybe at this point we&rsquo;ve seen enough to take a stab at replacing the guts of the <code>add</code>
+function with the <code>asm!</code> macro. Since we&rsquo;re interested in performance,
+we&rsquo;ll ignore those pesky overflow checks, and just assume that we&rsquo;re within the bounds of <code>u64</code>.</p>
+
+<p>The biggest new thing we&rsquo;ll have to deal with here is specifying the <code>in</code> and <code>out</code> registers.
+The <a href="https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#guide-level-explanation">rfc</a>
+has a very approachable explaination of these, so I&rsquo;d recommend reading that.
+There&rsquo;s a skeleton you can start with <a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=d511cf5e95ba5cdfbcffaebaf5f72300">here</a>,
+if you want to have a go yourself.</p>
+
+<p>The version I&rsquo;ve cooked up looks like <a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=669b4155a1d818cc5c73b117b9454d48">this</a>.
+This is probably the &ldquo;fanciest&rdquo; possible version of this, since we&rsquo;re using as many features of the asm macro as possible:</p>
+
+<ul>
+<li>we&rsquo;re letting the rust compiler pick the register we use, and then writing it in using the
+<a href="https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#inputs-and-outputs"><code>format</code> string behaviour</a> of the <code>asm</code> macro.</li>
+<li>we&rsquo;re also using <a href="https://github.com/Amanieu/rfcs/blob/inline-asm/text/0000-inline-asm.md#late-output-operands"><code>inlateout</code></a> to
+hint that we can just use a single register.</li>
+</ul>
+
+<p>This seems like a reasonable point at which to break. We&rsquo;ve covered a reasonable chunk of the instruction set in x64 assembly,
+and seen examples of most of the classes of instructions. There&rsquo;s tons more we can explore, like:</p>
+
+<ul>
+<li>How do loops work?</li>
+<li>What happens when we use values that don&rsquo;t just fit in registers?</li>
+<li>How do we make a syscall?</li>
+</ul>
+
+<p>Hopefully the resources I&rsquo;ve linked to from here are sufficent for you to continue digging in if you want,
+and maybe I&rsquo;ll manage to follow this up.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><p>This is one of the things that I find most confusing about assembly. There&rsquo;s (at least) two different major kinds of
+  syntax, and they are <em>only</em> different in syntax. So the instructions are the same (<code>add</code>, <code>mov</code> etc), but they
+  take their arguments in different order. And the AT&amp;T style assembly also has a pile of random symbols in it.
+  Since rusts <code>asm</code> defaults to taking intel style assembly, we&rsquo;re going to stick to that. If you do start googling stuff,
+  it&rsquo;s a roll of the dice as to which kind of assembly you&rsquo;ll get. AT&amp;T has a lot of <code>%</code> symbols in it, so that&rsquo;s usually 
+  a giveaway.</p>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2"><a href="https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses">https://stackoverflow.com/questions/4560720/why-does-the-stack-address-grow-towards-decreasing-memory-addresses</a>
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
+</div>
+
+      </div>
+    </div>
+
+    
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/clojure.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/x86asm.min.js"></script>
+  	<script>hljs.initHighlightingOnLoad();</script>
+  	
+  	<script>
+  	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	  ga('create', 'UA-84351242-1', 'auto');
+  	  ga('send', 'pageview');
+  	</script>
+  </body>
+</html>
+

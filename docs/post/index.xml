@@ -5,10 +5,32 @@
     <link>https://lfn3.net/post/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Apr 2019 10:45:40 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2020 15:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://lfn3.net/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A gentle intro to assembly with Rust</title>
+      <link>https://lfn3.net/2020/08/03/a-gentle-intro-to-assembly-with-rust/</link>
+      <pubDate>Mon, 03 Aug 2020 15:00:00 +0100</pubDate>
+      
+      <guid>https://lfn3.net/2020/08/03/a-gentle-intro-to-assembly-with-rust/</guid>
+      <description>&lt;p&gt;One of the things I&amp;rsquo;ve wanted to do for a while is really dig into
+assembly and get into the weeds of how programs actually run.
+A rework of the &lt;code&gt;asm&lt;/code&gt; macro has &lt;a href=&#34;https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html&#34;&gt;recently landed&lt;/a&gt; in nightly rust
+so it seemed like a good time.&lt;/p&gt;
+
+&lt;p&gt;And compared to some other ways I&amp;rsquo;ve tried to approach this there&amp;rsquo;s a lot less
+setup we need to do if we just use the &lt;a href=&#34;https://play.rust-lang.org/?version=nightly&amp;amp;mode=debug&amp;amp;edition=2018&#34;&gt;rust playground&lt;/a&gt; to
+do all the heavy lifting.&lt;/p&gt;
+
+&lt;p&gt;My process for figuring things out has been pretty simple.
+I write a tiny bit of rust code, look at the assembly output
+and try to figure out what&amp;rsquo;s going on (with lots of googling).
+I&amp;rsquo;m going to walk you through what I did, and what I figured
+out.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>The Power of Names</title>

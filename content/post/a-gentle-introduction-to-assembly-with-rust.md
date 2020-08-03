@@ -1,6 +1,6 @@
 +++
-date = "2020-07-12T22:17:22+01:00"
-draft = true
+date = "2020-08-03T15:00:00+01:00"
+draft = false
 title = "A gentle intro to assembly with Rust"
 tags = []
 
