@@ -1,14 +1,28 @@
 apiVersion: v1
 entries:
   huge-feedback:
-    - created: 2020-07-13T18:36:20.499814565+01:00
-      description: Deploy the huge-feedback gitlab dashboard
-      digest: a173207bb8473cf1c2099826f0ea140ee875e8fb6be33b55bdb337cb9ddf893a
-      home: https://github.com/lfn3/huge-feedback
-      name: huge-feedback
-      sources:
+  - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2020-09-06T14:53:16.8793491+01:00"
+    description: A dashboard for gitlab monorepos
+    digest: 45123e3d6b666700d7c2d630b5ec6751c0c524ad246eba164048de73f586afe7
+    home: https://github.com/lfn3/huge-feedback
+    name: huge-feedback
+    type: application
+    sources:
       - https://github.com/lfn3/huge-feedback
-      urls:
-      - https://github.com/lfn3/huge-feedback/releases/download/0.1.0/huge-feedback-helm-chart-0.1.0.tgz
-      version: 0.1.0
-generated: 2020-07-13T18:36:20.499814565+01:00
+    urls:
+    - https://github.com/lfn3/huge-feedback/releases/download/0.2.0/huge-feedback-0.2.0.tgz
+    version: 0.2.0
+  - created: "2020-07-13T18:36:20.499814565+01:00"
+    description: Deploy the huge-feedback gitlab dashboard
+    digest: a173207bb8473cf1c2099826f0ea140ee875e8fb6be33b55bdb337cb9ddf893a
+    home: https://github.com/lfn3/huge-feedback
+    name: huge-feedback
+    type: application
+    sources:
+    - https://github.com/lfn3/huge-feedback
+    urls:
+    - https://github.com/lfn3/huge-feedback/releases/download/0.1.0/huge-feedback-helm-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-09-06T14:53:16.8793491+01:00"
