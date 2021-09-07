@@ -11,7 +11,7 @@ entries:
       - https://github.com/lfn3/huge-feedback
     type: application
     urls:
-    -    - https://github.com/lfn3/huge-feedback/releases/download/0.3.0/huge-feedback-helm-chart-0.3.0.tgz
+    - https://github.com/lfn3/huge-feedback/releases/download/0.3.0/huge-feedback-helm-chart-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
