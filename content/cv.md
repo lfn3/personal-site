@@ -7,8 +7,8 @@ canonifyurls = true
 stylesheet = "cv.css"
 +++
 
-I've been writing code professionally for 5 years, and for a decade prior to that as a hobbyist and student. During that
-time I've worked with many object oriented and functional programming languages, such as Java, Clojure, C# and Python.
+I've been writing code professionally for nearly a decade, and for a decade prior to that as a hobbyist and student. During that
+time I've worked with many object oriented and functional programming languages, such as Rust, Java, Clojure, Haskell and Python.
 My work on the JVM has been in low latency, high performance environments, with experienced and effective teams.
 As a part of these teams I've been able to leverage my skills and insights to help us deliver better code more quickly
 and with fewer bugs, and continually improve my own and my team's work.
@@ -36,8 +36,25 @@ can offer challenging problems, and contributes to open source, I would love to 
 [Clojurists Together](https://www.clojuriststogether.org/members#founding_contributing_members_%E2%AD%90%EF%B8%8F)
 
 ## Employment
+
+### Principal Systems Engineer at [BlueCove](https://www.bluecove.com/)
+<div class="years">2022 - </div>
+
+
+### Systems Engineer at [BlueCove](https://www.bluecove.com/)
+<div class="years">2019 - 2022</div>
+
+- Developed performant, usable services in Java, Kotlin, Haskell, Python, and Rust used to launch the firms first
+  fund and scale it to several more.
+- Migrated services from VM based deployment to Kubernetes deployment with Helm
+- Contributed code used across the entire firm, from models and their data infrastructure to trading systems
+  and portfolio management all the way through to back office data feeds and processes
+- Wrote and maintained a job scheduler used to run the more than 1500 python jobs constituting many of the
+  processes mentioned above on an autoscaling kubernetes infrastructure
+- Developed domain expertise in Fixed Income across bonds, CDS, swaps, options and other instrument classes
+
 ### Developer at [LMAX](https://www.lmax.com/)
-<div class="years">2016 -    </div>
+<div class="years">2016 - 2019</div>
 
 - Wrote high performance, consistently low latency Java code.
 - Contributed to open source projects like [Aeron](https://github.com/real-logic/aeron).
