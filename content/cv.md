@@ -7,20 +7,24 @@ canonifyurls = true
 stylesheet = "cv.css"
 +++
 
-I've been writing code professionally for nearly a decade, and for a decade prior to that as a hobbyist and student. During that
-time I've worked with many object oriented and functional programming languages, such as Rust, Java, Clojure, Haskell and Python.
-My work on the JVM has been in low latency, high performance environments, with experienced and effective teams.
+I've been writing code professionally for over a decade, and for a decade prior to that as a hobbyist and student.
+I've been a polyglot programmer for the last four years, working in Python, Rust and Haskell, 
+and interacting with all the parts of a starting up a boutique fixed income asset manager.
+I've been able to adapt to a rapidly changing environment, and deliver on ambitious deadlines within an organisation that solves
+problems with code rather than spreadsheets.
+
+Prior to this, my work on the JVM has been in low latency, high performance environments, with experienced and effective teams.
 As a part of these teams I've been able to leverage my skills and insights to help us deliver better code more quickly
 and with fewer bugs, and continually improve my own and my team's work.
 
 I'm passionate about developing, understanding and improving code, as well as helping others to do the same.
-This has meant giving talks at local programming meetups, as well as internally at organizations I've been worked with.
+This has meant giving talks at local programming meetups, as well as internally at organizations I've worked with.
 I've also tried to record some of my more fully formed thoughts on [my blog](https://lfn3.net/).
 Recently, I've become interested in Rust, Go and OCaml, and explored many other libraries and 
 programming techniques in the search for ways to produce better code.
 
 At present I'm established in a permanent full-time programming role, but I would be open to discussing opportunities 
-involving functional programming and performance-oriented work. If your team is passionate about the craft of programming, 
+involving Rust and performance-oriented work. If your team is passionate about the craft of programming, 
 can offer challenging problems, and contributes to open source, I would love to hear from you.
 
 ## Community
@@ -40,12 +44,15 @@ can offer challenging problems, and contributes to open source, I would love to 
 ### Principal Systems Engineer at [BlueCove](https://www.bluecove.com/)
 <div class="years">2022 - </div>
 
+- Built a flexible and performant OMS (Order Management System) to support multiple trading platforms, with zero downtime during the migration.
+- Rebuilt the systems team, doubling it's size.
+- Transitioned to writing all new systems in Rust, including teaching the team and new hires.
 
 ### Systems Engineer at [BlueCove](https://www.bluecove.com/)
 <div class="years">2019 - 2022</div>
 
-- Developed performant, usable services in Java, Kotlin, Haskell, Python, and Rust used to launch the firms first
-  fund and scale it to several more.
+- Developed performant, user friendly services in Java, Kotlin, Haskell, Python, and Rust. 
+- Launched the firms first fund and scaled to several more across different structures - ETFs, hedge funds, UCITS, and segregated mandates
 - Migrated services from VM based deployment to Kubernetes deployment with Helm
 - Contributed code used across the entire firm, from models and their data infrastructure to trading systems
   and portfolio management all the way through to back office data feeds and processes
